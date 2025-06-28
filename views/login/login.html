@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - SGLS - UFC Sobral</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <img src="/assets/img/logo_ufc.png" alt="Logo UFC" class="logo" />
+    <h5>SGLS - Sistema de Gerenciamento de Salas e Laboratórios</h5>
+    <p>Campus Mucambinho - UFC Sobral</p>
+
+    <div class="tabs">
+      <div class="tab active" onclick="showTab('aluno', this)">Aluno</div>
+      <div class="tab" onclick="showTab('professor', this)">Professor</div>
+      <div class="tab" onclick="showTab('tecnico', this)">Técnico</div>
+    </div>
+
+    <!-- Aluno -->
+    <div id="aluno" class="form-content active">
+      <form action="/login/aluno" method="POST">
+        <label for="matricula">Matrícula</label>
+        <input type="text" name="matricula" required>
+        <label for="senha">Senha</label>
+        <input type="password" name="senha" required>
+        <button class="btn" type="submit">Entrar</button>
+      </form>
+      <div class="links">
+        <a href="/views/cadastro/aluno.html">Cadastrar-se</a> | <a href="/esqueci-senha">Esqueci a senha</a>
+      </div>
+    </div>
+
+    <!-- Professor -->
+    <div id="professor" class="form-content">
+      <form action="/login/professor" method="POST">
+        <label for="siape">SIAPE</label>
+        <input type="text" name="siape" required>
+        <label for="senha">Senha</label>
+        <input type="password" name="senha" required>
+        <button class="btn" type="submit">Entrar</button>
+      </form>
+      <div class="links">
+        <a href="/views/cadastro/professor.html">Cadastrar-se</a> | <a href="/esqueci-senha">Esqueci a senha</a>
+      </div>
+    </div>
+
+    <!-- Técnico -->
+    <div id="tecnico" class="form-content">
+      <form action="/login/tecnico" method="POST">
+        <label for="siape">SIAPE</label>
+        <input type="text" name="siape" required>
+        <label for="senha">Senha</label>
+        <input type="password" name="senha" required>
+        <button class="btn" type="submit">Entrar</button>
+      </form>
+      <div class="links">
+        <a href="/views/cadastro/tecnico.html">Cadastrar-se</a> | <a href="rec_senha.html">Esqueci a senha</a>
+      </div>
+    </div>
+
+    <div class="footer">
+      SGHL | © 2025 - Divisão de Tecnologia da Informação - UFC Sobral
+    </div>
+  </div>
+
+  <script>
+    function showTab(tabId, element) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      element.classList.add('active');
+      document.querySelectorAll('.form-content').forEach(form => form.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

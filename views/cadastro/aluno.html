@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro - UFC Sobral</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body>
+
+  <div class="cadastro-container text-center">
+    <img src="/assets/img/logo_ufc.png" alt="Logo UFC">
+    <h5>Cadastro de Usuário - SGLS</h5>
+    <p>Campus Mucambinho</p>
+
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-6 text-left">
+          <label for="matricula">Matrícula</label>
+          <input type="text" class="form-control" id="matricula" placeholder="Digite sua matrícula">
+        </div>
+        <div class="form-group col-md-6 text-left">
+          <label for="email">E-mail Institucional </label>
+          <input type="email" class="form-control" id="email" placeholder="Digite seu e-mail institucional">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6 text-left">
+          <label for="nome">Nome</label>
+          <input type="text" class="form-control" id="nome" placeholder="Digite seu nome completo">
+        </div>
+        <div class="form-group col-md-6 text-left">
+          <label for="curso">Curso</label>
+          <input type="text" class="form-control" id="curso" placeholder="Digite seu curso">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6 text-left">
+          <label for="turma">Turma - Monitoria</label>
+          <input type="text" class="form-control" id="turma_monitoria" placeholder="Digite sua turma">
+        </div>
+        <div class="form-group col-md-6 text-left">
+          <label for="cpf">CPF</label>
+          <input type="text" class="form-control" id="cpf" placeholder="Digite seu CPF">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6 text-left">
+          <label for="senha">Senha</label>
+          <div class="input-group">
+            <input type="password" class="form-control" id="senha" placeholder="Digite sua senha">
+            <div class="input-group-append">
+              <span class="input-group-text" id="toggleSenha"><i class="bi bi-eye-slash" id="iconeSenha"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-6 text-left">
+          <label for="confirmaSenha">Confirmar Senha</label>
+          <div class="input-group">
+            <input type="password" class="form-control" id="confirmaSenha" placeholder="Confirme sua senha">
+<div class="input-group-append">
+  <span class="input-group-text" id="toggleConfirmaSenha">
+    <i class="bi bi-eye-slash" id="iconeConfirmaSenha"></i>
+  </span>
+</div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success btn-block mt-3">Cadastrar</button>
+      <a href="/views/login/login.html" class="btn btn-link btn-block mt-2">Voltar ao login</a>
+    </form>
+  </div>
+
+  <div class="footer">
+    SGHL | © 2025 - Divisão de Tecnologia da Informação - UFC Sobral
+  </div>
+
+<script src="/assets/js/script.js"></script>
+</body>
+</html>
