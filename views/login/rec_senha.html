@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Recuperar Senha - UFC Sobral</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <div class="container-form text-center">
+    <img src="/assets/img/logo_ufc.png" alt="Logo UFC">
+    <h5>Recuperar Senha - SGLS</h5>
+    <p>Confirme seus dados para solicitar o link de redefinição</p>
+
+    <form id="formRecuperar">
+      <div class="form-row">
+        <div class="form-group col-md-6 text-left">
+          <label for="email">E-mail</label>
+          <input type="email" class="form-control" id="email" placeholder="Digite seu e-mail" required>
+        </div>
+        <div class="form-group col-md-6 text-left">
+          <label for="cpf">CPF</label>
+          <input type="text" class="form-control" id="cpf" placeholder="Digite seu CPF" required>
+        </div>
+      </div>
+
+      <div class="form-group text-left">
+        <label for="matricula">Matrícula</label>
+        <input type="text" class="form-control" id="matricula" placeholder="Digite sua matrícula" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block mt-2">Solicitar</button>
+      <a href="login.html" class="btn btn-link btn-block mt-2">Voltar</a>
+    </form>
+  </div>
+
+  <div class="footer">
+    SGHL | © 2025 - Divisão de Tecnologia da Informação - UFC Sobral
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
