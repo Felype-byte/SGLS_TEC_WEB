@@ -92,11 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const selecionados = document.querySelectorAll('.horario-slot.selecionado');
       const confirmacao = document.getElementById('responsabilidade');
 
-      if (selecionados.length === 0) {
-        e.preventDefault();
-        alert('Selecione ao menos um horário para agendar.');
-        return;
-      }
+      //if (selecionados.length === 0) {
+        //e.preventDefault();
+        //alert('Selecione ao menos um horário para agendar.');
+       // return;
+      //}
 
       if (!confirmacao.checked) {
         e.preventDefault();
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const horariosSelecionados = [...document.querySelectorAll('.horario-slot.selecionado')]
         .map(btn => btn.textContent.trim());
 
-      if (horariosSelecionados.length === 0) {
+      if (horariosSelecionados.length == 0) {
         alert('Selecione ao menos um horário para agendar.');
         return;
       }
@@ -150,3 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Controla as telas de login de acordo com usuário
+    function showTab(tabId, element) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      element.classList.add('active');
+      document.querySelectorAll('.form-content').forEach(form => form.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+    }
