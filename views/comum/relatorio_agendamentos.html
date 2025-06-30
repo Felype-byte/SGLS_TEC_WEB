@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Relatório de Agendamentos - SGLS</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Estilos gerais para visualização em tela e base da impressão */
+      body {
+        background-color: #fff;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        max-width: 800px;
+        margin-top: 2rem;
+      }
+      .report-header {
+        display: flex;
+        align-items: center;
+        border-bottom: 2px solid #dee2e6;
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .report-header img {
+        max-width: 70px;
+        margin-right: 1.5rem;
+      }
+      .report-title h4,
+      .report-title p {
+        margin: 0;
+      }
+      .report-details {
+        margin-bottom: 1.5rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        text-align: left;
+      }
+      thead {
+        background-color: #f2f2f2;
+      }
+      .print-footer {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 0.8rem;
+        color: #777;
+      }
+
+      /* Estilos específicos para impressão */
+      @media print {
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        .no-print {
+          display: none !important; /* Esconde botões e outros elementos não necessários */
+        }
+        .container {
+          max-width: 100%;
+          margin-top: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- CABEÇALHO DO RELATÓRIO -->
+      <header class="report-header">
+        <img src="../../assets/img/logo_ufc.png" alt="Logo UFC" />
+        <div class="report-title">
+          <h4>Relatório de Agendamentos</h4>
+          <p>SGLS - Sistema de Gerenciamento de Laboratórios</p>
+        </div>
+      </header>
+
+      <!-- DETALHES DO RELATÓRIO (SERÃO PREENCHIDOS PELO BACK-END) -->
+      <section class="report-details">
+        <strong>Relatório emitido para:</strong> Acrisio de Souza (Aluno)<br />
+        <strong>Matrícula:</strong> 123456<br />
+        <strong>Período do Relatório:</strong> 01/01/2025 - 31/05/2025<br />
+        <strong>Data de Emissão:</strong> 29/05/2025
+      </section>
+
+      <!-- TABELA DE DADOS -->
+      <main>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>Data e Horário</th>
+              <th>Laboratório</th>
+              <th>Professor Responsável</th>
+              <th>Status Final</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Os exemplos de agendamentos são para demonstração.
+               O back-end irá gerar estas linhas dinamicamente. -->
+            <tr>
+              <td>15/05/2025 | 10:00-12:00</td>
+              <td>Informática Bloco I</td>
+              <td>Prof. Francisco José</td>
+              <td>Agendado</td>
+            </tr>
+            <tr>
+              <td>22/05/2025 | 08:00-10:00</td>
+              <td>Simulações Numéricas</td>
+              <td>Prof. Carlos Andrade</td>
+              <td>Aguardando Técnico</td>
+            </tr>
+            <tr>
+              <td>18/05/2025 | 13:30-15:30</td>
+              <td>Prog. Computacional</td>
+              <td>Prof. Ana Costa</td>
+              <td>Rejeitado (Professor)</td>
+            </tr>
+            <tr>
+              <td>20/04/2025 | 08:00-10:00</td>
+              <td>Informática Bloco I</td>
+              <td>Prof. Ricardo Gomes</td>
+              <td>Cancelado pelo Usuário</td>
+            </tr>
+            <!-- Adicione mais linhas conforme necessário -->
+          </tbody>
+        </table>
+      </main>
+
+      <!-- RODAPÉ DA IMPRESSÃO -->
+      <footer class="print-footer">
+        Relatório gerado pelo SGLS - UFC Sobral
+      </footer>
+
+      <!-- BOTÕES DE CONTROLE - SÓ APARECEM NA TELA -->
+      <div class="text-center mt-4 no-print">
+        <button class="btn btn-primary" onclick="window.print();">
+          <i class="bi bi-printer"></i> Imprimir Novamente
+        </button>
+        <button class="btn btn-secondary" onclick="window.close();">
+          Fechar
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Dispara o diálogo de impressão assim que a página é totalmente carregada
+      window.onload = function () {
+        window.print();
+      };
+    </script>
+  </body>
+</html>

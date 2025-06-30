@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Painel do Professor - SGLS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid px-4 pt-4 flex-grow-1">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="mb-0">Painel do Professor</h4>
+        <div>
+          <a
+            href="../dashboard.html"
+            class="btn btn-outline-secondary btn-sm mr-2"
+            >Início</a
+          >
+          <a
+            href="../autenticacao/login.html"
+            class="btn btn-outline-danger btn-sm"
+            >Sair</a
+          >
+        </div>
+      </div>
+
+      <ul class="nav nav-tabs" id="professorTab" role="tablist">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            id="aprovar-tab"
+            data-toggle="tab"
+            href="#aprovar"
+            role="tab"
+          >
+            Aprovar Solicitações
+            <span id="contador-solicitacoes" class="badge badge-danger">2</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="agendar-tab"
+            data-toggle="tab"
+            href="#agendar"
+            role="tab"
+            >Fazer Agendamento</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="historico-tab"
+            data-toggle="tab"
+            href="#historico"
+            role="tab"
+            >Histórico Completo</a
+          >
+        </li>
+      </ul>
+
+      <div class="tab-content" id="professorTabContent">
+        <!-- ABA 1: APROVAR SOLICITAÇÕES -->
+        <div
+          class="tab-pane fade show active"
+          id="aprovar"
+          role="tabpanel"
+          aria-labelledby="aprovar-tab"
+        >
+          <div class="py-4">
+            <h5 class="mb-3">Solicitações de Alunos Pendentes</h5>
+            <div class="table-responsive">
+              <table class="table table-hover align-middle text-center">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Discente</th>
+                    <th>Laboratório</th>
+                    <th>Data e Horário</th>
+                    <th>Atividade</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-left">
+                     
+                        <div>
+                          <strong>Acrisio de Souza</strong><br /><small
+                            class="text-muted"
+                            >Mat: 123456</small
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Informática Bloco I</td>
+                    <td>22/05/2025<br />08:00 - 10:00</td>
+                    <td>Estudo para P1</td>
+                    <td>
+                      <button class="btn btn-sm btn-success">
+                        <i class="bi bi-check-lg"></i> Aprovar
+                      </button>
+                      <button class="btn btn-sm btn-danger">
+                        <i class="bi bi-x-lg"></i> Rejeitar
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">
+                        
+                        <div>
+                          <strong>Maria Clara Dias</strong><br /><small
+                            class="text-muted"
+                            >Mat: 654321</small
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Imaginologia</td>
+                    <td>23/05/2025<br />15:30 - 17:30</td>
+                    <td>Projeto de Extensão</td>
+                    <td>
+                      <button class="btn btn-sm btn-success">
+                        <i class="bi bi-check-lg"></i> Aprovar
+                      </button>
+                      <button class="btn btn-sm btn-danger">
+                        <i class="bi bi-x-lg"></i> Rejeitar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 2: FAZER UM NOVO AGENDAMENTO (COM VISUALIZAÇÃO DE HORÁRIOS E LEGENDA) -->
+        <div
+          class="tab-pane fade"
+          id="agendar"
+          role="tabpanel"
+          aria-labelledby="agendar-tab"
+        >
+          <div class="py-4">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label for="laboratorio"
+                  ><strong>1. Escolha o Laboratório:</strong></label
+                >
+                <select id="laboratorio" class="form-control">
+                  <option selected>Informática (Bloco I)</option>
+                </select>
+              </div>
+              <div class="col-md-6 form-group">
+                <label for="data"><strong>2. Escolha a Data:</strong></label>
+                <input type="date" class="form-control" id="data" />
+              </div>
+            </div>
+            <hr />
+            <h6 class="mt-4">
+              <strong>3. Escolha um ou mais horários disponíveis:</strong>
+            </h6>
+
+            <!-- IMPORTANTE: A grade de horários agora mostra todos os status. 
+                 Seu back-end deverá preencher as classes e o atributo "disabled" dinamicamente. -->
+            <div class="row my-4" id="grade-horarios">
+              <div class="col-lg-4 col-md-6 mb-3">
+                <button class="btn btn-block horario-slot disponivel">
+                  08:00 às 10:00
+                </button>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-3">
+                <button class="btn btn-block horario-slot agendado" disabled>
+                  10:00 às 12:00
+                </button>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-3">
+                <button class="btn btn-block horario-slot aguardando" disabled>
+                  13:30 às 15:30
+                </button>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-3">
+                <button class="btn btn-block horario-slot disponivel">
+                  15:30 às 17:30
+                </button>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-3">
+                <button class="btn btn-block horario-slot disponivel">
+                  17:30 às 19:30
+                </button>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-3">
+                <button class="btn btn-block horario-slot agendado" disabled>
+                  19:30 às 21:30
+                </button>
+              </div>
+            </div>
+
+            <!-- LEGENDA RESTAURADA -->
+            <div class="mb-4">
+              <strong>Legenda:</strong>
+              <span class="badge badge-secondary">Disponível</span>
+              <span class="badge badge-primary">Selecionado</span>
+              <span class="badge badge-success">Agendado</span>
+              <span class="badge badge-warning text-white"
+                >Aguardando Análise</span
+              >
+            </div>
+
+            <div class="text-right">
+              <button
+                type="button"
+                class="btn btn-success btn-lg"
+                data-toggle="modal"
+                data-target="#modalConfirmarAgendamentoProfessor"
+              >
+                Confirmar e Solicitar Horários
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 3: HISTÓRICO -->
+        <div class="tab-pane fade" id="historico" role="tabpanel">
+          <div class="py-4">
+            <h5 class="mb-3">Histórico de Agendamentos do Laboratório</h5>
+            <div class="table-responsive">
+              <table class="table table-hover align-middle text-center">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Solicitante</th>
+                    <th>Laboratório</th>
+                    <th>Data e Horário</th>
+                    <th>Atividade</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Eu (Professor)</td>
+                    <td>Informática Bloco I</td>
+                    <td>20/05/2025<br />10:00 - 12:00</td>
+                    <td>Aula de Reposição</td>
+                    <td><span class="badge badge-success">Agendado</span></td>
+                    <td>
+                      <button class="btn btn-sm btn-info" disabled>Ver</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Acrisio de Souza</td>
+                    <td>Informática Bloco I</td>
+                    <td>22/05/2025<br />08:00 - 10:00</td>
+                    <td>Estudo para P1</td>
+                    <td>
+                      <span class="badge badge-warning text-white"
+                        >Aguardando Técnico</span
+                      >
+                    </td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-danger">
+                        Cancelar
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Tony Stark</td>
+                    <td>Engenharia Elétrica</td>
+                    <td>19/05/2025<br />13:30 - 15:30</td>
+                    <td>Projeto de Extensão</td>
+                    <td><span class="badge badge-danger">Rejeitado</span></td>
+                    <td>
+                      <button class="btn btn-sm btn-secondary" disabled>
+                        Detalhes
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="footer text-center py-3 mt-auto">
+      SGHL | © 2025 - Divisão de Tecnologia da Informação - UFC Sobral
+    </footer>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="modalConfirmarAgendamentoProfessor"
+      tabindex="-1"
+      role="dialog"
+    >
+      <!-- Conteúdo do modal aqui -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/script.js"></script>
+  </body>
+</html>

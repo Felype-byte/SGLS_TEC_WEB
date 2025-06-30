@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Painel de Gestão Técnica - SGLS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <style>
+      .stat-card {
+        border-left: 5px solid #007bff;
+        padding: 1.25rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 1.5rem;
+      }
+      .stat-card .stat-icon {
+        font-size: 2.5rem;
+        color: #007bff;
+        opacity: 0.8;
+      }
+      .table-group-header {
+        background-color: #e9ecef;
+        font-weight: bold;
+      }
+      .actions-buttons .btn {
+        margin: 0 2px;
+      }
+      .urgent-request {
+        border-left: 4px solid #dc3545;
+      }
+      .master-list .list-group-item.active {
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+      .master-list .list-group-item.active .badge-danger,
+      .master-list .list-group-item.active .badge-success {
+        background-color: #fff;
+        color: #007bff;
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column min-vh-100 bg-light">
+    <div class="container-fluid px-4 pt-4 flex-grow-1">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="mb-0">Painel de Gestão Técnica</h4>
+        <div>
+          <a
+            href="../dashboard.html"
+            class="btn btn-outline-secondary btn-sm mr-2"
+            >Início</a
+          >
+          <a
+            href="../autenticacao/login.html"
+            class="btn btn-outline-danger btn-sm"
+            >Sair</a
+          >
+        </div>
+      </div>
+
+      <!-- Seção de Cartões de Estatísticas Rápidas -->
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="card stat-card bg-white">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="card-title text-muted mb-1">Aprovações Pendentes</h5>
+                <h2 class="card-text font-weight-bold">4</h2>
+              </div>
+              <div class="stat-icon"><i class="bi bi-hourglass-split"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="card stat-card bg-white"
+            style="border-left-color: #28a745"
+          >
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="card-title text-muted mb-1">Labs em Uso Hoje</h5>
+                <h2 class="card-text font-weight-bold">3</h2>
+              </div>
+              <div class="stat-icon" style="color: #28a745">
+                <i class="bi bi-check2-circle"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="card stat-card bg-white"
+            style="border-left-color: #ffc107"
+          >
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="card-title text-muted mb-1">Agendados (Amanhã)</h5>
+                <h2 class="card-text font-weight-bold">2</h2>
+              </div>
+              <div class="stat-icon" style="color: #ffc107">
+                <i class="bi bi-calendar-day"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABAS DE NAVEGAÇÃO -->
+      <div class="card">
+        <div class="card-header">
+          <ul
+            class="nav nav-tabs card-header-tabs"
+            id="tecnicoTab"
+            role="tablist"
+          >
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                id="aprovar-tab"
+                data-toggle="tab"
+                href="#aprovar"
+                role="tab"
+                ><i class="bi bi-check2-square"></i> Fila de Aprovação</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                id="agenda-tab"
+                data-toggle="tab"
+                href="#agenda"
+                role="tab"
+                ><i class="bi bi-calendar3"></i> Gestão da Agenda</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                id="historico-tab"
+                data-toggle="tab"
+                href="#historico"
+                role="tab"
+                ><i class="bi bi-search"></i> Histórico Completo</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <div class="tab-content" id="tecnicoTabContent">
+            <!-- ABA 1: FILA DE APROVAÇÃO OTIMIZADA -->
+            <div class="tab-pane fade show active" id="aprovar" role="tabpanel">
+              <h5 class="card-title">
+                Fila de Solicitações para Validação Final
+              </h5>
+              <div class="card bg-light p-3 mb-4">
+                <div class="row align-items-end">
+                  <div class="col-md-5 form-group mb-0">
+                    <label>Buscar Solicitante:</label
+                    ><input
+                      type="text"
+                      class="form-control"
+                      placeholder="Nome ou matrícula do aluno..."
+                    />
+                  </div>
+                  <div class="col-md-3 form-group mb-0">
+                    <label>Filtrar por Laboratório:</label
+                    ><select class="form-control">
+                      <option>Todos</option>
+                      <option>Informática</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4 form-group mb-0">
+                    <label>Ordenar por:</label
+                    ><select class="form-control">
+                      <option selected>Mais Urgentes (Data)</option>
+                      <option>Mais Antigas (Recebimento)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                  <thead class="thead-light">
+                    <tr>
+                      <th style="width: 25%">Aluno</th>
+                      <th style="width: 25%">Professor Responsável</th>
+                      <th>Laboratório e Horário</th>
+                      <th style="width: 20%">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Grupo de solicitações para HOJE -->
+                    <tr class="table-group-header">
+                      <td colspan="4">
+                        <i
+                          class="bi bi-exclamation-triangle-fill text-danger"
+                        ></i>
+                        PARA HOJE - 21/05/2025
+                      </td>
+                    </tr>
+                    <tr class="urgent-request">
+                      <td>
+                        <strong>Carlos Nobre</strong><br /><small
+                          class="text-muted"
+                          >Mat: 334455</small
+                        >
+                      </td>
+                      <td>Ana Carolina</td>
+                      <td>
+                        Simulações Numéricas<br /><small class="text-muted"
+                          >15:30 - 17:30</small
+                        >
+                      </td>
+                      <td class="actions-buttons">
+                        <button
+                          class="btn btn-sm btn-success"
+                          title="Confirmar Uso"
+                        >
+                          <i class="bi bi-check-lg"></i> Confirmar</button
+                        ><button
+                          class="btn btn-sm btn-danger"
+                          title="Rejeitar Uso"
+                          data-toggle="modal"
+                          data-target="#modalRejeitar"
+                        >
+                          <i class="bi bi-x-lg"></i> Rejeitar
+                        </button>
+                      </td>
+                    </tr>
+                    <!-- Grupo de solicitações para AMANHÃ -->
+                    <tr class="table-group-header">
+                      <td colspan="4">
+                        <i class="bi bi-calendar-event text-warning"></i> PARA
+                        AMANHÃ - 22/05/2025
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Acrisio de Souza</strong><br /><small
+                          class="text-muted"
+                          >Mat: 123456</small
+                        >
+                      </td>
+                      <td>Francisco José</td>
+                      <td>
+                        Informática Bloco I<br /><small class="text-muted"
+                          >08:00 - 10:00</small
+                        >
+                      </td>
+                      <td class="actions-buttons">
+                        <button
+                          class="btn btn-sm btn-success"
+                          title="Confirmar Uso"
+                        >
+                          <i class="bi bi-check-lg"></i> Confirmar</button
+                        ><button
+                          class="btn btn-sm btn-danger"
+                          title="Rejeitar Uso"
+                          data-toggle="modal"
+                          data-target="#modalRejeitar"
+                        >
+                          <i class="bi bi-x-lg"></i> Rejeitar
+                        </button>
+                      </td>
+                    </tr>
+                    <!-- Grupo de solicitações para PRÓXIMOS DIAS -->
+                    <tr class="table-group-header">
+                      <td colspan="4">
+                        <i class="bi bi-calendar3"></i> PRÓXIMOS DIAS
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Beatriz Pinheiro</strong><br /><small
+                          class="text-muted"
+                          >Mat: 987654</small
+                        >
+                      </td>
+                      <td>Marcos Andrade</td>
+                      <td>
+                        Imaginologia<br /><small class="text-muted"
+                          >25/05/2025 | 10:00 - 12:00</small
+                        >
+                      </td>
+                      <td class="actions-buttons">
+                        <button
+                          class="btn btn-sm btn-success"
+                          title="Confirmar Uso"
+                        >
+                          <i class="bi bi-check-lg"></i> Confirmar</button
+                        ><button
+                          class="btn btn-sm btn-danger"
+                          title="Rejeitar Uso"
+                          data-toggle="modal"
+                          data-target="#modalRejeitar"
+                        >
+                          <i class="bi bi-x-lg"></i> Rejeitar
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Thiago Mendes</strong><br /><small
+                          class="text-muted"
+                          >Mat: 556677</small
+                        >
+                      </td>
+                      <td>Carla Dias</td>
+                      <td>
+                        Informática Bloco I<br /><small class="text-muted"
+                          >26/05/2025 | 13:30 - 15:30</small
+                        >
+                      </td>
+                      <td class="actions-buttons">
+                        <button
+                          class="btn btn-sm btn-success"
+                          title="Confirmar Uso"
+                        >
+                          <i class="bi bi-check-lg"></i> Confirmar</button
+                        ><button
+                          class="btn btn-sm btn-danger"
+                          title="Rejeitar Uso"
+                          data-toggle="modal"
+                          data-target="#modalRejeitar"
+                        >
+                          <i class="bi bi-x-lg"></i> Rejeitar
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <nav class="mt-3">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">Anterior</a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link" href="#">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">Próximo</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+
+            <!-- ABA 2: GESTÃO DA AGENDA (MASTER-DETAIL) -->
+            <div class="tab-pane fade" id="agenda" role="tabpanel">
+              <div class="row">
+                <!-- PAINEL DA ESQUERDA (MASTER): LISTA DE LABORATÓRIOS -->
+                <div class="col-md-4 master-list">
+                  <h5 class="card-title">Laboratórios</h5>
+                  <div class="list-group">
+                    <a
+                      href="#"
+                      class="list-group-item list-group-item-action active"
+                    >
+                      <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">Informática Bloco I</h6>
+                        <small
+                          ><span class="badge badge-danger"
+                            >1 Pendente</span
+                          ></small
+                        >
+                      </div>
+                      <small
+                        >Hoje:
+                        <span class="badge badge-pill badge-success"
+                          >2 agendados</span
+                        ></small
+                      >
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">Simulações Numéricas</h6>
+                        <small
+                          ><span class="badge badge-danger"
+                            >1 Pendente</span
+                          ></small
+                        >
+                      </div>
+                      <small
+                        >Hoje:
+                        <span class="badge badge-pill badge-success"
+                          >1 agendado</span
+                        ></small
+                      >
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <h6 class="mb-1">Imaginologia</h6>
+                      <small class="text-muted"
+                        >Hoje:
+                        <span class="badge badge-pill badge-secondary"
+                          >Nenhum agendado</span
+                        ></small
+                      >
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <h6 class="mb-1">Programação Computacional</h6>
+                      <small class="text-muted"
+                        >Hoje:
+                        <span class="badge badge-pill badge-secondary"
+                          >Nenhum agendado</span
+                        ></small
+                      >
+                    </a>
+                  </div>
+                </div>
+
+                <!-- PAINEL DA DIREITA (DETAIL): AGENDA DO LABORATÓRIO SELECIONADO -->
+                <div class="col-md-8">
+                  <h5 class="card-title">
+                    Agenda: <strong>Informática Bloco I</strong>
+                  </h5>
+                  <div class="card bg-light p-3 mb-3">
+                    <div class="row align-items-end">
+                      <div class="col-md-5 form-group mb-0">
+                        <label>Ver dia:</label
+                        ><input
+                          type="date"
+                          class="form-control"
+                          value="2025-05-21"
+                        />
+                      </div>
+                      <div class="col-md-7 btn-group">
+                        <button class="btn btn-primary">Hoje</button
+                        ><button class="btn btn-outline-primary">Amanhã</button
+                        ><button class="btn btn-outline-primary">
+                          Próximos 7 dias
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-sm">
+                      <thead class="thead-light">
+                        <tr>
+                          <th style="width: 15%">Horário</th>
+                          <th>Responsável</th>
+                          <th>Atividade Declarada</th>
+                          <th style="width: 15%">Ações</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="table-group-header">
+                          <td colspan="4">
+                            <i class="bi bi-calendar-check"></i> Hoje -
+                            21/05/2025
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>10:00 - 12:00</td>
+                          <td>Prof. Carlos Silva</td>
+                          <td>Aula de Lógica de Prog.</td>
+                          <td class="actions-buttons">
+                            <button class="btn btn-sm btn-secondary" disabled>
+                              Finalizado
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>13:30 - 15:30</td>
+                          <td>Aluna: Joana Lima</td>
+                          <td>Projeto de Extensão</td>
+                          <td class="actions-buttons">
+                            <button class="btn btn-sm btn-success" disabled>
+                              Em Andamento
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="table-group-header">
+                          <td colspan="4">
+                            <i class="bi bi-calendar-event"></i> Amanhã -
+                            22/05/2025
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>08:00 - 10:00</td>
+                          <td>Aluno: Acrisio de Souza</td>
+                          <td>Estudo para P1 de Algoritmos</td>
+                          <td class="actions-buttons">
+                            <button
+                              class="btn btn-sm btn-outline-warning"
+                              data-toggle="modal"
+                              data-target="#modalCancelar"
+                            >
+                              Cancelar
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ABA 3: HISTÓRICO COMPLETO -->
+            <div class="tab-pane fade" id="historico" role="tabpanel">
+              <h5 class="card-title">Consulta de Histórico de Solicitações</h5>
+              <div class="card bg-light p-3 mb-4">
+                <div class="row">
+                  <div class="col-md-4 form-group mb-0">
+                    <label>De:</label><input type="date" class="form-control" />
+                  </div>
+                  <div class="col-md-4 form-group mb-0">
+                    <label>Até:</label
+                    ><input type="date" class="form-control" />
+                  </div>
+                  <div class="col-md-4 form-group mb-0">
+                    <label>Buscar por nome/matrícula:</label
+                    ><input
+                      type="text"
+                      class="form-control"
+                      placeholder="..."
+                    />
+                  </div>
+                  <div class="col-md-4 form-group mb-0 mt-2">
+                    <label>Laboratório:</label
+                    ><select class="form-control">
+                      <option>Todos</option>
+                      <option>Informática</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4 form-group mb-0 mt-2">
+                    <label>Status Final:</label
+                    ><select class="form-control">
+                      <option>Todos</option>
+                      <option>Agendado</option>
+                      <option>Rejeitado (Técnico)</option>
+                      <option>Rejeitado (Professor)</option>
+                    </select>
+                  </div>
+                  <div
+                    class="col-md-4 form-group mb-0 mt-2 d-flex align-items-end"
+                  >
+                    <button class="btn btn-primary btn-block">Buscar</button>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-sm table-bordered text-center">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>Solicitante</th>
+                      <th>Prof. Responsável</th>
+                      <th>Data e Horário</th>
+                      <th>Status Final</th>
+                      <th>Detalhes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Acrisio de Souza</td>
+                      <td>Francisco José</td>
+                      <td>22/05/2025<br />08:00-10:00</td>
+                      <td><span class="badge badge-success">Agendado</span></td>
+                      <td>
+                        <button class="btn btn-sm btn-info" disabled>
+                          Ver
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Tony Stark</td>
+                      <td>Francisco José</td>
+                      <td>19/05/2025<br />13:30-15:30</td>
+                      <td>
+                        <span class="badge badge-danger"
+                          >Rejeitado (Professor)</span
+                        >
+                      </td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-secondary">
+                          Ver Motivo
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Clara Dias</td>
+                      <td>Maria Antonieta</td>
+                      <td>18/05/2025<br />15:30-17:30</td>
+                      <td>
+                        <span class="badge badge-danger"
+                          >Rejeitado (Técnico)</span
+                        >
+                      </td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-secondary">
+                          Ver Motivo
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="footer text-center py-3 mt-auto">
+      SGHL | © 2025 - Divisão de Tecnologia da Informação - UFC Sobral
+    </footer>
+
+    <!-- MODAL DE REJEIÇÃO -->
+    <div class="modal fade" id="modalRejeitar" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form>
+            <div class="modal-header bg-danger text-white">
+              <h5 class="modal-title">Rejeitar Solicitação de Uso</h5>
+              <button
+                type="button"
+                class="close text-white"
+                data-dismiss="modal"
+              >
+                <span>×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Você está prestes a **rejeitar** a solicitação de
+                <strong>Acrisio de Souza</strong>.
+              </p>
+              <div class="form-group">
+                <label for="motivo-rejeicao"
+                  ><strong>Motivo da Rejeição (Recomendado):</strong></label
+                >
+                <textarea
+                  class="form-control"
+                  id="motivo-rejeicao"
+                  rows="3"
+                  placeholder="Ex: Laboratório em manutenção neste horário, falta de software específico..."
+                ></textarea>
+              </div>
+              <div class="alert alert-warning small">
+                <i class="bi bi-exclamation-triangle-fill"></i> Esta ação não
+                pode ser desfeita. O professor e o aluno serão notificados.
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-danger">
+                Confirmar Rejeição
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE CANCELAMENTO DE AGENDAMENTO -->
+    <div class="modal fade" id="modalCancelar" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form>
+            <div class="modal-header bg-warning text-dark">
+              <h5 class="modal-title">Cancelar Agendamento Confirmado</h5>
+              <button type="button" class="close" data-dismiss="modal">
+                <span>×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Você está prestes a **cancelar** um agendamento já confirmado.
+              </p>
+              <div class="form-group">
+                <label for="motivo-cancelamento"
+                  ><strong>Motivo do Cancelamento (Obrigatório):</strong></label
+                >
+                <textarea
+                  class="form-control"
+                  id="motivo-cancelamento"
+                  rows="3"
+                  placeholder="Ex: Manutenção emergencial no laboratório, Evento do campus, etc."
+                  required
+                ></textarea>
+              </div>
+              <div class="alert alert-danger small">
+                <i class="bi bi-exclamation-triangle-fill"></i> O solicitante
+                será notificado sobre o cancelamento e o motivo. Esta ação não
+                pode ser desfeita.
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Manter Agendamento
+              </button>
+              <button type="submit" class="btn btn-warning">
+                Confirmar Cancelamento
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
