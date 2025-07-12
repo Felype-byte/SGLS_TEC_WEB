@@ -1,0 +1,135 @@
+:root {
+  --vinho: #5c1a1a;
+  --terracota: #aa672f;
+  --terracota-hover: #c6804a;
+  --fundo-marfim: #f3f1ec;
+  --texto-professor: #2e2e2e;
+  --badge-roxo: #6a0dad;
+}
+
+body {
+  background-color: var(--fundo-marfim);
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--texto-professor);
+  margin: 0;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--vinho);
+  color: #fff;
+  padding: 15px 30px;
+  z-index: 999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.topbar span {
+  font-size: 0.95rem;
+  display: block;
+  margin-top: 4px;
+}
+
+.logout .btn,
+.logout .btn-agendamentos {
+  border: 1px solid #fff;
+  color: #fff;
+  background-color: transparent;
+  margin-left: 8px;
+}
+
+.logout .btn:hover,
+.logout .btn-agendamentos:hover {
+  background-color: rgba(255,255,255,0.15);
+  color: #fff;
+}
+
+.container-painel {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 30px 60px;
+  flex-grow: 1;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  background-color: #fffaf5;
+  box-shadow: 0 0 10px rgba(92,26,26,0.05);
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.85rem;
+  color: #666;
+  background-color: #fff;
+  border-top: 1px solid #dee2e6;
+  margin-top: auto;
+}
+
+h4, h5 {
+  font-weight: 600;
+  color: var(--texto-professor);
+}
+
+.btn-outline-info {
+  border-color: var(--terracota);
+  color: var(--terracota);
+}
+
+.btn-outline-info:hover {
+  background-color: var(--terracota-hover);
+  color: #fff;
+}
+
+.badge-danger {
+  background-color: var(--badge-roxo);
+  color: #fff;
+}
+
+button.position-relative .badge {
+  font-size: 0.75rem;
+  padding: 4px 6px;
+  border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .logout {
+    margin-top: 10px;
+  }
+
+  .topbar h1 {
+    font-size: 1.2rem;
+  }
+
+  .topbar span {
+    font-size: 0.85rem;
+  }
+
+  .container-painel {
+    padding: 20px;
+    margin-top: 100px;
+  }
+}

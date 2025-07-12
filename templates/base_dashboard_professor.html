@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}SGHL – Painel do Professor{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap & Ícones -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base_dashboard_professor.css') }}">
+</head>
+<body>
+
+  <!-- 🔝 Topbar -->
+  <div class="topbar">
+    <div>
+      <h1>SGHL – Sistema de Gerenciamento de Laboratórios</h1>
+      <span>👋 Olá, Prof. {{ current_user.professor.nome_completo }}</span>
+    </div>
+    <div class="logout d-flex">
+      <!-- Botão com contador de solicitações pendentes -->
+      <button
+        class="btn btn-outline-info btn-sm position-relative"
+        data-toggle="modal"
+        data-target="#modalSolicitacoesAlunos">
+        <i class="bi bi-people"></i> Solicitações de Alunos
+        {% if solicitacoes_pendentes and solicitacoes_pendentes|length > 0 %}
+          <span class="badge badge-danger position-absolute"
+                style="top:-5px; right:-8px; font-size:0.75rem;">
+            {{ solicitacoes_pendentes|length }}
+          </span>
+        {% endif %}
+      </button>
+
+      <!-- Botão de Minhas Solicitações -->
+      <button
+        class="btn btn-agendamentos btn-sm ml-2"
+        data-toggle="modal"
+        data-target="#modalMinhasSolicitacoes">
+        <i class="bi bi-clipboard"></i> Minhas Solicitações
+      </button>
+
+      <!-- Botão de logout -->
+      <a class="btn btn-sm ml-2" href="{{ url_for('logout') }}">
+        <i class="bi bi-box-arrow-right"></i> Sair
+      </a>
+    </div>
+  </div>
+
+  <!-- 📦 Painel principal -->
+  <div class="container-painel" role="main">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="mb-4">{% block page_title %}{% endblock %}</h4>
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔻 Rodapé -->
+  <footer>
+    SGHL | © 2025 – Divisão de Tecnologia da Informação – UFC Sobral
+  </footer>
+
+  <!-- 📋 Modal Minhas Solicitações -->
+  <div class="modal fade" id="modalMinhasSolicitacoes" tabindex="-1" role="dialog" aria-labelledby="modalMinhasSolicitacoesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalMinhasSolicitacoesLabel">Minhas Solicitações</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div class="modal-body">
+          {% if solicitacoes %}
+            <ul class="list-group">
+              {% for s in solicitacoes %}
+                <li class="list-group-item">
+                  <strong>Data:</strong> {{ s.horario.data.strftime('%d/%m/%Y') }} — {{ s.horario.texto }}<br>
+                  <strong>Sala:</strong> {{ s.sala.nome_sala }} – Sala {{ s.sala.numero_sala }} – {{ s.sala.bloco }}<br>
+                  {% if s.justificativa %}<strong>Justificativa:</strong> {{ s.justificativa }}<br>{% endif %}
+                  <span class="badge
+                    {% if s.status == 'Pendente Tecnico' %}badge-info
+                    {% elif s.status == 'Agendado' %}badge-success
+                    {% elif s.status == 'Negado Tecnico' %}badge-danger
+                    {% else %}badge-secondary{% endif %}">
+                    {% if s.status == 'Pendente Tecnico' %}🟡 Aguardando técnico
+                    {% elif s.status == 'Agendado' %}✅ Confirmado
+                    {% elif s.status == 'Negado Tecnico' %}❌ Recusado pelo técnico
+                    {% else %}🔘 {{ s.status }}{% endif %}
+                  </span>
+
+                  {% if s.status in ['Pendente Tecnico', 'Agendado'] %}
+                    <form method="POST" action="{{ url_for('professor.cancelar_solicitacao', id=s.id_solicitacao) }}"
+                          class="mt-2"
+                          onsubmit="return confirm('Deseja cancelar esta solicitação?')">
+                      <button class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-x-circle mr-1"></i> Cancelar Solicitação
+                      </button>
+                    </form>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">Nenhuma solicitação feita até o momento.</p>
+          {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 📥 Modal Solicitações de Alunos -->
+  <div class="modal fade" id="modalSolicitacoesAlunos" tabindex="-1" role="dialog" aria-labelledby="modalSolicitacoesAlunosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Solicitações de Alunos</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+
+        <div class="modal-body">
+          {% if solicitacoes_pendentes %}
+            <ul class="list-group">
+              {% for s in solicitacoes_pendentes %}
+                <li class="list-group-item">
+                  <strong>Aluno:</strong> {{ s.aluno.nome_completo }}<br>
+                  <strong>Matrícula:</strong> {{ s.aluno.matricula }}<br>
+                  <strong>Data:</strong> {{ s.horario.data.strftime('%d/%m/%Y') }} — {{ s.horario.texto }}<br>
+                  <strong>Sala:</strong> {{ s.sala.nome_sala }} – Sala {{ s.sala.numero_sala }} – {{ s.sala.bloco }}<br>
+                  <strong>Justificativa:</strong>
+                  {% if s.justificativa %}
+                    {{ s.justificativa }}
+                  {% else %}
+                    <span class="text-muted">Não informada.</span>
+                  {% endif %}
+
+                  <div class="alert alert-warning mt-3 mb-2 small" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill mr-2"></i>
+                    Ao aprovar esta solicitação, declaro estar ciente de que serei o responsável pelos equipamentos e materiais utilizados na sala durante o horário agendado.
+                  </div>
+
+                  <div class="mt-2">
+                    <form method="POST" action="{{ url_for('professor.aprovar_solicitacao', id=s.id_solicitacao) }}" class="d-inline">
+                      <button class="btn btn-sm btn-success">✅ Aprovar</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('professor.recusar_solicitacao', id=s.id_solicitacao) }}" class="d-inline ml-2">
+                      <button class="btn btn-sm btn-danger">❌ Recusar</button>
+                    </form>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">Nenhuma solicitação pendente no momento.</p>
+          {% endif %}
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

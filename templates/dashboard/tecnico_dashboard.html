@@ -1,0 +1,55 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %}Dashboard do Técnico Administrativo{% endblock %}
+{% block page_title %}Painel do Técnico{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+  <h4 class="mb-3">🧑‍💼 Dashboard do Técnico Administrativo</h4>
+  <p>Revise e autorize as solicitações aprovadas pelo professor:</p>
+
+  {% if solicitacoes %}
+    <table class="table table-bordered align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Aluno</th>
+          <th>Sala</th>
+          <th>Horário</th>
+          <th>Justificativa</th>
+          <th>Parecer do Professor</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in solicitacoes %}
+          <tr>
+            <td>{{ s.id_solicitacao }}</td>
+            <td>{{ s.aluno_id }}</td>
+            <td>{{ s.sala_id }}</td>
+            <td>{{ s.horario }}</td>
+            <td>{{ s.justificativa }}</td>
+            <td>{{ s.parecer_professor }}</td>
+            <td>
+              <form method="POST" action="/avaliar_final_solicitacao">
+                <input type="hidden" name="id_solicitacao" value="{{ s.id_solicitacao }}">
+                <div class="mb-1">
+                  <textarea name="parecer" rows="2" class="form-control" placeholder="Parecer técnico..." required></textarea>
+                </div>
+                <div class="d-flex gap-2">
+                  <button name="acao" value="autorizar" class="btn btn-success btn-sm">Autorizar</button>
+                  <button name="acao" value="negar" class="btn btn-danger btn-sm">Negar</button>
+                </div>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert alert-secondary mt-4">
+      Nenhuma solicitação aguardando autorização.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

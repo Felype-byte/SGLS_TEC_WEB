@@ -1,0 +1,18 @@
+<!-- templates/salas.html -->
+<h2>📋 Cadastro de Sala</h2>
+<form method="POST">
+  <input type="text" name="nome" placeholder="Nome do Laboratório" required>
+  <input type="text" name="numero" placeholder="Número da Sala" required>
+  <button type="submit">Cadastrar</button>
+</form>
+
+<hr>
+
+<h3>🧾 Salas Cadastradas</h3>
+<ul>
+  {% for sala in salas %}
+    <li>{{ sala.nome_sala }} - Sala {{ sala.numero_sala }}</li>
+  {% else %}
+    <li>Nenhuma sala cadastrada ainda.</li>
+  {% endfor %}
+</ul>

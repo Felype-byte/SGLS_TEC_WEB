@@ -1,0 +1,127 @@
+{% extends 'base_dashboard_professor.html' %}
+
+{% block title %}Painel do Professor – SGHL{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="card shadow-sm p-4">
+    <h4 class="mb-4">Painel do Professor</h4>
+
+    <form method="POST" action="{{ url_for('professor.agendamento_professor') }}">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="sala_id"><strong>1. Escolha o Laboratório:</strong></label>
+          <select name="sala_id" id="sala_id" class="form-control" required>
+            <option selected disabled value="">Selecione...</option>
+            {% for sala in salas %}
+              <option value="{{ sala.id_sala }}">
+                {{ sala.nome_sala }} ({{ sala.bloco }} – Sala {{ sala.numero_sala }})
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="data"><strong>2. Escolha a Data:</strong></label>
+          <input type="date" name="data" id="data" class="form-control" required>
+        </div>
+      </div>
+
+      <div class="form-group mt-3">
+        <label for="justificativa"><strong>3. Justificativa do uso:</strong></label>
+        <textarea name="justificativa" id="justificativa" rows="3" class="form-control" placeholder="Descreva o motivo..."></textarea>
+      </div>
+
+      <div class="form-group mt-4 text-right">
+        <button type="button" class="btn btn-info" onclick="carregarHorarios()">🔍 Ver Horários</button>
+      </div>
+
+      <hr />
+      <h6 class="mt-4"><strong>4. Escolha o horário disponível:</strong></h6>
+      <div class="row my-4" id="grade-horarios">
+        <p class="text-muted ml-3">Selecione uma sala e data para visualizar os horários disponíveis.</p>
+      </div>
+
+      <div class="mb-4">
+        <strong>Legenda:</strong><br>
+        <span class="badge" style="background-color: #e2e6ea; color: #333;">⬜ Disponível</span>
+        <span class="badge badge-info text-white">🟦 Selecionado</span>
+        <span class="badge badge-success">🟩 Confirmado</span>
+        <span class="badge badge-warning text-dark">🟨 Em processo</span>
+        <span class="badge badge-secondary">🔘 Outros</span>
+      </div>
+
+      <div class="text-right mb-4">
+        <button type="submit" class="btn btn-success btn-lg">Solicitar Uso</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal de Minhas Solicitações -->
+<div class="modal fade" id="modalAgendamentoStatus" tabindex="-1" role="dialog" aria-labelledby="modalAgendamentoStatusLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAgendamentoStatusLabel">Minhas Solicitações</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        {% if solicitacoes %}
+          <ul class="list-group">
+            {% for s in solicitacoes %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  {{ s.horario.texto }} – {{ s.horario.data.strftime('%d/%m/%Y') }}<br>
+                  <small>Sala: {{ s.sala.nome_sala }} – {{ s.sala.numero_sala }} – Bloco {{ s.sala.bloco }}</small><br>
+                  {% if s.justificativa %}
+                    <small>Justificativa: {{ s.justificativa }}</small><br>
+                  {% endif %}
+                </div>
+
+                <div class="d-flex align-items-center ml-3">
+                  <span class="badge 
+                    {% if s.status == 'Pendente Tecnico' %}badge-warning
+                    {% elif s.status == 'Agendado' %}badge-success
+                    {% elif s.status == 'Cancelado pelo professor' %}badge-secondary
+                    {% else %}badge-secondary{% endif %}">
+                    {% if s.status == 'Pendente Tecnico' %}🟡 Aguardando análise do Técnico
+                    {% elif s.status == 'Agendado' %}✅ Confirmado
+                    {% elif s.status == 'Cancelado pelo professor' %}⚪ Cancelado
+                    {% else %}🔘 {{ s.status }}
+                    {% endif %}
+                  </span>
+
+                  {% if s.status in ['Pendente Tecnico', 'Agendado'] %}
+                    <form method="POST" action="{{ url_for('professor.cancelar_solicitacao', id=s.id_solicitacao) }}" class="ml-3" onsubmit="return confirm('Deseja cancelar esta solicitação?')">
+                      <button class="btn btn-outline-danger btn-sm d-flex align-items-center px-3 rounded">
+                        <i class="bi bi-x-circle-fill mr-2"></i>Cancelar
+                      </button>
+                    </form>
+                  {% endif %}
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-muted">Nenhuma solicitação feita até o momento.</p>
+        {% endif %}
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script src="{{ url_for('static', filename='js/professor_dashboard.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/professor_dashboard.css') }}">
+{% endblock %}

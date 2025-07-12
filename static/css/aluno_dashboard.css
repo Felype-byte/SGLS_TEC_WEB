@@ -1,0 +1,102 @@
+/* Layout e títulos */
+h4, h5, h6 {
+  font-weight: 600;
+  color: #1e2a38;
+}
+
+.container-fluid {
+  background-color: #fdfdfd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* Formulários */
+label {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+textarea, input[type="text"], input[type="date"], select {
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.25);
+}
+
+/* Grade de horários */
+.horario-slot {
+  transition: all 0.2s ease-in-out;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 15px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.05);
+}
+
+.horario-slot.disponivel {
+  background-color: #f8f9fa;
+}
+
+.horario-slot.aguardando {
+  background-color: #ffc107;
+  border: 1px solid #c69400;
+}
+
+.horario-slot.agendado {
+  background-color: #28a745;
+  border: 1px solid #28a745;
+}
+
+.horario-slot.selecionado {
+  background-color: #0d6efd !important;
+  border: 2px solid #0d6efd !important;
+}
+
+/* Botões */
+button {
+  border-radius: 5px;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f0f0f0;
+}
+
+/* Legenda */
+.badge {
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  margin-right: 8px;
+  border-radius: 5px;
+}
+
+.badge-success { background-color: #28a745; }
+.badge-warning { background-color: #ffc107; }
+.badge-secondary { background-color: #6c757d; }
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .horario-slot {
+    font-size: 14px;
+    padding: 0.8rem;
+  }
+
+  .btn-lg {
+    font-size: 1rem;
+    padding: 10px 16px;
+  }
+}

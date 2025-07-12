@@ -1,0 +1,128 @@
+/* === Cores Institucionais === */
+:root {
+  --azul-ufc: #003F6F;
+  --azul-ufc-dark: #002e53;
+  --amarelo-ufc: #F2A900;
+  --verde-confirmacao: #008000;
+  --cinza-claro: #f4f7fb;
+  --cinza-neutro: #666666;
+  --branco: #ffffff;
+}
+
+/* === Estilo Geral === */
+body {
+  background-color: var(--cinza-claro);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--azul-ufc);
+}
+
+/* === Container Principal === */
+.cadastro-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 40px 30px;
+  background: var(--branco);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 63, 111, 0.08);
+  text-align: center;
+}
+
+/* === Logo === */
+.cadastro-container img {
+  max-width: 100px;
+  margin-bottom: 15px;
+}
+
+/* === Títulos e textos === */
+h5 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: var(--azul-ufc);
+}
+
+p {
+  font-size: 0.95rem;
+  color: var(--cinza-neutro);
+  margin-bottom: 1.5rem;
+}
+
+/* === Campos de formulário === */
+label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--azul-ufc);
+}
+
+.form-control {
+  border-radius: 10px;
+  background-color: #eef3f9;
+  border: 1px solid #003F6F44;
+  font-size: 0.95rem;
+}
+
+.form-control:focus {
+  border-color: var(--azul-ufc);
+  box-shadow: 0 0 0 0.2rem rgba(0, 63, 111, 0.25);
+}
+
+/* === Botões === */
+.btn-success {
+  background-color: var(--azul-ufc);
+  border-color: var(--azul-ufc);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 12px 0;
+  border-radius: 10px;
+  color: var(--branco);
+}
+
+.btn-success:hover {
+  background-color: var(--azul-ufc-dark);
+  border-color: var(--azul-ufc-dark);
+}
+
+.btn-link {
+  font-size: 0.9rem;
+  color: var(--azul-ufc);
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: var(--azul-ufc-dark);
+  text-decoration: underline;
+}
+
+/* === Input com ícone (senha) === */
+.input-group {
+  display: flex;
+}
+
+.input-group .form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+}
+
+.input-group .input-group-append .input-group-text {
+  background-color: #eef3f9;
+  border: 1px solid #003F6F44;
+  border-left: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: var(--azul-ufc);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* === Rodapé === */
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.85rem;
+  color: var(--azul-ufc);
+  background-color: transparent;
+}
