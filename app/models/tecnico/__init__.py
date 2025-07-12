@@ -1,0 +1,2 @@
+from .tecnico import Tecnico
+

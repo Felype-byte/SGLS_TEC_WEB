@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}SGHL – Painel do Aluno{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap & Ícones -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    crossorigin="anonymous" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base_dashboard_aluno.css') }}">
+</head>
+<body>
+
+  <!-- 🔝 Topbar -->
+  <div class="topbar">
+    <div>
+      <h1>SGHL – Sistema de Gerenciamento de Laboratórios</h1>
+      <span>👋 Olá, {{ current_user.aluno.nome_completo }} — Aluno</span>
+    </div>
+    <div class="logout d-flex">
+      <button
+        class="btn btn-agendamentos btn-sm"
+        data-toggle="modal"
+        data-target="#modalAgendamentoStatus">
+        <i class="bi bi-clipboard"></i> Meus Agendamentos
+      </button>
+      <a class="btn btn-sm ml-2" href="{{ url_for('logout') }}">
+        <i class="bi bi-box-arrow-right"></i> Sair
+      </a>
+    </div>
+  </div>
+
+  <!-- 📦 Conteúdo principal -->
+  <div class="container-painel" role="main">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="mb-4">{% block page_title %}{% endblock %}</h4>
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔻 Rodapé -->
+  <footer>
+    SGHL | © 2025 – Divisão de Tecnologia da Informação – UFC Sobral
+  </footer>
+
+  <!-- 📋 Modal “Meus Agendamentos” -->
+  <div class="modal fade" id="modalAgendamentoStatus" tabindex="-1" role="dialog"
+       aria-labelledby="modalAgendamentoStatusLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAgendamentoStatusLabel">Meus Agendamentos</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          {% if solicitacoes %}
+            <ul class="list-group">
+              {% for s in solicitacoes %}
+                <li class="list-group-item d-flex justify-content-between align-items-center"
+                    data-cancel-url="{{ url_for('aluno.cancelar_agendamento', solicitacao_id=s.id_solicitacao) }}">
+                  <div>
+                    {{ s.horario.texto }} – {{ s.horario.data.strftime('%d/%m/%Y') }}<br>
+                    <small>Sala: {{ s.sala.nome_sala }} – {{ s.sala.numero_sala }} – Bloco {{ s.sala.bloco }}</small>
+                    {% if s.justificativa %}
+                      <br><small>Justificativa: {{ s.justificativa }}</small>
+                    {% endif %}
+                    {% if s.professor %}
+                      <br><small>Professor: {{ s.professor.nome_completo }}</small>
+                    {% endif %}
+                  </div>
+
+                  <div class="d-flex align-items-center ml-3">
+                    <span class="badge 
+                      {% if s.status == 'Pendente Professor' %}badge-warning
+                      {% elif s.status == 'Pendente Tecnico' %}badge-warning
+                      {% elif s.status == 'Agendado' %}badge-success
+                      {% elif s.status == 'Negado Professor' or s.status == 'Negado Tecnico' %}badge-danger
+                      {% elif s.status == 'Cancelado pelo aluno' %}badge-secondary
+                      {% else %}badge-secondary{% endif %}">
+                      {% if s.status == 'Pendente Professor' %}🟡 Aguardando aprovação do Professor
+                      {% elif s.status == 'Pendente Tecnico' %}🟡 Aguardando análise do Técnico
+                      {% elif s.status == 'Agendado' %}✅ Confirmado
+                      {% elif s.status == 'Negado Professor' %}❌ Recusado pelo Professor
+                      {% elif s.status == 'Negado Tecnico' %}❌ Recusado pelo Técnico
+                      {% elif s.status == 'Cancelado pelo aluno' %}⚪ Cancelado pelo Aluno
+                      {% else %}🔘 {{ s.status }}
+                      {% endif %}
+                    </span>
+
+                    {% if s.status in ['Pendente Professor', 'Pendente Tecnico', 'Agendado'] %}
+                      <form method="post"
+                            action="{{ url_for('aluno.cancelar_agendamento', solicitacao_id=s.id_solicitacao) }}"
+                            class="mb-0 ml-3"
+                            onsubmit="return confirm('Tem certeza que deseja cancelar este agendamento?');">
+                        <button type="submit" class="btn btn-outline-danger btn-sm d-flex align-items-center px-3 rounded">
+                          <i class="bi bi-x-circle-fill mr-2"></i>Cancelar
+                        </button>
+                      </form>
+                    {% endif %}
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">Você não possui agendamentos registrados.</p>
+          {% endif %}
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Fechar
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS & dependências -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

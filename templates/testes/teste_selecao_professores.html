@@ -1,0 +1,50 @@
+<div class="row">
+  <!-- 🔹 Método 1: Select padrão -->
+  <div class="col-md-6 mb-4">
+    <label><strong>1. Select Clássico</strong></label>
+    <select name="professor_id_1" class="form-control">
+      <option disabled selected>Escolha...</option>
+      {% for prof in professores %}
+        <option value="{{ prof.id_professor }}">{{ prof.nome_completo }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- 🔹 Método 2: Select com nome + curso -->
+  <div class="col-md-6 mb-4">
+    <label><strong>2. Select com Curso</strong></label>
+    <select name="professor_id_2" class="form-control">
+      <option disabled selected>Escolha...</option>
+      {% for prof in professores %}
+        <option value="{{ prof.id_professor }}">{{ prof.nome_completo }} – {{ prof.curso }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- 🔹 Método 3: Lista com botão -->
+  <div class="col-md-6 mb-4">
+    <label><strong>3. Lista com Botões</strong></label>
+    <div class="list-group">
+      {% for prof in professores %}
+        <button type="submit" name="professor_id_3" value="{{ prof.id_professor }}"
+                class="list-group-item list-group-item-action">
+          {{ prof.nome_completo }}
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 🔹 Método 4: Select com optgroup por curso -->
+  <div class="col-md-6 mb-4">
+    <label><strong>4. Select com Grupo por Curso</strong></label>
+    <select name="professor_id_4" class="form-control">
+      {% for curso in professores | map(attribute='curso') | unique %}
+        <optgroup label="{{ curso }}">
+          {% for prof in professores if prof.curso == curso %}
+            <option value="{{ prof.id_professor }}">{{ prof.nome_completo }}</option>
+          {% endfor %}
+        </optgroup>
+      {% endfor %}
+    </select>
+  </div>
+</div>
