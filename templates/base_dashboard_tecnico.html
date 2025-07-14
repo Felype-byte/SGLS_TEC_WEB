@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}SGHL – Painel do Técnico{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap e ícones -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base_dashboard_tecnico.css') }}">
+
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+  <!-- 🔝 Topbar fixa -->
+  <header class="topbar shadow-sm">
+    <div>
+      <h1>SGHL – Sistema de Gerenciamento de Laboratórios</h1>
+      <span>👋 Olá, Técnico(a) {{ current_user.nome_completo }}</span>
+    </div>
+    <div class="logout d-flex align-items-center">
+      <button class="btn-solicitacoes d-flex align-items-center" data-toggle="modal" data-target="#modalSolicitacoesTecnico">
+        <i class="bi bi-clipboard-check mr-1"></i> Solicitações Pendentes
+        {% if solicitacoes_pendentes and solicitacoes_pendentes|length > 0 %}
+          <span class="badge badge-danger ml-1">{{ solicitacoes_pendentes|length }}</span>
+        {% endif %}
+      </button>
+      <a class="btn-sair ml-2 d-flex align-items-center" href="{{ url_for('logout') }}">
+        <i class="bi bi-box-arrow-right mr-1"></i> Sair
+      </a>
+    </div>
+  </header>
+
+  <!-- 📦 Painel principal -->
+  <main class="container-painel" role="main">
+    <div class="card shadow panel-card">
+      <div class="card-body">
+        <h4 class="mb-4"></h4>
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </main>
+
+  <!-- 🔻 Rodapé -->
+  <footer>
+    SGHL | © 2025 – Divisão de Tecnologia da Informação – UFC Sobral
+  </footer>
+
+  <!-- 📥 Modal estilizado -->
+  <div class="modal fade modal-solicitacoes" id="modalSolicitacoesTecnico" tabindex="-1" role="dialog" aria-labelledby="modalSolicitacoesTecnicoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content custom-modal-content">
+
+        <div class="modal-header custom-modal-header">
+          <h5 class="modal-title"><i class="bi bi-tools mr-1"></i> Solicitações para Análise Técnica</h5>
+          <button type="button" class="close custom-modal-close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+
+        <div class="modal-body custom-modal-body">
+          {% if solicitacoes_pendentes %}
+            <ul class="list-group solicitacoes-lista">
+              {% for s in solicitacoes_pendentes %}
+                <li class="list-group-item solicitacao-item">
+                  <div class="solicitacao-info mb-2">
+                    <p><strong>📅 Data:</strong> {{ s.horario.data.strftime('%d/%m/%Y') }} – {{ s.horario.texto }}</p>
+                    <p><strong>🏫 Sala:</strong> {{ s.sala.nome_sala }} – {{ s.sala.numero_sala }} – {{ s.sala.bloco }}</p>
+                    {% if s.justificativa %}
+                      <p><strong>📝 Justificativa:</strong> {{ s.justificativa }}</p>
+                    {% endif %}
+                  </div>
+                  <div class="solicitacao-solicitante mb-2">
+                    {% if s.aluno %}
+                      <hr />
+                      <p><strong>👨‍🎓 Aluno:</strong> {{ s.aluno.nome_completo }}</p>
+                      <p><strong>📌 Matrícula:</strong> {{ s.aluno.matricula }}</p>
+                      {% if s.professor %}
+                        <p><strong>👨‍🏫 Professor responsável:</strong> {{ s.professor.nome_completo }}</p>
+                      {% endif %}
+                    {% else %}
+                      <hr />
+                      <p><strong>👨‍🏫 Professor:</strong> {{ s.professor.nome_completo }}</p>
+                    {% endif %}
+                  </div>
+                  <div class="solicitacao-acoes d-flex gap-2">
+                    <form method="POST" action="{{ url_for('tecnico.aprovar_tecnico', id=s.id_solicitacao) }}" class="mr-1">
+                      <button class="btn btn-success btn-sm"><i class="bi bi-check-circle"></i> Aprovar</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('tecnico.recusar_tecnico', id=s.id_solicitacao) }}">
+                      <button class="btn btn-danger btn-sm"><i class="bi bi-x-circle"></i> Recusar</button>
+                    </form>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted text-center">Nenhuma solicitação pendente para análise técnica.</p>
+          {% endif %}
+        </div>
+
+        <div class="modal-footer custom-modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>
