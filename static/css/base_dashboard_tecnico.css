@@ -367,3 +367,43 @@ footer {
   .btn-add-horario { width: 100%; justify-content: center;}
   .input-horario { max-width: 100%; }
 }
+
+/* === Faixa branca vertical e logo UFC === */
+.topbar-logo-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 170px;
+  height: 100%;
+  background: var(--branco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.08);
+  z-index: 10;
+}
+
+.logo-ufc {
+  max-height: 55px;
+  max-width: 135px;
+  user-select: none;
+}
+
+/* Linha amarela ao lado da faixa branca */
+.linha-amarela {
+  position: absolute;
+  left: 170px;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg, #F2A900 0%, #dfa400 100%);
+  box-shadow: 1px 0 4px rgba(204,170,0,0.16);
+  z-index: 11;
+}
+
+/* Ajuste de padding do topo para a faixa branca/logo */
+.topbar {
+  padding-left: 185px !important; /* 170px + 6px + espaço extra */
+  box-sizing: border-box;
+}

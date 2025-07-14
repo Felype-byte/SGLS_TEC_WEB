@@ -16,6 +16,13 @@
 
   <!-- 🔝 Topbar fixa -->
   <header class="topbar shadow-sm">
+    <!-- Faixa branca vertical e logo UFC -->
+    <div class="topbar-logo-container">
+      <img src="{{ url_for('static', filename='img/logo_ufc.png') }}" alt="Logo UFC" class="logo-ufc" />
+    </div>
+    <!-- Linha amarela -->
+    <div class="linha-amarela"></div>
+    <!-- Conteúdo do topo -->
     <div>
       <h1>SGHL – Sistema de Gerenciamento de Laboratórios</h1>
       <span>👋 Olá, Técnico(a) {{ current_user.nome_completo }}</span>
