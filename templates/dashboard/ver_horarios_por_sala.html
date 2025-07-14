@@ -1,0 +1,96 @@
+{% extends 'base_dashboard_tecnico.html' %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base_dashboard_tecnico.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/tecnico_dashboard.css') }}">
+{% endblock %}
+
+{% block title %}Horários – {{ sala.nome_sala }}{% endblock %}
+{% block page_title %}Horários da Sala {{ sala.nome_sala }}{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title">
+      <i class="fa-regular fa-calendar-check mr-1"></i> Blocos de Horários – Sala {{ sala.nome_sala }}
+    </h5>
+
+    {% for bloco in blocos_info %}
+      <div class="mb-4 border rounded bloco-horarios-item">
+        <div class="d-flex flex-wrap justify-content-between align-items-center px-3 py-2 bg-light bloco-horarios-top">
+          <!-- Esquerda: botão de detalhes -->
+          <button
+            class="btn btn-sm btn-outline-primary btn-toggle-detalhes mr-2"
+            type="button"
+            data-toggle="collapse"
+            data-target="#detalhes-{{ loop.index }}"
+            aria-expanded="false"
+            aria-controls="detalhes-{{ loop.index }}"
+          >
+            <i class="fa-solid fa-caret-down"></i> Detalhes
+          </button>
+
+          <!-- Centro: nome do bloco e datas -->
+          <div class="flex-grow-1 text-center bloco-horarios-nome">
+            <strong>{{ bloco.nome_bloco }}</strong>
+            <span class="text-muted small ml-2">(de {{ bloco.data_min }} até {{ bloco.data_max }})</span>
+          </div>
+
+          <!-- Direita: botão de excluir -->
+          <form
+            method="POST"
+            action="{{ url_for('tecnico.excluir_horarios_por_bloco') }}"
+            class="ml-2 mb-0"
+            onsubmit="return confirm('Excluir todos os horários do bloco {{ bloco.nome_bloco }}?')"
+          >
+            <input type="hidden" name="sala_id"    value="{{ sala.id_sala }}">
+            <input type="hidden" name="nome_bloco" value="{{ bloco.nome_bloco }}">
+            <button class="btn btn-sm btn-outline-danger d-flex align-items-center">
+              <i class="fa-solid fa-trash"></i>
+              <span class="d-none d-md-inline ml-1">Excluir</span>
+            </button>
+          </form>
+        </div>
+
+        <div id="detalhes-{{ loop.index }}" class="collapse bloco-horarios-detalhes">
+          <div class="table-responsive">
+            <table class="table table-sm mb-0">
+              <thead class="thead-light">
+                <tr>
+                  <th>Data</th>
+                  <th>Início</th>
+                  <th>Fim</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for h in bloco.horarios %}
+                  <tr>
+                    <td>{{ h.data.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ h.hora_inicio.strftime('%H:%M') }}</td>
+                    <td>{{ h.hora_fim.strftime('%H:%M') }}</td>
+                    <td>{{ h.status }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="alert alert-info text-center mb-4">
+        Nenhum bloco de horários encontrado para esta sala.
+      </div>
+    {% endfor %}
+
+    <div class="text-right mt-4">
+      <a href="{{ url_for('tecnico.agendamento_tecnico') }}"
+         class="btn btn-outline-secondary">
+        <i class="fa-solid fa-arrow-left"></i> Voltar
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

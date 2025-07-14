@@ -16,6 +16,6 @@ def redirecionar_pos_login():
     elif tipo == "Professor":
         return redirect(url_for("professor.agendamento_professor"))
     elif tipo == "Tecnico":
-        return redirect(url_for("dashboard_tecnico"))
+        return redirect(url_for("tecnico.agendamento_tecnico"))
 
     return redirect(url_for("login_redirecionar.tela_login"))

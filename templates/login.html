@@ -9,99 +9,98 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
 </head>
 <body>
-  <div class="login-container">
-    <img src="{{ url_for('static', filename='img/logo_ufc.png') }}" alt="Logo UFC" />
-    <h5>SGLS - Sistema de Gerenciamento de Laboratórios</h5>
-    <p>Campus Mucambinho - UFC Sobral</p>
+  <div class="login-bg">
+    <div class="login-container shadow-lg">
+      <img src="{{ url_for('static', filename='img/logo_ufc.png') }}" alt="Logo UFC" class="logo-ufc" />
+      <h5 class="login-title">SGLS - Sistema de Gerenciamento de Laboratórios</h5>
+      <p class="login-sub">Campus Mucambinho - UFC Sobral</p>
 
-    <div class="tabs">
-      <div class="tab active" onclick="showTab('aluno', this)">
-        <i class="bi bi-person"></i> Aluno
-      </div>
-      <div class="tab" onclick="showTab('professor', this)">
-        <i class="bi bi-mortarboard"></i> Professor
-      </div>
-      <div class="tab" onclick="showTab('tecnico', this)">
-        <i class="bi bi-tools"></i> Técnico
-      </div>
-    </div>
-
-    <!-- Aluno -->
-    <div id="aluno" class="form-content active">
-      <form action="{{ url_for('login_aluno.autenticar_aluno') }}" method="POST">
-        <label>Matrícula</label>
-        <input type="text" name="matricula" class="form-control" required />
-
-        <label>Senha</label>
-        <div class="input-group">
-          <input type="password" name="senha" id="senhaAluno" class="form-control" required />
-          <span class="input-group-text" onclick="toggleSenha('senhaAluno', this)">
-            <i class="bi bi-eye"></i>
-          </span>
+      <div class="tabs mb-3">
+        <div class="tab active" onclick="showTab('aluno', this)">
+          <i class="bi bi-person"></i> Aluno
         </div>
-
-        <button class="btn btn-primary w-100 mt-2" type="submit">Entrar</button>
-      </form>
-      {% if erro_aluno %}
-        <div class="alert alert-danger mt-2" id="alertaAluno">{{ erro_aluno }}</div>
-      {% endif %}
-      <p class="mt-2 text-center">
-        <a href="{{ url_for('cadastro_aluno.tela_cadastro_aluno') }}" class="text-primary">Cadastre-se aqui</a>
-      </p>
-    </div>
-
-    <!-- Professor -->
-    <div id="professor" class="form-content">
-      <form action="{{ url_for('login_professor.autenticar_professor') }}" method="POST">
-        <label>SIAPE</label>
-        <input type="text" name="siape" class="form-control" required />
-
-        <label>Senha</label>
-        <div class="input-group">
-          <input type="password" name="senha" id="senhaProfessor" class="form-control" required />
-          <span class="input-group-text" onclick="toggleSenha('senhaProfessor', this)">
-            <i class="bi bi-eye"></i>
-          </span>
+        <div class="tab" onclick="showTab('professor', this)">
+          <i class="bi bi-mortarboard"></i> Professor
         </div>
-
-        <button class="btn btn-primary w-100 mt-2" type="submit">Entrar</button>
-      </form>
-      {% if erro_professor %}
-        <div class="alert alert-danger mt-2" id="alertaProfessor">{{ erro_professor }}</div>
-      {% endif %}
-      <p class="mt-2 text-center">
-        <a href="{{url_for('cadastro_professor.tela_cadastro_professor') }}" class="text-primary">Cadastre-se aqui</a>
-      </p>
-    </div>
-
-    <!-- Técnico -->
-    <div id="tecnico" class="form-content">
-      <form action="{{ url_for('login_tecnico.autenticar_tecnico') }}" method="POST">
-        <label>SIAPE</label>
-        <input type="text" name="siape" class="form-control" required />
-
-        <label>Senha</label>
-        <div class="input-group">
-          <input type="password" name="senha" id="senhaTecnico" class="form-control" required />
-          <span class="input-group-text" onclick="toggleSenha('senhaTecnico', this)">
-            <i class="bi bi-eye"></i>
-          </span>
+        <div class="tab" onclick="showTab('tecnico', this)">
+          <i class="bi bi-tools"></i> Técnico
         </div>
+      </div>
 
-        <button class="btn btn-primary w-100 mt-2" type="submit">Entrar</button>
-      </form>
-      {% if erro_tecnico %}
-        <div class="alert alert-danger mt-2" id="alertaTecnico">{{ erro_tecnico }}</div>
-      {% endif %}
-      <p class="mt-2 text-center">
-        <a href="{{ url_for('cadastro_tecnico.tela_cadastro_tecnico') }}" class="text-primary">Cadastre-se aqui</a>
-      </p>
+      <!-- Aluno -->
+      <div id="aluno" class="form-content active">
+        <form action="{{ url_for('login_aluno.autenticar_aluno') }}" method="POST" autocomplete="off">
+          <label class="form-label">Matrícula</label>
+          <input type="text" name="matricula" class="form-control login-input" required />
+
+          <label class="form-label">Senha</label>
+          <div class="input-group login-input-group">
+            <input type="password" name="senha" id="senhaAluno" class="form-control login-input" required />
+            <span class="input-group-text toggle-pass" onclick="toggleSenha('senhaAluno', this)">
+              <i class="bi bi-eye"></i>
+            </span>
+          </div>
+          <button class="btn btn-login w-100 mt-2" type="submit">Entrar</button>
+        </form>
+        {% if erro_aluno %}
+          <div class="alert alert-danger mt-2 login-alert" id="alertaAluno">{{ erro_aluno }}</div>
+        {% endif %}
+        <p class="mt-2 text-center">
+          <a href="{{ url_for('cadastro_aluno.tela_cadastro_aluno') }}" class="login-link">Cadastre-se aqui</a>
+        </p>
+      </div>
+
+      <!-- Professor -->
+      <div id="professor" class="form-content">
+        <form action="{{ url_for('login_professor.autenticar_professor') }}" method="POST" autocomplete="off">
+          <label class="form-label">SIAPE</label>
+          <input type="text" name="siape" class="form-control login-input" required />
+
+          <label class="form-label">Senha</label>
+          <div class="input-group login-input-group">
+            <input type="password" name="senha" id="senhaProfessor" class="form-control login-input" required />
+            <span class="input-group-text toggle-pass" onclick="toggleSenha('senhaProfessor', this)">
+              <i class="bi bi-eye"></i>
+            </span>
+          </div>
+          <button class="btn btn-login w-100 mt-2" type="submit">Entrar</button>
+        </form>
+        {% if erro_professor %}
+          <div class="alert alert-danger mt-2 login-alert" id="alertaProfessor">{{ erro_professor }}</div>
+        {% endif %}
+        <p class="mt-2 text-center">
+          <a href="{{url_for('cadastro_professor.tela_cadastro_professor') }}" class="login-link">Cadastre-se aqui</a>
+        </p>
+      </div>
+
+      <!-- Técnico -->
+      <div id="tecnico" class="form-content">
+        <form action="{{ url_for('login_tecnico.autenticar_tecnico') }}" method="POST" autocomplete="off">
+          <label class="form-label">SIAPE</label>
+          <input type="text" name="siape" class="form-control login-input" required />
+
+          <label class="form-label">Senha</label>
+          <div class="input-group login-input-group">
+            <input type="password" name="senha" id="senhaTecnico" class="form-control login-input" required />
+            <span class="input-group-text toggle-pass" onclick="toggleSenha('senhaTecnico', this)">
+              <i class="bi bi-eye"></i>
+            </span>
+          </div>
+          <button class="btn btn-login w-100 mt-2" type="submit">Entrar</button>
+        </form>
+        {% if erro_tecnico %}
+          <div class="alert alert-danger mt-2 login-alert" id="alertaTecnico">{{ erro_tecnico }}</div>
+        {% endif %}
+        <p class="mt-2 text-center">
+          <a href="{{ url_for('cadastro_tecnico.tela_cadastro_tecnico') }}" class="login-link">Cadastre-se aqui</a>
+        </p>
+      </div>
     </div>
+
+    <footer class="footer text-center mt-4 login-footer">
+      SGHL | © 2025 - Divisão de TI - UFC Sobral
+    </footer>
   </div>
-
-  <footer class="footer text-center mt-4">
-    SGHL | © 2025 - Divisão de TI - UFC Sobral
-  </footer>
 
   <script>
     function showTab(tabId, element) {
@@ -124,7 +123,7 @@
     }
 
     setTimeout(() => {
-      document.querySelectorAll(".alert").forEach((el) => el.style.display = "none");
+      document.querySelectorAll(".login-alert").forEach((el) => el.style.display = "none");
     }, 4000);
   </script>
 </body>

@@ -15,6 +15,7 @@ from auth.cadastro.cadastro_professor import cadastro_professor_bp
 from auth.cadastro.cadastro_tecnico import cadastro_tecnico_bp
 from app.controller.agendamento.agendamento_aluno import agendamento_aluno_bp
 from app.controller.agendamento.agendamento_professor import agendamento_professor_bp
+from app.controller.agendamento.agendamento_tecnico import agendamento_tecnico_bp
 app = Flask(__name__)
 app.secret_key = "sghl_super_secreto"
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://sgls:ynFs42LpfsjGDEHP@132.226.249.149:3306/sgls"
@@ -40,6 +41,7 @@ app.register_blueprint(login_professor_bp)
 app.register_blueprint(login_tecnico_bp)
 app.register_blueprint(agendamento_aluno_bp)
 app.register_blueprint(agendamento_professor_bp)
+app.register_blueprint(agendamento_tecnico_bp)
 # 🔁 Redirecionamento inicial
 @app.route("/")
 def home():

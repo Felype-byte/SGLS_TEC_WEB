@@ -14,6 +14,7 @@ from auth.cadastro.cadastro_professor  import cadastro_professor_bp
 from auth.cadastro.cadastro_tecnico    import cadastro_tecnico_bp
 from app.controller.agendamento.agendamento_aluno import agendamento_aluno_bp
 from app.controller.agendamento.agendamento_professor import agendamento_professor_bp
+from app.controller.agendamento.agendamento_tecnico import agendamento_tecnico_bp
 # configura Flask-Login
 login_manager = LoginManager()
 
@@ -41,6 +42,7 @@ def create_app():
     app.register_blueprint(login_tecnico_bp)
     app.register_blueprint(agendamento_aluno_bp)
     app.register_blueprint(agendamento_professor_bp)
+    app.register_blueprint(agendamento_tecnico_bp)
     # cria as tabelas após as classes estarem carregadas
     with app.app_context():
         from app.models.base.usuario        import Usuario

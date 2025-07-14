@@ -1,0 +1,434 @@
+:root {
+  --azul-ufc: #003F6F;
+  --azul-ufc-dark: #002e53;
+  --amarelo-ufc: #F2A900;
+  --cinza-claro: #f4f7fb;
+  --cinza-neutro: #666666;
+  --branco: #ffffff;
+
+  /* Variáveis extras para uso em painel */
+  --texto-principal: var(--cinza-neutro);
+  --fundo-painel: var(--branco);
+  --borda-painel: #d4dbe6;
+  --sombra-painel: 0 4px 15px rgba(0, 63, 111, 0.10);
+  --btn-bg: var(--azul-ufc);
+  --btn-bg-hover: var(--azul-ufc-dark);
+  --btn-text-color: var(--branco);
+  --input-bg: #f9fafc;
+  --input-border: #c3cee7;
+  --input-focus-border: var(--amarelo-ufc);
+  --input-focus-shadow: rgba(242, 169, 0, 0.3);
+  --badge-success: #2ca564;
+  --badge-error: #c03636;
+  --badge-warning: #ffd564;
+  --badge-info: var(--azul-ufc);
+  --badge-text-light: #fff;
+}
+
+/* ==== GLOBAL ==== */
+body, html {
+  background: var(--cinza-claro);
+  color: var(--texto-principal);
+  font-family: 'Inter', 'Segoe UI', Arial, Helvetica, sans-serif;
+  letter-spacing: 0.01em;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==== PAINEL PRINCIPAL ==== */
+.painel-professor-main {
+  max-width: 1060px;
+  margin: 36px auto 0 auto;
+  padding: 0 15px;
+}
+
+.painel-professor-card {
+  background: var(--fundo-painel);
+  border-radius: 18px;
+  box-shadow: var(--sombra-painel);
+  border: 1.5px solid var(--borda-painel);
+  padding: 40px 38px 35px 38px;
+  transition: box-shadow 0.15s ease, border 0.15s ease;
+}
+
+@media (max-width: 700px) {
+  .painel-professor-card { padding: 20px 10px; }
+}
+
+/* ==== TÍTULOS ==== */
+.painel-professor-titulo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--azul-ufc-dark);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 2rem;
+  letter-spacing: 0.015em;
+  user-select: none;
+}
+
+/* Texto do título mais técnico */
+.painel-professor-titulo::after {
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: var(--cinza-neutro);
+  margin-left: 8px;
+  user-select: none;
+}
+
+.titulo-horarios {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--azul-ufc-dark);
+  margin-bottom: 1rem;
+  letter-spacing: 0.01em;
+}
+
+/* ==== LEGENDA ==== */
+.painel-legenda {
+  font-size: 1.05rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 7px;
+}
+.painel-legenda .badge { margin-bottom: 4px; }
+
+/* ==== FORMULÁRIO ==== */
+.painel-section-row {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+.painel-section {
+  flex: 1 1 250px;
+  min-width: 240px;
+}
+@media (max-width: 900px) {
+  .painel-section-row { flex-direction: column; gap: 1.2rem; }
+}
+
+.painel-section label {
+  font-weight: 700;
+  color: var(--azul-ufc-dark);
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  display: block;
+  letter-spacing: 0.01em;
+}
+
+.painel-input, .painel-select, .painel-section textarea {
+  height: 3.2rem;
+  font-size: 1.15rem;
+  border-radius: 12px;
+  border: 1.8px solid var(--input-border);
+  background: var(--input-bg);
+  padding-left: 1.15rem;
+  margin-bottom: 0.4rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  outline: none;
+  color: var(--azul-ufc-dark);
+}
+.painel-input:focus, .painel-select:focus, textarea:focus {
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 6px var(--input-focus-shadow);
+  background: #fff;
+}
+
+/* Ajuste para textarea */
+.painel-section-col textarea,
+.painel-section textarea {
+  min-height: 3.2rem;
+  max-height: 190px;
+  resize: vertical;
+  padding-top: 13px;
+}
+
+/* ==== BOTÕES ==== */
+.btn-terra, .btn-outline-terra {
+  background: var(--btn-bg);
+  color: var(--btn-text-color);
+  font-size: 1.16rem;
+  border-radius: 14px;
+  padding: 13px 38px;
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 3px 12px rgba(0, 63, 111, 0.2);
+  transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+.btn-terra:hover, .btn-terra:focus,
+.btn-outline-terra:hover, .btn-outline-terra:focus {
+  background: var(--btn-bg-hover);
+  color: var(--btn-text-color);
+  box-shadow: 0 5px 14px rgba(0, 46, 83, 0.3);
+}
+
+.btn-solicitar-uso {
+  background: var(--azul-ufc-dark);
+  color: var(--btn-text-color);
+  border-radius: 14px;
+  padding: 16px 44px;
+  font-weight: 900;
+  font-size: 1.25rem;
+  border: none;
+  box-shadow: 0 5px 20px rgba(0, 46, 83, 0.25);
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+  margin-top: 14px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+.btn-solicitar-uso:hover, .btn-solicitar-uso:focus {
+  background: var(--azul-ufc);
+  box-shadow: 0 7px 25px rgba(0, 63, 111, 0.3);
+}
+
+/* ==== HORÁRIOS: GRID & SLOT ==== */
+.painel-horarios-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+}
+.painel-horarios-list .col-md-4 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  flex: 0 0 33.3333%;
+  max-width: 33.3333%;
+}
+@media (max-width: 900px) {
+  .painel-horarios-list .col-md-4 { flex: 0 0 50%; max-width: 50%; }
+}
+@media (max-width: 600px) {
+  .painel-horarios-list .col-md-4 { flex: 0 0 100%; max-width: 100%; }
+  .painel-professor-card { padding: 20px 10px; }
+}
+
+/* ==== SLOT DO HORÁRIO ==== */
+.horario-slot, .painel-horario-slot {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: var(--branco);
+  border-radius: 16px;
+  border: 2.5px solid var(--borda-painel);
+  font-weight: 700;
+  font-size: 1.15rem;
+  min-height: 64px;
+  box-shadow: 0 4px 10px rgba(0, 63, 111, 0.06), 0 1.5px 0 #e3d8c6 inset;
+  padding: 18px 22px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.12s ease;
+}
+.horario-slot::before, .painel-horario-slot::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 8px;
+  border-radius: 10px 0 0 10px;
+  background: var(--borda-painel);
+  transition: background 0.15s ease;
+}
+
+/* Disponível */
+.horario-disponivel {
+  border-color: var(--btn-bg);
+  color: var(--btn-bg);
+  background: var(--branco);
+}
+.horario-disponivel::before { background: var(--btn-bg); }
+
+/* Selecionado - TODO AZUL */
+.horario-slot.selecionado {
+  border-color: var(--azul-ufc);
+  background: var(--azul-ufc);
+  color: var(--branco);
+  box-shadow: 0 0 6px var(--azul-ufc);
+  z-index: 5;
+}
+.horario-slot.selecionado::before {
+  background: var(--azul-ufc);
+}
+
+/* Em Processo - TODO AMARELO */
+.horario-processo {
+  border-color: var(--amarelo-ufc);
+  background: var(--amarelo-ufc);
+  color: var(--btn-text-color);
+  cursor: not-allowed;
+  opacity: 1;
+}
+.horario-processo::before { background: var(--amarelo-ufc); }
+
+/* Agendado - TODO VERDE */
+.horario-agendado {
+  border-color: var(--badge-success);
+  background: var(--badge-success);
+  color: var(--branco);
+  cursor: not-allowed;
+  opacity: 1;
+}
+.horario-agendado::before { background: var(--badge-success); }
+
+/* Indisponível */
+.horario-indisponivel {
+  border-color: #d3d3d3;
+  color: #bababa;
+  background: #f4f4f4;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.horario-indisponivel::before { background: #d3d3d3; }
+
+/* Seleção e hover */
+.horario-slot:focus {
+  outline: none;
+  border-width: 3px;
+  box-shadow: 0 0 0 4px var(--azul-ufc), 0 6px 15px #b9713633;
+  z-index: 10;
+}
+.horario-slot:not(.horario-indisponivel):hover {
+  border-color: var(--btn-bg-hover);
+  background: #f6faff;
+  color: var(--btn-bg-hover);
+}
+.horario-slot:not(.horario-indisponivel):hover::before {
+  background: var(--btn-bg-hover);
+}
+
+/* ==== Ícone flutuante do status ==== */
+.horario-slot .icon-status {
+  margin-left: auto;
+  font-size: 1.35em;
+  opacity: 0.85;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+@media (max-width: 700px) {
+  .horario-slot, .painel-horario-slot { font-size: 1.12rem; padding: 14px 14px 14px 14px; }
+  .horario-slot .icon-status { right: 10px; font-size: 1.25em;}
+}
+
+/* ==== BADGES ==== */
+.badge {
+  border-radius: 18px;
+  font-weight: 700;
+  font-size: 1.04rem;
+  padding: 8px 20px;
+  margin-right: 10px;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 10px #003f6f47;
+  border: none;
+  user-select: none;
+}
+.badge-disponivel { background: var(--branco); color: var(--btn-bg); border: 1.5px solid var(--btn-bg);}
+.badge-selecionado { background: var(--btn-bg); color: var(--btn-text-color);}
+.badge-confirmado { background: var(--badge-success); color: var(--btn-text-color);}
+.badge-analise { background: var(--amarelo-ufc); color: var(--btn-text-color);}
+.badge-outros { background: #ececec; color: #7a7a7a; }
+
+/* ==== MODAL E LISTA ==== */
+.modal-solicitacoes .modal-header {
+  background: linear-gradient(90deg, var(--azul-ufc-dark) 60%, var(--btn-bg-hover) 100%);
+  color: #fff;
+  border-radius: 14px 14px 0 0;
+  border-bottom: none;
+  padding: 20px 32px;
+  box-shadow: 0 3px 14px var(--azul-ufc-dark);
+}
+.modal-solicitacoes .modal-title { font-weight: 900; font-size: 1.26rem; }
+.modal-solicitacoes .modal-footer {
+  background: var(--cinza-claro);
+  border-top: 1.5px solid var(--borda-painel);
+  border-radius: 0 0 14px 14px;
+  padding: 20px 30px;
+}
+
+.lista-solicitacoes {
+  padding: 0;
+}
+
+.item-solicitacao {
+  background: var(--branco);
+  border: 1.6px solid var(--borda-painel);
+  border-radius: 15px;
+  margin-bottom: 18px;
+  box-shadow: 0 2.5px 18px var(--btn-bg-hover);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 18px 16px 16px;
+  transition: box-shadow 0.18s;
+}
+.item-solicitacao:hover {
+  box-shadow: 0 7px 26px var(--btn-bg-hover);
+}
+.info-solicitacao {
+  flex: 2;
+  font-size: 1.07rem;
+  color: var(--azul-ufc-dark);
+}
+.acoes-solicitacao {
+  flex: 1;
+  text-align: right;
+  margin-left: 1.4rem;
+}
+
+.btn-cancelar {
+  background: var(--badge-error);
+  color: #fff;
+  border-radius: 11px;
+  border: none;
+  font-size: 1.03rem;
+  padding: 10px 26px;
+  font-weight: 700;
+  box-shadow: 0 2px 12px #c43b3b44;
+  transition: background 0.25s ease;
+  cursor: pointer;
+}
+.btn-cancelar:hover, .btn-cancelar:focus {
+  background: #931f1f;
+  box-shadow: 0 4px 18px #c43b3b77;
+  color: #fff;
+  outline: none;
+}
+
+/* ==== PLACEHOLDER ==== */
+::placeholder {
+  color: #bda992;
+  opacity: 1;
+}
+::-webkit-input-placeholder {
+  color: #bda992;
+  opacity: 1;
+}
+::-moz-placeholder {
+  color: #bda992;
+  opacity: 1;
+}
+:-ms-input-placeholder {
+  color: #bda992;
+  opacity: 1;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .painel-professor-card {
+    padding: 20px 12px;
+  }
+  .painel-horarios-list .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

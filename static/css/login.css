@@ -8,159 +8,286 @@
   --branco: #ffffff;
 }
 
-/* === Estilo Geral === */
-body {
-  background-color: var(--cinza-claro);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* === BASE E BACKGROUND === */
+body, html {
+  background: var(--cinza-claro);
+  color: var(--cinza-neutro);
+  font-family: 'Inter', 'Segoe UI', Arial, Helvetica, sans-serif;
+  font-size: 1.04rem;
+  letter-spacing: 0.01em;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
-  color: var(--azul-ufc);
 }
 
-/* === Login Box === */
+/* === CONTAINER PRINCIPAL === */
+.login-bg {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
 .login-container {
-  max-width: 500px;
-  margin: 60px auto;
-  padding: 40px 30px;
+  max-width: 420px;
+  width: 100%;
   background: var(--branco);
   border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0, 63, 111, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 63, 111, 0.15);
+  padding: 40px 35px 30px 35px;
   text-align: center;
+  animation: fadeInDown 0.4s ease forwards;
 }
 
-.login-container img {
-  max-width: 100px;
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === LOGO E TEXTOS === */
+.logo-ufc {
+  width: 80px;
   margin-bottom: 15px;
+  user-select: none;
 }
 
-/* === Títulos === */
-h5 {
-  font-size: 1.2rem;
+.login-title {
   font-weight: 700;
-  margin-bottom: 0.2rem;
+  font-size: 1.25rem;
+  color: var(--azul-ufc);
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
 }
 
-p {
-  font-size: 0.9rem;
-  color: var(--cinza-neutro);
+.login-sub {
+  font-size: 1rem;
+  color: var(--amarelo-ufc);
+  font-weight: 600;
+  margin-bottom: 28px;
 }
 
-/* === Abas de login === */
+/* === TABS === */
 .tabs {
   display: flex;
   justify-content: center;
-  margin: 20px 0 0;
-  border-bottom: 2px solid #ddd;
+  width: 100%;
+  margin-bottom: 15px;
+  gap: 8px;
 }
 
 .tab {
   flex: 1;
-  text-align: center;
-  padding: 12px;
-  background-color: #e9ecef;
+  background: var(--branco);
+  border: 2px solid var(--azul-ufc);
+  color: var(--azul-ufc);
+  border-radius: 12px 12px 0 0;
   font-weight: 600;
-  color: var(--cinza-neutro);
+  padding: 12px 0;
   cursor: pointer;
-  transition: all 0.3s;
-  border-radius: 10px 10px 0 0;
-  margin: 0 2px;
+  font-size: 1.12rem;
+  letter-spacing: 0.01em;
+  transition: background-color 0.2s, color 0.2s;
+  box-shadow: 0 1px 8px rgba(0,63,111,0.15);
+  user-select: none;
+}
+
+.tab:hover:not(.active) {
+  background-color: var(--azul-ufc);
+  color: var(--branco);
 }
 
 .tab.active {
-  background-color: var(--branco);
-  color: var(--azul-ufc);
-  border-bottom: 2px solid var(--azul-ufc);
+  background-color: var(--azul-ufc);
+  color: var(--branco);
+  border-bottom: 3px solid var(--amarelo-ufc);
+  box-shadow: 0 4px 18px rgba(0,63,111,0.3);
+  font-weight: 700;
 }
 
-/* === Formulário === */
+/* === FORMULÁRIOS === */
 .form-content {
   display: none;
-  padding: 25px 0 0;
+  width: 100%;
+  margin-top: 0;
+  text-align: left;
 }
 
 .form-content.active {
   display: block;
+  animation: fadeInForm 0.25s ease forwards;
 }
 
-.form-content label {
-  text-align: left;
-  font-weight: 600;
+@keyframes fadeInForm {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.form-label {
   display: block;
-  margin-top: 10px;
-}
-
-.form-control {
-  border-radius: 10px;
-  background-color: #eef3f9;
-  border: 1px solid #003F6F44;
-  padding: 0.75rem;
-  font-size: 0.95rem;
-}
-
-.form-control:focus {
-  border-color: var(--azul-ufc);
-  box-shadow: 0 0 0 0.2rem rgba(0, 63, 111, 0.2);
-}
-
-/* === Botão Entrar === */
-.form-content .btn {
-  background-color: var(--azul-ufc);
-  border: none;
+  margin-bottom: 6px;
   font-weight: 600;
-  margin-top: 20px;
-  border-radius: 10px;
-  padding: 12px;
+  color: var(--azul-ufc-dark);
+  font-size: 1.05rem;
+}
+
+.login-input,
+.form-control {
   width: 100%;
+  height: 3rem;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: 2px solid var(--azul-ufc);
+  background-color: var(--cinza-claro);
+  padding-left: 12px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login-input:focus,
+.form-control:focus {
+  border-color: var(--amarelo-ufc);
+  box-shadow: 0 0 10px var(--amarelo-ufc);
+  background-color: var(--branco);
+  outline: none;
+}
+
+/* === INPUT GROUP PASSWORD === */
+.login-input-group .form-control {
+  border-radius: 10px 0 0 10px;
+}
+
+.input-group-text.toggle-pass {
+  background: var(--azul-ufc);
   color: var(--branco);
+  border: 2px solid var(--azul-ufc);
+  border-left: none;
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
 }
 
-.form-content .btn:hover {
-  background-color: var(--azul-ufc-dark);
+.input-group-text.toggle-pass:hover {
+  background: var(--amarelo-ufc);
+  color: var(--azul-ufc-dark);
 }
 
-/* === Link Cadastro === */
+/* === BOTÃO DE LOGIN === */
+.btn-login,
+.btn-primary {
+  width: 100%;
+  background-color: var(--azul-ufc);
+  color: var(--branco);
+  font-size: 1.18rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 0;
+  margin-top: 18px;
+  box-shadow: 0 4px 15px rgba(0, 63, 111, 0.3);
+  cursor: pointer;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-login:hover,
+.btn-primary:hover,
+.btn-login:focus,
+.btn-primary:focus {
+  background-color: var(--amarelo-ufc);
+  color: var(--azul-ufc-dark);
+  box-shadow: 0 6px 25px rgba(242, 169, 0, 0.7);
+  outline: none;
+}
+
+/* === ALERTAS === */
+.login-alert,
+.alert {
+  margin-top: 12px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 2px solid var(--vermelho-erro);
+  color: var(--branco);
+  background-color: var(--vermelho-erro);
+  padding: 12px 16px;
+  box-shadow: 0 3px 10px rgba(192, 54, 54, 0.35);
+  text-align: center;
+}
+
+/* === LINK DE CADASTRO === */
+.login-link,
 .form-content a {
-  display: inline-block;
-  margin-top: 15px;
-  font-size: 0.9rem;
   color: var(--azul-ufc);
+  font-weight: 600;
+  letter-spacing: 0.01em;
   text-decoration: none;
+  transition: color 0.25s ease;
 }
 
+.login-link:hover,
 .form-content a:hover {
+  color: var(--amarelo-ufc);
   text-decoration: underline;
 }
 
-/* === Input com botão de visualizar senha === */
-.input-group {
-  display: flex;
-  margin-top: 0.3rem;
-}
-
-.input-group .form-control {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-right: none;
-}
-
-.input-group-text {
-  background-color: #eef3f9;
-  border: 1px solid #003F6F44;
-  border-left: none;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  color: var(--azul-ufc);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 0.75rem;
-  cursor: pointer;
-}
-
-/* === Rodapé === */
-.footer {
-  text-align: center;
+/* === RODAPÉ === */
+.login-footer {
   margin-top: 40px;
-  font-size: 0.85rem;
-  color: var(--azul-ufc);
+  color: var(--cinza-neutro);
+  font-size: 0.98rem;
+  letter-spacing: 0.03em;
+  background: var(--cinza-claro);
+  border-radius: 0 0 14px 14px;
+  border-top: 1.5px solid var(--borda-suave);
+  padding: 14px 0;
+  width: 100%;
+  user-select: none;
+}
+
+/* === RESPONSIVIDADE === */
+@media (max-width: 530px) {
+  .login-container {
+    padding: 25px 20px 20px 20px;
+  }
+  .tabs {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .tab {
+    border-radius: 12px 12px 0 0;
+    font-size: 1.05rem;
+  }
+}
+
+/* === PLACEHOLDER === */
+::-webkit-input-placeholder {
+  color: var(--cinza-neutro);
+  opacity: 0.7;
+}
+
+::-moz-placeholder {
+  color: var(--cinza-neutro);
+  opacity: 0.7;
+}
+
+:-ms-input-placeholder {
+  color: var(--cinza-neutro);
+  opacity: 0.7;
+}
+
+::placeholder {
+  color: var(--cinza-neutro);
+  opacity: 0.7;
 }
