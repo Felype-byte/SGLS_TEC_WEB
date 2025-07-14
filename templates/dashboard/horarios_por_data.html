@@ -1,0 +1,78 @@
+{% extends 'base_dashboard_tecnico.html' %}
+
+{% block head %}
+  {{ super() }}
+  <!-- Bootstrap Icons/FontAwesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base_dashboard_tecnico.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/tecnico_dashboard.css') }}">
+{% endblock %}
+
+{% block title %}Horários – {{ sala.nome_sala }}{% endblock %}
+{% block page_title %}Horários de {{ sala.nome_sala }} – {{ data_escolhida.strftime('%d/%m/%Y') }}{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title">
+      Horários da Sala {{ sala.numero_sala }} – Bloco {{ sala.bloco }} – {{ data_escolhida.strftime('%d/%m/%Y') }}
+    </h5>
+
+    {% if horarios %}
+      <!-- 📋 Lista de horários -->
+      <ul class="list-group mb-3">
+        {% for h in horarios %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ h.texto }} – <span class="badge badge-pill badge-secondary">{{ h.status }}</span>
+            <form method="POST" action="{{ url_for('tecnico.excluir_horario_personalizado') }}" class="mb-0">
+              <input type="hidden" name="sala_id"     value="{{ h.id_sala }}">
+              <input type="hidden" name="data"        value="{{ h.data }}">
+              <input type="hidden" name="hora_inicio" value="{{ h.hora_inicio.strftime('%H:%M') }}">
+              <input type="hidden" name="hora_fim"    value="{{ h.hora_fim.strftime('%H:%M') }}">
+              <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Excluir este horário?')">
+                <i class="fa-solid fa-trash"></i>
+                <span class="d-none d-md-inline">Excluir</span>
+              </button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted">Nenhum horário cadastrado para esta data.</p>
+    {% endif %}
+
+    <!-- ➕ Inserir novo horário avulso -->
+    <div class="mt-4">
+      <h6 class="mb-3">➕ Inserir Novo Horário nesta Data</h6>
+      <form method="POST" action="{{ url_for('tecnico.inserir_blocos_personalizados') }}">
+        <input type="hidden" name="sala_id" value="{{ sala.id_sala }}">
+        <input type="hidden" name="data_inicio" value="{{ data_escolhida.strftime('%Y-%m-%d') }}">
+        <input type="hidden" name="data_fim" value="{{ data_escolhida.strftime('%Y-%m-%d') }}">
+
+        <div class="form-row horarios-avulsos">
+          <div class="input-horario">
+            <label for="hora_inicio">Início:</label>
+            <input type="time" id="hora_inicio" name="hora_inicio" class="form-control" required>
+          </div>
+          <div class="input-horario">
+            <label for="hora_fim">Fim:</label>
+            <input type="time" id="hora_fim" name="hora_fim" class="form-control" required>
+          </div>
+          <div style="display: flex; align-items: flex-end;">
+            <button class="btn btn-add-horario btn-small" style="margin-bottom:3px;">
+              <i class="fa-solid fa-plus"></i> Inserir Horário
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- 🔙 Voltar -->
+    <div class="mt-4 text-right">
+      <a href="{{ url_for('tecnico.agendamento_tecnico') }}" class="btn btn-outline-secondary">
+        <i class="fa-solid fa-arrow-left"></i> Voltar
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
