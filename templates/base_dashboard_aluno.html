@@ -19,10 +19,18 @@
 
   <!-- 🔝 Topbar -->
   <div class="topbar">
-    <div>
+    <!-- faixa branca vertical com logo UFC -->
+    <div class="topbar-logo-container">
+      <img src="{{ url_for('static', filename='img/logo_ufc.png') }}" alt="Logo UFC" class="logo-ufc" />
+    </div>
+
+    <!-- conteúdo da esquerda (título e saudação) -->
+    <div class="topbar-left">
       <h1>SGHL – Sistema de Gerenciamento de Laboratórios</h1>
       <span>👋 Olá, {{ current_user.aluno.nome_completo }} — Aluno</span>
     </div>
+
+    <!-- conteúdo da direita (botões) -->
     <div class="logout d-flex">
       <button class="btn btn-sm btn-agendamentos" data-toggle="modal" data-target="#modalAgendamentoStatus">
         <i class="bi bi-clipboard"></i> Meus Agendamentos
@@ -31,6 +39,9 @@
         <i class="bi bi-box-arrow-right"></i> Sair
       </a>
     </div>
+
+    <!-- linha amarela sobre a faixa branca -->
+    <div class="linha-amarela"></div>
   </div>
 
   <!-- 📦 Conteúdo principal -->

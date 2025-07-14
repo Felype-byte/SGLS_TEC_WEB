@@ -1,6 +1,11 @@
 :root {
   --azul-ufc: #003d73;
-  --azul-claro: #0275d8;
+  --azul-claro: #2563eb;
+  --azul-claro-hover: #1746b3;
+  --azul-gradiente-inicio: #2563eb;
+  --azul-gradiente-fim: #2764e8;
+  --verde-botao: #48bb78;    /* Agora o verde do botão é igual ao Confirmado */
+  --verde-botao-hover: #379964;
   --cinza-suave: #f5f6fa;
   --cinza-texto: #343a40;
   --branco: #ffffff;
@@ -93,38 +98,68 @@ body, html {
   box-shadow: 0 1.5px 8px rgba(0,61,115,0.04);
 }
 
-/* Botões */
+/* BOTÃO: Ver Horários (Azul, mais discreto e menor) */
 .btn-ver-horarios {
-  font-size: 1.13rem;
-  padding: 10px 35px;
-  border-radius: 9px;
+  font-size: 1.06rem;
   font-weight: 600;
-  box-shadow: 0 1px 8px rgba(2,117,216,0.07);
-  background: var(--branco);
-  color: var(--azul-claro);
-  border: 1.5px solid var(--azul-claro);
-  transition: background 0.13s, color 0.13s, box-shadow 0.15s;
+  padding: 10px 24px;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(90deg, var(--azul-gradiente-inicio) 0%, var(--azul-gradiente-fim) 100%);
+  box-shadow: 0 2px 8px rgba(37,99,235,0.07);
+  transition: background 0.15s, color 0.12s, box-shadow 0.15s, transform 0.09s;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
 .btn-ver-horarios:hover, .btn-ver-horarios:focus {
-  background: var(--hover-claro);
-  color: var(--azul-ufc);
-  border-color: var(--azul-ufc);
+  background: linear-gradient(90deg, var(--azul-claro-hover) 0%, var(--azul-claro) 100%);
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(37,99,235,0.11);
+  transform: translateY(-1px) scale(1.03);
+  outline: none;
+}
+.btn-ver-horarios:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 5px rgba(37,99,235,0.07);
+}
+.btn-ver-horarios i {
+  color: #fff !important;
+  font-size: 1.15em;
+  margin-right: 0.4em;
 }
 
+/* BOTÃO: Solicitar Agendamento (Verde igual legenda Confirmado, menor) */
 .btn-solicitar {
-  font-size: 1.19rem;
-  padding: 13px 33px;
-  border-radius: 11px;
+  font-size: 1.07rem;
   font-weight: 700;
-  background: var(--azul-claro);
-  color: var(--branco);
-  box-shadow: 0 2px 12px rgba(2,117,216,0.11);
+  padding: 12px 26px;
+  border-radius: 10px;
   border: none;
-  transition: background .13s, color .13s;
+  color: #fff;
+  background: var(--verde-botao);
+  box-shadow: 0 2px 8px rgba(72,187,120,0.10);
+  transition: background 0.14s, color 0.13s, box-shadow 0.13s, transform 0.09s;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
 .btn-solicitar:hover, .btn-solicitar:focus {
-  background: var(--azul-ufc);
-  color: var(--branco);
+  background: var(--verde-botao-hover);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(72,187,120,0.16);
+  transform: translateY(-1px) scale(1.03);
+  outline: none;
+}
+.btn-solicitar:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 5px rgba(72,187,120,0.12);
+}
+.btn-solicitar i {
+  color: #fff !important;
+  font-size: 1.14em;
+  margin-right: 0.4em;
 }
 
 /* Horários grid */
@@ -149,6 +184,13 @@ body, html {
 @media (max-width: 600px) {
   .painel-horarios-list .col-md-4 { flex: 0 0 100%; max-width: 100%; }
   .painel-aluno-card { padding: 16px 7px; }
+  .btn-ver-horarios, .btn-solicitar {
+    font-size: 0.97rem;
+    padding: 11px 8px;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 6px;
+  }
 }
 
 /* Slot base (sempre branco, destacado) */
@@ -238,4 +280,35 @@ body, html {
 .horario-disponivel:hover {
   box-shadow: 0 4px 22px rgba(2,117,216,0.10);
   z-index: 2;
+}
+
+/* Acessibilidade: foco visível para navegação por teclado */
+.btn-ver-horarios:focus-visible, .btn-solicitar:focus-visible {
+  outline: 2px solid #1946c3;
+  outline-offset: 2px;
+}
+.btn-ver-horarios, .btn-solicitar {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ícone branco no botão */
+.btn-ver-horarios i, .btn-solicitar i {
+  color: #fff !important;
+  margin-right: 0.5em;
+  font-size: 1.12em;
+  vertical-align: middle;
+}
+
+/* Rodapé centralizado */
+footer {
+  margin-top: 40px;
+  color: #445;
+  font-size: 0.97rem;
+  letter-spacing: 0.01em;
+  background: none;
+  border: none;
+  padding: 18px 0 15px 0;
+  width: 100%;
+  text-align: center;
+  user-select: none;
 }
