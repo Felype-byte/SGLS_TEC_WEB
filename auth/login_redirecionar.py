@@ -9,7 +9,7 @@ def tela_login():
 
 @login_redirecionar_bp.route("/pos-login")
 def redirecionar_pos_login():
-    tipo = current_user.tipo_usuario  # 🔐 Usando o Flask-Login
+    tipo = current_user.tipo_usuario  #  Usando o Flask-Login
 
     if tipo == "Aluno":
         return redirect(url_for("aluno.agendamento_aluno"))
