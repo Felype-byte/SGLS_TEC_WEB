@@ -11,7 +11,7 @@
 /* === BASE E BACKGROUND === */
 body,
 html {
-  background: var(--cinza-claro);
+  background: #e9ecef;
   color: var(--cinza-neutro);
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
   font-size: 1.04rem;
@@ -20,7 +20,10 @@ html {
   margin: 0;
   padding: 0;
 }
-
+.card-body {
+  padding: 1.25rem; /* Padding padrão do Bootstrap que você pode ajustar */
+  background-color: #f4f1ea; /* Exemplo de um fundo customizado */
+}
 /* === TOPBAR === */
 .topbar {
   position: relative;

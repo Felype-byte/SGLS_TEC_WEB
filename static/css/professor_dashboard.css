@@ -1,8 +1,8 @@
 :root {
-  --azul-ufc: #003F6F;
+  --azul-ufc: #003f6f;
   --azul-ufc-dark: #002e53;
-  --amarelo-ufc: #F2A900;
-  --cinza-claro: #f4f7fb;
+  --amarelo-ufc: #f2a900;
+  --cinza-claro: #f4f1ea;
   --cinza-neutro: #666666;
   --branco: #ffffff;
 
@@ -10,7 +10,7 @@
   --texto-principal: var(--cinza-neutro);
   --fundo-painel: var(--branco);
   --borda-painel: #d4dbe6;
-  --sombra-painel: 0 4px 15px rgba(0, 63, 111, 0.10);
+  --sombra-painel: 0 4px 15px rgba(0, 63, 111, 0.1);
   --btn-bg: var(--azul-ufc);
   --btn-bg-hover: var(--azul-ufc-dark);
   --btn-text-color: var(--branco);
@@ -24,12 +24,17 @@
   --badge-info: var(--azul-ufc);
   --badge-text-light: #fff;
 }
+.card-body {
+  padding: 1.25rem; /* Padding padrão do Bootstrap que você pode ajustar */
+  background-color: #fff; /* Exemplo de um fundo customizado */
+}
 
 /* ==== GLOBAL ==== */
-body, html {
+body,
+html {
   background: var(--cinza-claro);
   color: var(--texto-principal);
-  font-family: 'Inter', 'Segoe UI', Arial, Helvetica, sans-serif;
+  font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
   letter-spacing: 0.01em;
   margin: 0;
   padding: 0;
@@ -52,7 +57,9 @@ body, html {
 }
 
 @media (max-width: 700px) {
-  .painel-professor-card { padding: 20px 10px; }
+  .painel-professor-card {
+    padding: 20px 10px;
+  }
 }
 
 /* ==== TÍTULOS ==== */
@@ -94,7 +101,9 @@ body, html {
   gap: 14px;
   margin-top: 7px;
 }
-.painel-legenda .badge { margin-bottom: 4px; }
+.painel-legenda .badge {
+  margin-bottom: 4px;
+}
 
 /* ==== FORMULÁRIO ==== */
 .painel-section-row {
@@ -108,7 +117,10 @@ body, html {
   min-width: 240px;
 }
 @media (max-width: 900px) {
-  .painel-section-row { flex-direction: column; gap: 1.2rem; }
+  .painel-section-row {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
 }
 
 .painel-section label {
@@ -120,7 +132,9 @@ body, html {
   letter-spacing: 0.01em;
 }
 
-.painel-input, .painel-select, .painel-section textarea {
+.painel-input,
+.painel-select,
+.painel-section textarea {
   height: 3.2rem;
   font-size: 1.15rem;
   border-radius: 12px;
@@ -128,11 +142,14 @@ body, html {
   background: var(--input-bg);
   padding-left: 1.15rem;
   margin-bottom: 0.4rem;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    background 0.15s ease;
   outline: none;
   color: var(--azul-ufc-dark);
 }
-.painel-input:focus, .painel-select:focus, textarea:focus {
+.painel-input:focus,
+.painel-select:focus,
+textarea:focus {
   border-color: var(--input-focus-border);
   box-shadow: 0 0 6px var(--input-focus-shadow);
   background: #fff;
@@ -148,7 +165,8 @@ body, html {
 }
 
 /* ==== BOTÕES ==== */
-.btn-terra, .btn-outline-terra {
+.btn-terra,
+.btn-outline-terra {
   background: var(--btn-bg);
   color: var(--btn-text-color);
   font-size: 1.16rem;
@@ -161,8 +179,10 @@ body, html {
   letter-spacing: 0.02em;
   cursor: pointer;
 }
-.btn-terra:hover, .btn-terra:focus,
-.btn-outline-terra:hover, .btn-outline-terra:focus {
+.btn-terra:hover,
+.btn-terra:focus,
+.btn-outline-terra:hover,
+.btn-outline-terra:focus {
   background: var(--btn-bg-hover);
   color: var(--btn-text-color);
   box-shadow: 0 5px 14px rgba(0, 46, 83, 0.3);
@@ -182,7 +202,8 @@ body, html {
   letter-spacing: 0.02em;
   cursor: pointer;
 }
-.btn-solicitar-uso:hover, .btn-solicitar-uso:focus {
+.btn-solicitar-uso:hover,
+.btn-solicitar-uso:focus {
   background: var(--azul-ufc);
   box-shadow: 0 7px 25px rgba(0, 63, 111, 0.3);
 }
@@ -201,15 +222,24 @@ body, html {
   max-width: 33.3333%;
 }
 @media (max-width: 900px) {
-  .painel-horarios-list .col-md-4 { flex: 0 0 50%; max-width: 50%; }
+  .painel-horarios-list .col-md-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
 }
 @media (max-width: 600px) {
-  .painel-horarios-list .col-md-4 { flex: 0 0 100%; max-width: 100%; }
-  .painel-professor-card { padding: 20px 10px; }
+  .painel-horarios-list .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .painel-professor-card {
+    padding: 20px 10px;
+  }
 }
 
 /* ==== SLOT DO HORÁRIO ==== */
-.horario-slot, .painel-horario-slot {
+.horario-slot,
+.painel-horario-slot {
   display: flex;
   align-items: center;
   position: relative;
@@ -225,13 +255,17 @@ body, html {
   cursor: pointer;
   overflow: hidden;
   z-index: 1;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.12s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    background 0.15s ease, color 0.12s ease;
 }
-.horario-slot::before, .painel-horario-slot::before {
-  content: '';
+.horario-slot::before,
+.painel-horario-slot::before {
+  content: "";
   display: block;
   position: absolute;
-  left: 0; top: 0; bottom: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
   width: 8px;
   border-radius: 10px 0 0 10px;
   background: var(--borda-painel);
@@ -244,7 +278,9 @@ body, html {
   color: var(--btn-bg);
   background: var(--branco);
 }
-.horario-disponivel::before { background: var(--btn-bg); }
+.horario-disponivel::before {
+  background: var(--btn-bg);
+}
 
 /* Selecionado - TODO AZUL */
 .horario-slot.selecionado {
@@ -266,7 +302,9 @@ body, html {
   cursor: not-allowed;
   opacity: 1;
 }
-.horario-processo::before { background: var(--amarelo-ufc); }
+.horario-processo::before {
+  background: var(--amarelo-ufc);
+}
 
 /* Agendado - TODO VERDE */
 .horario-agendado {
@@ -276,7 +314,9 @@ body, html {
   cursor: not-allowed;
   opacity: 1;
 }
-.horario-agendado::before { background: var(--badge-success); }
+.horario-agendado::before {
+  background: var(--badge-success);
+}
 
 /* Indisponível */
 .horario-indisponivel {
@@ -286,7 +326,9 @@ body, html {
   opacity: 0.7;
   cursor: not-allowed;
 }
-.horario-indisponivel::before { background: #d3d3d3; }
+.horario-indisponivel::before {
+  background: #d3d3d3;
+}
 
 /* Seleção e hover */
 .horario-slot:focus {
@@ -316,8 +358,15 @@ body, html {
   pointer-events: none;
 }
 @media (max-width: 700px) {
-  .horario-slot, .painel-horario-slot { font-size: 1.12rem; padding: 14px 14px 14px 14px; }
-  .horario-slot .icon-status { right: 10px; font-size: 1.25em;}
+  .horario-slot,
+  .painel-horario-slot {
+    font-size: 1.12rem;
+    padding: 14px 14px 14px 14px;
+  }
+  .horario-slot .icon-status {
+    right: 10px;
+    font-size: 1.25em;
+  }
 }
 
 /* ==== BADGES ==== */
@@ -332,22 +381,45 @@ body, html {
   border: none;
   user-select: none;
 }
-.badge-disponivel { background: var(--branco); color: var(--btn-bg); border: 1.5px solid var(--btn-bg);}
-.badge-selecionado { background: var(--btn-bg); color: var(--btn-text-color);}
-.badge-confirmado { background: var(--badge-success); color: var(--btn-text-color);}
-.badge-analise { background: var(--amarelo-ufc); color: var(--btn-text-color);}
-.badge-outros { background: #ececec; color: #7a7a7a; }
+.badge-disponivel {
+  background: var(--branco);
+  color: var(--btn-bg);
+  border: 1.5px solid var(--btn-bg);
+}
+.badge-selecionado {
+  background: var(--btn-bg);
+  color: var(--btn-text-color);
+}
+.badge-confirmado {
+  background: var(--badge-success);
+  color: var(--btn-text-color);
+}
+.badge-analise {
+  background: var(--amarelo-ufc);
+  color: var(--btn-text-color);
+}
+.badge-outros {
+  background: #ececec;
+  color: #7a7a7a;
+}
 
 /* ==== MODAL E LISTA ==== */
 .modal-solicitacoes .modal-header {
-  background: linear-gradient(90deg, var(--azul-ufc-dark) 60%, var(--btn-bg-hover) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--azul-ufc-dark) 60%,
+    var(--btn-bg-hover) 100%
+  );
   color: #fff;
   border-radius: 14px 14px 0 0;
   border-bottom: none;
   padding: 20px 32px;
   box-shadow: 0 3px 14px var(--azul-ufc-dark);
 }
-.modal-solicitacoes .modal-title { font-weight: 900; font-size: 1.26rem; }
+.modal-solicitacoes .modal-title {
+  font-weight: 900;
+  font-size: 1.26rem;
+}
 .modal-solicitacoes .modal-footer {
   background: var(--cinza-claro);
   border-top: 1.5px solid var(--borda-painel);
@@ -397,7 +469,8 @@ body, html {
   transition: background 0.25s ease;
   cursor: pointer;
 }
-.btn-cancelar:hover, .btn-cancelar:focus {
+.btn-cancelar:hover,
+.btn-cancelar:focus {
   background: #931f1f;
   box-shadow: 0 4px 18px #c43b3b77;
   color: #fff;
