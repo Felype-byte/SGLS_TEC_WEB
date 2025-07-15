@@ -1,51 +1,78 @@
-{% extends 'base_dashboard_professor.html' %}
-
-{% block title %}Painel do Professor – SGHL{% endblock %}
-
-{% block content %}
+{% extends 'base_dashboard_professor.html' %} {% block title %}Painel do
+Professor – SGHL{% endblock %} {% block content %}
 <div class="painel-professor-main">
-  <div class="painel-professor-card shadow-sm">
+  <div class="painel-professor">
     <h4 class="painel-professor-titulo mb-4">
-      <i class="bi bi-mortarboard text-terra mr-2"></i>
-      Painel do Professor
+      <i class="bi bi-mortarboard-fill" style="color: #002e53"></i> Painel do
+      Professor
     </h4>
 
-    <form method="POST" action="{{ url_for('professor.agendamento_professor') }}" class="form-agendamento">
+    <form
+      method="POST"
+      action="{{ url_for('professor.agendamento_professor') }}"
+      class="form-agendamento"
+    >
       <!-- Linha de inputs: Laboratório e Data -->
       <div class="painel-section-row mb-4">
         <div class="painel-section">
           <label for="sala_id">1. Laboratório</label>
-          <select name="sala_id" id="sala_id" class="form-control painel-input painel-select" required>
+          <select
+            name="sala_id"
+            id="sala_id"
+            class="form-control painel-input painel-select"
+            required
+          >
             <option selected disabled value="">Selecione...</option>
             {% for sala in salas %}
-              <option value="{{ sala.id_sala }}">{{ sala.nome_sala }} ({{ sala.bloco }} – Sala {{ sala.numero_sala }})</option>
+            <option value="{{ sala.id_sala }}">
+              {{ sala.nome_sala }} ({{ sala.bloco }} – Sala {{ sala.numero_sala
+              }})
+            </option>
             {% endfor %}
           </select>
         </div>
         <div class="painel-section">
           <label for="data">2. Data</label>
-          <input type="date" name="data" id="data" class="form-control painel-input" required>
+          <input
+            type="date"
+            name="data"
+            id="data"
+            class="form-control painel-input"
+            required
+          />
         </div>
       </div>
 
       <!-- Linha de justificativa -->
       <div class="painel-section mb-4">
         <label for="justificativa">3. Justificativa</label>
-        <textarea name="justificativa" id="justificativa" rows="2" class="form-control painel-input" placeholder="Descreva o motivo..."></textarea>
+        <textarea
+          name="justificativa"
+          id="justificativa"
+          rows="2"
+          class="form-control painel-input"
+          placeholder="Descreva o motivo..."
+        ></textarea>
       </div>
 
       <!-- Botão Ver Horários -->
       <div class="painel-actionbar text-right mb-3">
-        <button type="button" class="btn btn-outline-terra btn-ver-horarios" onclick="carregarHorarios()">
+        <button
+          type="button"
+          class="btn btn-outline-terra btn-ver-horarios"
+          onclick="carregarHorarios()"
+        >
           <i class="bi bi-search"></i> Ver Horários
         </button>
       </div>
 
       <!-- Horários disponíveis -->
-      <div class="painel-section-col mb-4">
-        <h6 class="mb-2 font-weight-bold">4. Horários disponíveis</h6>
+      <div class="painel-section">
+        <label class="painel-section">4. Horários disponíveis</label>
         <div id="grade-horarios" class="painel-horarios-list row">
-          <p class="text-muted ml-3">Selecione laboratório e data para ver horários.</p>
+          <p class="text-muted ml-3">
+            Selecione laboratório e data para ver horários.
+          </p>
           <!-- Exemplo de como JS irá montar cada slot -->
           <!--
           <div class="col-md-4 mb-3">
@@ -83,11 +110,21 @@
       <!-- Legenda -->
       <div class="painel-legenda mb-4">
         <span>Legenda:</span>
-        <span class="badge badge-disponivel"><span class="icon-status mr-1">⬜</span>Disponível</span>
-        <span class="badge badge-selecionado"><span class="icon-status mr-1">🟦</span>Selecionado</span>
-        <span class="badge badge-confirmado"><span class="icon-status mr-1">🟩</span>Confirmado</span>
-        <span class="badge badge-analise"><span class="icon-status mr-1">🟨</span>Em processo</span>
-        <span class="badge badge-outros"><span class="icon-status mr-1">🔘</span>Outros</span>
+        <span class="badge badge-disponivel"
+          ><span class="icon-status mr-1">⬜</span>Disponível</span
+        >
+        <span class="badge badge-selecionado"
+          ><span class="icon-status mr-1">🟦</span>Selecionado</span
+        >
+        <span class="badge badge-confirmado"
+          ><span class="icon-status mr-1">🟩</span>Confirmado</span
+        >
+        <span class="badge badge-analise"
+          ><span class="icon-status mr-1">🟨</span>Em processo</span
+        >
+        <span class="badge badge-outros"
+          ><span class="icon-status mr-1">🔘</span>Outros</span
+        >
       </div>
 
       <!-- Botão Solicitar Uso -->
@@ -101,63 +138,109 @@
 </div>
 
 <!-- Modal de Minhas Solicitações -->
-<div class="modal fade" id="modalAgendamentoStatus" tabindex="-1" role="dialog" aria-labelledby="modalAgendamentoStatusLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="modalAgendamentoStatus"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalAgendamentoStatusLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content modal-solicitacoes">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalAgendamentoStatusLabel">Minhas Solicitações</h5>
-        <button type="button" class="close btn-fechar-modal" data-dismiss="modal" aria-label="Fechar">
+        <h5 class="modal-title" id="modalAgendamentoStatusLabel">
+          Minhas Solicitações
+        </h5>
+        <button
+          type="button"
+          class="close btn-fechar-modal"
+          data-dismiss="modal"
+          aria-label="Fechar"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body modal-scroll">
         {% if solicitacoes %}
-          <ul class="list-group lista-solicitacoes">
-            {% for s in solicitacoes %}
-              <li class="list-group-item item-solicitacao d-flex justify-content-between align-items-start">
-                <div class="info-solicitacao">
-                  <p class="mb-1"><strong>Horário:</strong> {{ s.horario.texto }} – {{ s.horario.data.strftime('%d/%m/%Y') }}</p>
-                  <p class="mb-1"><strong>Sala:</strong> {{ s.sala.nome_sala }} – {{ s.sala.numero_sala }} – Bloco {{ s.sala.bloco }}</p>
-                  {% if s.justificativa %}
-                    <p class="mb-1"><strong>Justificativa:</strong> {{ s.justificativa }}</p>
-                  {% endif %}
-                </div>
-                <div class="acoes-solicitacao text-right ml-3">
-                  <span class="badge 
-                    {% if s.status == 'Pendente Tecnico' %}badge-analise
-                    {% elif s.status == 'Agendado' %}badge-confirmado
-                    {% elif s.status == 'Cancelado pelo professor' %}badge-outros
-                    {% else %}badge-outros{% endif %}">
-                    {% if s.status == 'Pendente Tecnico' %}<span class="icon-status mr-1">🟨</span> Aguardando análise do Técnico
-                    {% elif s.status == 'Agendado' %}<span class="icon-status mr-1">🟩</span> Confirmado
-                    {% elif s.status == 'Cancelado pelo professor' %}<span class="icon-status mr-1">⚪</span> Cancelado
-                    {% else %}<span class="icon-status mr-1">🔘</span> {{ s.status }}
-                    {% endif %}
-                  </span>
-                  {% if s.status in ['Pendente Tecnico', 'Agendado'] %}
-                    <form method="POST" action="{{ url_for('professor.cancelar_solicitacao', id=s.id_solicitacao) }}" class="form-cancelar-solicitacao mt-2" onsubmit="return confirm('Deseja cancelar esta solicitação?')">
-                      <button class="btn btn-cancelar btn-sm d-flex align-items-center">
-                        <span class="icon-cancelar mr-2"><i class="bi bi-x-circle-fill"></i></span> Cancelar
-                      </button>
-                    </form>
-                  {% endif %}
-                </div>
-              </li>
-            {% endfor %}
-          </ul>
+        <ul class="list-group lista-solicitacoes">
+          {% for s in solicitacoes %}
+          <li
+            class="list-group-item item-solicitacao d-flex justify-content-between align-items-start"
+          >
+            <div class="info-solicitacao">
+              <p class="mb-1">
+                <strong>Horário:</strong> {{ s.horario.texto }} – {{
+                s.horario.data.strftime('%d/%m/%Y') }}
+              </p>
+              <p class="mb-1">
+                <strong>Sala:</strong> {{ s.sala.nome_sala }} – {{
+                s.sala.numero_sala }} – Bloco {{ s.sala.bloco }}
+              </p>
+              {% if s.justificativa %}
+              <p class="mb-1">
+                <strong>Justificativa:</strong> {{ s.justificativa }}
+              </p>
+              {% endif %}
+            </div>
+            <div class="acoes-solicitacao text-right ml-3">
+              <span
+                class="badge {% if s.status == 'Pendente Tecnico' %}badge-analise {% elif s.status == 'Agendado' %}badge-confirmado {% elif s.status == 'Cancelado pelo professor' %}badge-outros {% else %}badge-outros{% endif %}"
+              >
+                {% if s.status == 'Pendente Tecnico' %}<span
+                  class="icon-status mr-1"
+                  >🟨</span
+                >
+                Aguardando análise do Técnico {% elif s.status == 'Agendado'
+                %}<span class="icon-status mr-1">🟩</span> Confirmado {% elif
+                s.status == 'Cancelado pelo professor' %}<span
+                  class="icon-status mr-1"
+                  >⚪</span
+                >
+                Cancelado {% else %}<span class="icon-status mr-1">🔘</span> {{
+                s.status }} {% endif %}
+              </span>
+              {% if s.status in ['Pendente Tecnico', 'Agendado'] %}
+              <form
+                method="POST"
+                action="{{ url_for('professor.cancelar_solicitacao', id=s.id_solicitacao) }}"
+                class="form-cancelar-solicitacao mt-2"
+                onsubmit="return confirm('Deseja cancelar esta solicitação?')"
+              >
+                <button
+                  class="btn btn-cancelar btn-sm d-flex align-items-center"
+                >
+                  <span class="icon-cancelar mr-2"
+                    ><i class="bi bi-x-circle-fill"></i
+                  ></span>
+                  Cancelar
+                </button>
+              </form>
+              {% endif %}
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
         {% else %}
-          <p class="text-muted">Nenhuma solicitação feita até o momento.</p>
+        <p class="text-muted">Nenhuma solicitação feita até o momento.</p>
         {% endif %}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-fechar-modal" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-fechar-modal" data-dismiss="modal">
+          Fechar
+        </button>
       </div>
     </div>
   </div>
 </div>
-{% endblock %}
-
-{% block extra_scripts %}
-  <script src="{{ url_for('static', filename='js/professor_dashboard.js') }}"></script>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/professor_dashboard.css') }}">
+{% endblock %} {% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/professor_dashboard.js') }}"></script>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/professor_dashboard.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+/>
 {% endblock %}
