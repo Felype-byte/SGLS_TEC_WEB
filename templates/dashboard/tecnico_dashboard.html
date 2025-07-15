@@ -73,7 +73,7 @@
               <form method="POST" action="{{ url_for('tecnico.excluir_sala', id=sala.id_sala) }}" class="mb-0">
                 <button class="btn btn-danger btn-sm d-flex align-items-center gap-1" aria-label="Excluir Sala" type="submit">
                   <i class="fa-solid fa-trash"></i>
-                  <span class="d-none d-md-inline">Excluir</span>
+                  <span class="d-none d-md-inline" onclick="return confirm('Tem certeza que quer excluir a sala?')">Excluir</span>
                 </button>
               </form>
             </li>
