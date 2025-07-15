@@ -1,252 +1,408 @@
-{% extends 'base_dashboard_tecnico.html' %}
+{% extends 'base_dashboard_tecnico.html' %} {% block head %} {{ super() }}
+<!-- Bootstrap Icons ou FontAwesome para os ícones -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/tecnico_dashboard.css') }}"
+/>
+{% endblock %} {% block title %}Painel Técnico – SGHL{% endblock %} {% block
+page_title %}Painel Técnico{% endblock %} {% block content %}
 
-{% block head %}
-  {{ super() }}
-  <!-- Bootstrap Icons ou FontAwesome para os ícones -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/tecnico_dashboard.css') }}">
-{% endblock %}
-
-{% block title %}Painel Técnico – SGHL{% endblock %}
-{% block page_title %}Painel Técnico{% endblock %}
-
-{% block content %}
-
-  <!-- Top Sticky Header -->
-  <div class="dashboard-header sticky-top shadow-sm">
-    <div class="container-painel-header">
-      <h2><i class="fa-solid fa-sliders"></i> Painel Técnico</h2>
-    </div>
+<!-- Top Sticky Header -->
+<div class="dashboard-header sticky-top shadow-sm">
+  <div class="container-painel-header">
+    <h2><i class="fa-solid fa-sliders"></i> Painel Técnico</h2>
   </div>
+</div>
 
-  <!-- Toast Notifications -->
-  <div id="toast-area" aria-live="polite" aria-atomic="true"></div>
+<!-- Toast Notifications -->
+<div id="toast-area" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Flash Messages -->
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      <div class="container-painel mb-4">
-        {% for category, msg in messages %}
-          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-            <i class="fa-solid fa-circle-info"></i> {{ msg }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
-              <span aria-hidden="true">&times;</span>
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %} {% if messages
+%}
+<div class="container-painel mb-4">
+  {% for category, msg in messages %}
+  <div
+    class="alert alert-{{ category }} alert-dismissible fade show"
+    role="alert"
+  >
+    <i class="fa-solid fa-circle-info"></i> {{ msg }}
+    <button
+      type="button"
+      class="close"
+      data-dismiss="alert"
+      aria-label="Fechar"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<main class="dashboard-content">
+  <!-- Gerenciamento de Salas -->
+  <section class="card mb-4 fade-in">
+    <div class="card-body">
+      <h3 class="card-title">
+        <i class="fa-solid fa-door-open"></i> Gerenciamento de Salas
+      </h3>
+      <form
+        method="POST"
+        action="{{ url_for('tecnico.criar_sala') }}"
+        class="row g-3 align-items-end mb-3 needs-validation"
+        novalidate
+      >
+        <div class="col-md-4">
+          <label for="nome_sala" class="form-label">Nome da Sala</label>
+          <input
+            id="nome_sala"
+            name="nome_sala"
+            class="form-control"
+            placeholder="Nome da Sala"
+            required
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="numero_sala" class="form-label">Número</label>
+          <input
+            id="numero_sala"
+            name="numero_sala"
+            class="form-control"
+            placeholder="Número"
+            required
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="bloco" class="form-label">Bloco</label>
+          <input
+            id="bloco"
+            name="bloco"
+            class="form-control"
+            placeholder="Bloco"
+            required
+          />
+        </div>
+        <div class="col-12 d-flex justify-content-end mt-2">
+          <button class="btn btn-success btn-lg px-4" type="submit">
+            <i class="fa-solid fa-plus"></i> Criar Sala
+          </button>
+        </div>
+      </form>
+      <ul
+        class="list-group list-group-flush mb-0 salas-list"
+        aria-label="Lista de Salas"
+      >
+        {% for sala in salas %}
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center gap-2 py-3"
+        >
+          <span>
+            <i class="fa-solid fa-door-closed"></i>
+            <b>{{ sala.nome_sala }}</b> – Sala {{ sala.numero_sala }} – Bloco {{
+            sala.bloco }}
+          </span>
+          <form
+            method="POST"
+            action="{{ url_for('tecnico.excluir_sala', id=sala.id_sala) }}"
+            class="mb-0"
+          >
+            <button
+              class="btn btn-danger btn-sm d-flex align-items-center gap-1"
+              aria-label="Excluir Sala"
+              type="submit"
+            >
+              <i class="fa-solid fa-trash"></i>
+              <span class="d-none d-md-inline">Excluir</span>
             </button>
-          </div>
+          </form>
+        </li>
         {% endfor %}
-      </div>
-    {% endif %}
-  {% endwith %}
+      </ul>
+    </div>
+  </section>
 
-  <main class="dashboard-content">
+  <!-- Visualizar Horários por Sala e Data -->
+  <section class="card mb-4 fade-in">
+    <div class="card-body">
+      <h3 class="card-title">
+        <i class="fa-regular fa-calendar-check"></i> Visualizar Horários por
+        Sala e Data
+      </h3>
+      <form
+        method="POST"
+        action="{{ url_for('tecnico.visualizar_horarios_por_data') }}"
+        class="row g-3 align-items-end needs-validation"
+        novalidate
+      >
+        <div class="col-md-5">
+          <label class="form-label" for="sala_id_select">Sala</label>
+          <select
+            id="sala_id_select"
+            name="sala_id"
+            class="form-control"
+            required
+          >
+            <option disabled selected value="">Escolha a Sala...</option>
+            {% for sala in salas %}
+            <option value="{{ sala.id_sala }}">
+              {{ sala.nome_sala }} – {{ sala.numero_sala }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-5">
+          <label class="form-label" for="data">Data</label>
+          <input
+            id="data"
+            type="date"
+            name="data"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col-md-2 d-flex justify-content-end align-items-end">
+          <button class="btn-ver-horarios" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span class="d-none d-md-inline">Ver Horários</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
 
-    <!-- Gerenciamento de Salas -->
-    <section class="card mb-4 fade-in">
-      <div class="card-body">
-        <h3 class="card-title"><i class="fa-solid fa-door-open"></i> Gerenciamento de Salas</h3>
-        <form method="POST" action="{{ url_for('tecnico.criar_sala') }}" class="row g-3 align-items-end mb-3 needs-validation" novalidate>
+  <!-- Inserir Horários Selecionados por Intervalo -->
+  <section class="card mb-4 fade-in">
+    <div class="card-body">
+      <h3 class="card-title">
+        <i class="fa-solid fa-clock"></i> Inserir Horários Selecionados
+        <span class="fs-6 text-muted">(Somente Dias Úteis)</span>
+      </h3>
+      <form
+        id="form-inserir-intervalo"
+        method="POST"
+        action="{{ url_for('tecnico.inserir_horarios_selecionados') }}"
+        class="needs-validation"
+        novalidate
+      >
+        <div class="row g-3 align-items-end mb-3">
           <div class="col-md-4">
-            <label for="nome_sala" class="form-label">Nome da Sala</label>
-            <input id="nome_sala" name="nome_sala" class="form-control" placeholder="Nome da Sala" required>
-          </div>
-          <div class="col-md-4">
-            <label for="numero_sala" class="form-label">Número</label>
-            <input id="numero_sala" name="numero_sala" class="form-control" placeholder="Número" required>
-          </div>
-          <div class="col-md-4">
-            <label for="bloco" class="form-label">Bloco</label>
-            <input id="bloco" name="bloco" class="form-control" placeholder="Bloco" required>
-          </div>
-          <div class="col-12 d-flex justify-content-end mt-2">
-            <button class="btn btn-success btn-lg px-4" type="submit">
-              <i class="fa-solid fa-plus"></i> Criar Sala
-            </button>
-          </div>
-        </form>
-        <ul class="list-group list-group-flush mb-0 salas-list" aria-label="Lista de Salas">
-          {% for sala in salas %}
-            <li class="list-group-item d-flex justify-content-between align-items-center gap-2 py-3">
-              <span>
-                <i class="fa-solid fa-door-closed"></i>
-                <b>{{ sala.nome_sala }}</b> – Sala {{ sala.numero_sala }} – Bloco {{ sala.bloco }}
-              </span>
-              <form method="POST" action="{{ url_for('tecnico.excluir_sala', id=sala.id_sala) }}" class="mb-0">
-                <button class="btn btn-danger btn-sm d-flex align-items-center gap-1" aria-label="Excluir Sala" type="submit">
-                  <i class="fa-solid fa-trash"></i>
-                  <span class="d-none d-md-inline">Excluir</span>
-                </button>
-              </form>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </section>
-
-    <!-- Visualizar Horários por Sala e Data -->
-    <section class="card mb-4 fade-in">
-      <div class="card-body">
-        <h3 class="card-title"><i class="fa-regular fa-calendar-check"></i> Visualizar Horários por Sala e Data</h3>
-        <form method="POST" action="{{ url_for('tecnico.visualizar_horarios_por_data') }}" class="row g-3 align-items-end needs-validation" novalidate>
-          <div class="col-md-5">
-            <label class="form-label" for="sala_id_select">Sala</label>
-            <select id="sala_id_select" name="sala_id" class="form-control" required>
-              <option disabled selected value="">Escolha a Sala...</option>
-              {% for sala in salas %}
-                <option value="{{ sala.id_sala }}">{{ sala.nome_sala }} – {{ sala.numero_sala }}</option>
-              {% endfor %}
-            </select>
-          </div>
-          <div class="col-md-5">
-            <label class="form-label" for="data">Data</label>
-            <input id="data" type="date" name="data" class="form-control" required>
-          </div>
-          <div class="col-md-2 d-flex justify-content-end align-items-end">
-            <button class="btn-ver-horarios" type="submit">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <span class="d-none d-md-inline">Ver Horários</span>
-            </button>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- Inserir Horários Selecionados por Intervalo -->
-    <section class="card mb-4 fade-in">
-      <div class="card-body">
-        <h3 class="card-title"><i class="fa-solid fa-clock"></i> Inserir Horários Selecionados <span class="fs-6 text-muted">(Somente Dias Úteis)</span></h3>
-        <form id="form-inserir-intervalo" method="POST" action="{{ url_for('tecnico.inserir_horarios_selecionados') }}" class="needs-validation" novalidate>
-          <div class="row g-3 align-items-end mb-3">
-            <div class="col-md-4">
-              <label class="form-label" for="sala_id_intervalo">Sala</label>
-              <select id="sala_id_intervalo" name="sala_id" class="form-control" required>
-                <option disabled selected>Selecione a sala...</option>
-                {% for sala in salas %}
-                  <option value="{{ sala.id_sala }}">{{ sala.nome_sala }} – {{ sala.numero_sala }}</option>
-                {% endfor %}
-              </select>
-            </div>
-            <div class="col-md-3">
-              <label class="form-label" for="data_inicio">Data Início</label>
-              <input id="data_inicio" type="date" name="data_inicio" class="form-control" required>
-            </div>
-            <div class="col-md-3">
-              <label class="form-label" for="data_fim">Data Fim</label>
-              <input id="data_fim" type="date" name="data_fim" class="form-control" required>
-            </div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label" for="nome_bloco">Nome do Bloco / Semestre</label>
-            <input id="nome_bloco" type="text" name="nome_bloco" class="form-control" placeholder="Ex: Semestre 1, Plantão Técnico" required>
-          </div>
-          <div class="table-responsive mb-3">
-            <table class="table table-sm align-middle" id="tabela-horarios-intervalo">
-              <thead>
-                <tr>
-                  <th>Início</th>
-                  <th>Fim</th>
-                  <th style="width:48px"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="linha-horario">
-                  <td><input type="time" name="hora_inicio" class="form-control" required></td>
-                  <td><input type="time" name="hora_fim" class="form-control" required></td>
-                  <td class="text-center">
-                    <button type="button" class="btn btn-outline-danger btn-remove" aria-label="Remover linha">
-                      <i class="fa-solid fa-times"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="3">
-                    <button type="button" id="btn-add-horario-intervalo" class="btn btn-outline-success w-100">
-                      <i class="fa-solid fa-plus"></i> Adicionar Linha
-                    </button>
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-          <div id="spinner-loading" style="display:none;" class="text-center mb-3">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Carregando...</span>
-            </div>
-          </div>
-          <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-success btn-lg px-4">
-              <i class="fa-solid fa-check"></i> Inserir Selecionados
-            </button>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- Visualizar e Excluir Todos os Horários de uma Sala -->
-    <section class="card mb-4 fade-in">
-      <div class="card-body">
-        <h3 class="card-title"><i class="fa-solid fa-eye"></i> Visualizar e Excluir Todos os Horários Existentes de uma Sala</h3>
-        <form method="POST" action="{{ url_for('tecnico.ver_horarios_por_sala') }}" class="row g-3 align-items-end">
-          <div class="col-md-10">
-            <label class="form-label" for="sala_id_todos">Sala</label>
-            <select id="sala_id_todos" name="sala_id" class="form-control" required>
+            <label class="form-label" for="sala_id_intervalo">Sala</label>
+            <select
+              id="sala_id_intervalo"
+              name="sala_id"
+              class="form-control"
+              required
+            >
               <option disabled selected>Selecione a sala...</option>
               {% for sala in salas %}
-                <option value="{{ sala.id_sala }}">{{ sala.nome_sala }} – Sala {{ sala.numero_sala }}</option>
+              <option value="{{ sala.id_sala }}">
+                {{ sala.nome_sala }} – {{ sala.numero_sala }}
+              </option>
               {% endfor %}
             </select>
           </div>
-          <div class="col-md-2 d-flex justify-content-end align-items-end">
-            <button class="btn-ver-horarios" type="submit">
-              <i class="fa-solid fa-eye"></i>
-              <span class="d-none d-md-inline">Ver Horários</span>
-            </button>
+          <div class="col-md-3">
+            <label class="form-label" for="data_inicio">Data Início</label>
+            <input
+              id="data_inicio"
+              type="date"
+              name="data_inicio"
+              class="form-control"
+              required
+            />
           </div>
-        </form>
-      </div>
-    </section>
-  </main>
+          <div class="col-md-3">
+            <label class="form-label" for="data_fim">Data Fim</label>
+            <input
+              id="data_fim"
+              type="date"
+              name="data_fim"
+              class="form-control"
+              required
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="nome_bloco"
+            >Nome do Bloco / Semestre</label
+          >
+          <input
+            id="nome_bloco"
+            type="text"
+            name="nome_bloco"
+            class="form-control"
+            placeholder="Ex: Semestre 1, Plantão Técnico"
+            required
+          />
+        </div>
+        <div class="table-responsive mb-3">
+          <table
+            class="table table-sm align-middle"
+            id="tabela-horarios-intervalo"
+          >
+            <thead>
+              <tr>
+                <th>Início</th>
+                <th>Fim</th>
+                <th style="width: 48px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="linha-horario">
+                <td>
+                  <input
+                    type="time"
+                    name="hora_inicio"
+                    class="form-control"
+                    required
+                  />
+                </td>
+                <td>
+                  <input
+                    type="time"
+                    name="hora_fim"
+                    class="form-control"
+                    required
+                  />
+                </td>
+                <td class="text-center">
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-remove"
+                    aria-label="Remover linha"
+                  >
+                    <i class="fa-solid fa-times"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3">
+                  <button
+                    type="button"
+                    id="btn-add-horario-intervalo"
+                    class="btn btn-outline-success w-100"
+                  >
+                    <i class="fa-solid fa-plus"></i> Adicionar Linha
+                  </button>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div
+          id="spinner-loading"
+          style="display: none"
+          class="text-center mb-3"
+        >
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Carregando...</span>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-success btn-lg px-4">
+            <i class="fa-solid fa-check"></i> Inserir Selecionados
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
 
-  <!-- Transições e microinterações (suave fade in) -->
-  <style>
-    .fade-in { animation: fadeIn 0.8s cubic-bezier(.44,.21,.27,.97); }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px);}
-      to   { opacity: 1; transform: none;}
+  <!-- Visualizar e Excluir Todos os Horários de uma Sala -->
+  <section class="card mb-4 fade-in">
+    <div class="card-body">
+      <h3 class="card-title">
+        <i class="fa-solid fa-eye"></i> Visualizar e Excluir Todos os Horários
+        Existentes de uma Sala
+      </h3>
+      <form
+        method="POST"
+        action="{{ url_for('tecnico.ver_horarios_por_sala') }}"
+        class="row g-3 align-items-end"
+      >
+        <div class="col-md-10">
+          <label class="form-label" for="sala_id_todos">Sala</label>
+          <select
+            id="sala_id_todos"
+            name="sala_id"
+            class="form-control"
+            required
+          >
+            <option disabled selected>Selecione a sala...</option>
+            {% for sala in salas %}
+            <option value="{{ sala.id_sala }}">
+              {{ sala.nome_sala }} – Sala {{ sala.numero_sala }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-2 d-flex justify-content-end align-items-end">
+          <button class="btn-ver-horarios" type="submit">
+            <i class="fa-solid fa-eye"></i>
+            <span class="d-none d-md-inline">Ver Horários</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- Transições e microinterações (suave fade in) -->
+<style>
+  .fade-in {
+    animation: fadeIn 0.8s cubic-bezier(0.44, 0.21, 0.27, 0.97);
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
     }
-  </style>
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Adicionar/Remover linhas da tabela
-      const tbody = document.querySelector('#tabela-horarios-intervalo tbody');
-      const btnAdd = document.getElementById('btn-add-horario-intervalo');
-      btnAdd.addEventListener('click', () => {
-        const nova = tbody.querySelector('.linha-horario').cloneNode(true);
-        nova.querySelectorAll('input').forEach(i => i.value = '');
-        tbody.appendChild(nova);
-      });
-      tbody.addEventListener('click', e => {
-        if (e.target.closest('.btn-remove')) {
-          const rows = tbody.querySelectorAll('tr');
-          if (rows.length > 1) e.target.closest('tr').remove();
-        }
-      });
-      // Spinner loading
-      const form = document.getElementById('form-inserir-intervalo');
-      const spinner = document.getElementById('spinner-loading');
-      form.addEventListener('submit', () => { spinner.style.display = 'block'; });
-
-      // Toast Example (melhor feedback visual)
-      window.toast = function(msg, type='info') {
-        const area = document.getElementById('toast-area');
-        const el = document.createElement('div');
-        el.className = `toast toast-${type}`;
-        el.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${msg}`;
-        area.appendChild(el);
-        setTimeout(()=>el.remove(), 3500);
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Adicionar/Remover linhas da tabela
+    const tbody = document.querySelector("#tabela-horarios-intervalo tbody");
+    const btnAdd = document.getElementById("btn-add-horario-intervalo");
+    btnAdd.addEventListener("click", () => {
+      const nova = tbody.querySelector(".linha-horario").cloneNode(true);
+      nova.querySelectorAll("input").forEach((i) => (i.value = ""));
+      tbody.appendChild(nova);
+    });
+    tbody.addEventListener("click", (e) => {
+      if (e.target.closest(".btn-remove")) {
+        const rows = tbody.querySelectorAll("tr");
+        if (rows.length > 1) e.target.closest("tr").remove();
       }
     });
-  </script>
+    // Spinner loading
+    const form = document.getElementById("form-inserir-intervalo");
+    const spinner = document.getElementById("spinner-loading");
+    form.addEventListener("submit", () => {
+      spinner.style.display = "block";
+    });
+
+    // Toast Example (melhor feedback visual)
+    window.toast = function (msg, type = "info") {
+      const area = document.getElementById("toast-area");
+      const el = document.createElement("div");
+      el.className = `toast toast-${type}`;
+      el.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${msg}`;
+      area.appendChild(el);
+      setTimeout(() => el.remove(), 3500);
+    };
+  });
+</script>
+
 {% endblock %}
