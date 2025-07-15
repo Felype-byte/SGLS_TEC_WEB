@@ -1,155 +1,219 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <title>{% block title %}SGHL – Painel do Aluno{% endblock %}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}SGHL – Painel do Aluno{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Google Fonts: Inter (opcional, mas recomendado) -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap">
+    <!-- Google Fonts: Inter (opcional, mas recomendado) -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap"
+    />
 
-  <!-- Bootstrap & Ícones -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-  <!-- Seu CSS principal do painel do aluno -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/base_dashboard_aluno.css') }}">
-  {% block head %}{% endblock %}
-</head>
-<body>
+    <!-- Bootstrap & Ícones -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <!-- Seu CSS principal do painel do aluno -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/base_dashboard_aluno.css') }}"
+    />
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <!-- 🔝 Topbar -->
+    <div class="topbar">
+      <!-- faixa branca vertical com logo UFC -->
+      <div class="topbar-logo-container">
+        <img
+          src="{{ url_for('static', filename='img/logo_ufc.png') }}"
+          alt="Logo UFC"
+          class="logo-ufc"
+        />
+      </div>
 
-  <!-- 🔝 Topbar -->
-  <div class="topbar">
-    <!-- faixa branca vertical com logo UFC -->
-    <div class="topbar-logo-container">
-      <img src="{{ url_for('static', filename='img/logo_ufc.png') }}" alt="Logo UFC" class="logo-ufc" />
+      <!-- conteúdo da esquerda (título e saudação) -->
+      <div class="topbar-left">
+        <h1>SGHL – Sistema de Gerenciamento de Laboratórios</h1>
+        <span>👋 Olá, {{ current_user.aluno.nome_completo }} — Aluno</span>
+      </div>
+
+      <!-- conteúdo da direita (botões) -->
+      <div class="logout d-flex">
+        <button
+          class="btn btn-sm btn-agendamentos"
+          data-toggle="modal"
+          data-target="#modalAgendamentoStatus"
+        >
+          <i class="bi bi-clipboard"></i> Meus Agendamentos
+        </button>
+        <a class="btn btn-sm btn-sair ml-2" href="{{ url_for('logout') }}">
+          <i class="bi bi-box-arrow-right"></i> Sair
+        </a>
+      </div>
+
+      <!-- linha amarela sobre a faixa branca -->
+      <div class="linha-amarela"></div>
     </div>
 
-    <!-- conteúdo da esquerda (título e saudação) -->
-    <div class="topbar-left">
-      <h1>SGHL – Sistema de Gerenciamento de Laboratórios</h1>
-      <span>👋 Olá, {{ current_user.aluno.nome_completo }} — Aluno</span>
-    </div>
-
-    <!-- conteúdo da direita (botões) -->
-    <div class="logout d-flex">
-      <button class="btn btn-sm btn-agendamentos" data-toggle="modal" data-target="#modalAgendamentoStatus">
-        <i class="bi bi-clipboard"></i> Meus Agendamentos
-      </button>
-      <a class="btn btn-sm btn-sair ml-2" href="{{ url_for('logout') }}">
-        <i class="bi bi-box-arrow-right"></i> Sair
-      </a>
-    </div>
-
-    <!-- linha amarela sobre a faixa branca -->
-    <div class="linha-amarela"></div>
-  </div>
-
-  <!-- 📦 Conteúdo principal -->
-  <div class="container-painel" role="main">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="mb-4">{% block page_title %}{% endblock %}</h4>
-        {% block content %}{% endblock %}
+    <!-- 📦 Conteúdo principal -->
+    <div class="container-painel" role="main">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="mb-4">{% block page_title %}{% endblock %}</h4>
+          {% block content %}{% endblock %}
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- 🔻 Rodapé -->
-  <footer>
-    SGHL | © 2025 – Divisão de Tecnologia da Informação – UFC Sobral
-  </footer>
+    <!-- 🔻 Rodapé -->
+    <footer>
+      SGHL | © 2025 – Divisão de Tecnologia da Informação – UFC Sobral
+    </footer>
 
-  <!-- 📋 Modal “Meus Agendamentos” -->
-  <div class="modal fade" id="modalAgendamentoStatus" tabindex="-1" role="dialog"
-       aria-labelledby="modalAgendamentoStatusLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
+    <!-- 📋 Modal “Meus Agendamentos” -->
+    <div
+      class="modal fade"
+      id="modalAgendamentoStatus"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="modalAgendamentoStatusLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5
+              class="modal-title font-weight-bold"
+              id="modalAgendamentoStatusLabel"
+            >
+              <i class="bi bi-calendar-check mr-2"></i> Meus Agendamentos
+            </h5>
+            <button
+              type="button"
+              class="close text-white"
+              data-dismiss="modal"
+              aria-label="Fechar"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
 
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title font-weight-bold" id="modalAgendamentoStatusLabel">
-            <i class="bi bi-calendar-check mr-2"></i> Meus Agendamentos
-          </h5>
-          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Fechar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="modal-body">
-          {% if solicitacoes %}
+          <div class="modal-body">
+            {% if solicitacoes %}
             <ul class="list-group">
               {% for s in solicitacoes %}
-                <li class="list-group-item bg-white mb-3 p-3 rounded shadow-sm">
-                  <div class="d-flex justify-content-between flex-column flex-md-row">
-                    <!-- Infos do agendamento -->
-                    <div class="mb-2 mb-md-0">
-                      <div class="font-weight-bold text-dark mb-1">
-                        {{ s.horario.texto }} – {{ s.horario.data.strftime('%d/%m/%Y') }}
-                      </div>
-                      <div class="text-muted small">
-                        Sala: {{ s.sala.nome_sala }} – {{ s.sala.numero_sala }} – Bloco {{ s.sala.bloco }}<br>
-                        {% if s.justificativa %}
-                          Justificativa: {{ s.justificativa }}<br>
-                        {% endif %}
-                        {% if s.professor %}
-                          Professor: {{ s.professor.nome_completo }}
-                        {% endif %}
-                      </div>
+              <li class="list-group-item bg-white mb-3 p-3 rounded shadow-sm">
+                <div
+                  class="d-flex justify-content-between flex-column flex-md-row"
+                >
+                  <!-- Infos do agendamento -->
+                  <div class="mb-2 mb-md-0">
+                    <div class="font-weight-bold text-dark mb-1">
+                      {{ s.horario.texto }} – {{
+                      s.horario.data.strftime('%d/%m/%Y') }}
                     </div>
-                    <!-- Ações e status -->
-                    <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-2 mt-3 mt-md-0">
-                      <span class="badge px-3 py-2 
-                        {% if s.status == 'Pendente Professor' or s.status == 'Pendente Tecnico' %}badge-warning
-                        {% elif s.status == 'Agendado' %}badge-success
-                        {% elif s.status == 'Negado Professor' or s.status == 'Negado Tecnico' %}badge-danger
-                        {% elif s.status == 'Cancelado pelo aluno' %}badge-secondary
-                        {% else %}badge-secondary{% endif %}">
-                        {% if s.status == 'Pendente Professor' %}🟡 Aguardando aprovação do Professor
-                        {% elif s.status == 'Pendente Tecnico' %}🟡 Aguardando análise do Técnico
-                        {% elif s.status == 'Agendado' %}✅ Confirmado
-                        {% elif s.status == 'Negado Professor' %}❌ Recusado pelo Professor
-                        {% elif s.status == 'Negado Tecnico' %}❌ Recusado pelo Técnico
-                        {% elif s.status == 'Cancelado pelo aluno' %}⚪ Cancelado pelo Aluno
-                        {% else %}🔘 {{ s.status }}
-                        {% endif %}
-                      </span>
-                      {% if s.status in ['Pendente Professor', 'Pendente Tecnico', 'Agendado'] %}
-                        <form method="post"
-                              action="{{ url_for('aluno.cancelar_agendamento', solicitacao_id=s.id_solicitacao) }}"
-                              class="mb-0"
-                              onsubmit="return confirm('Tem certeza que deseja cancelar este agendamento?');">
-                          <button type="submit" class="btn btn-outline-danger btn-sm d-flex align-items-center">
-                            <i class="bi bi-x-circle mr-1"></i> Cancelar
-                          </button>
-                        </form>
-                      {% endif %}
-                      {% if s.status == 'Agendado' %}
-                        <a href="#" class="btn btn-outline-primary btn-sm d-flex align-items-center">
-                          <i class="bi bi-printer mr-1"></i> Imprimir Certificado
-                        </a>
-                      {% endif %}
+                    <div class="text-muted small">
+                      Sala: {{ s.sala.nome_sala }} – {{ s.sala.numero_sala }} –
+                      Bloco {{ s.sala.bloco }}<br />
+                      {% if s.justificativa %} Justificativa: {{ s.justificativa
+                      }}<br />
+                      {% endif %} {% if s.professor %} Professor: {{
+                      s.professor.nome_completo }} {% endif %}
                     </div>
                   </div>
-                </li>
+                  <!-- Ações e status -->
+                  <div
+                    class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-2 mt-3 mt-md-0"
+                  >
+                    <span
+                      class="badge px-3 py-2 {% if s.status == 'Pendente Professor' or s.status == 'Pendente Tecnico' %}badge-warning {% elif s.status == 'Agendado' %}badge-success {% elif s.status == 'Negado Professor' or s.status == 'Negado Tecnico' %}badge-danger {% elif s.status == 'Cancelado pelo aluno' %}badge-secondary {% else %}badge-secondary{% endif %}"
+                    >
+                      {% if s.status == 'Pendente Professor' %}🟡 Aguardando
+                      aprovação do Professor {% elif s.status == 'Pendente
+                      Tecnico' %}🟡 Aguardando análise do Técnico {% elif
+                      s.status == 'Agendado' %}✅ Confirmado {% elif s.status ==
+                      'Negado Professor' %}❌ Recusado pelo Professor {% elif
+                      s.status == 'Negado Tecnico' %}❌ Recusado pelo Técnico {%
+                      elif s.status == 'Cancelado pelo aluno' %}⚪ Cancelado
+                      pelo Aluno {% else %}🔘 {{ s.status }} {% endif %}
+                    </span>
+                    {% if s.status in ['Pendente Professor', 'Pendente Tecnico',
+                    'Agendado'] %}
+                    <form
+                      method="post"
+                      action="{{ url_for('aluno.cancelar_agendamento', solicitacao_id=s.id_solicitacao) }}"
+                      class="mb-0"
+                      onsubmit="return confirm('Tem certeza que deseja cancelar este agendamento?');"
+                    >
+                      <button
+                        type="submit"
+                        class="btn btn-outline-danger btn-sm d-flex align-items-center"
+                      >
+                        <i class="bi bi-x-circle mr-1"></i> Cancelar
+                      </button>
+                    </form>
+                    {% endif %} {% if s.status == 'Agendado' %}
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary btn-sm d-flex align-items-center btn-imprimir"
+                      data-aluno-nome="{{ current_user.aluno.nome_completo }}"
+                      data-aluno-matricula="{{ current_user.aluno.matricula | default('Não informada', true) }}"
+                      data-sala-info="{{ s.sala.nome_sala }} (Bloco {{ s.sala.bloco }} – Sala {{ s.sala.numero_sala }})"
+                      data-data="{{ s.horario.data.strftime('%d de %B de %Y') }}"
+                      data-horario="{{ s.horario.texto }}"
+                      data-professor="{{ s.professor.nome_completo }}"
+                      data-justificativa="{{ s.justificativa | default('Não especificada', true) }}"
+                      data-solicitacao-id="{{ s.id_solicitacao }}"
+                    >
+                      <i class="bi bi-printer mr-1"></i> Imprimir Comprovante
+                    </button>
+                    {% endif %}
+                  </div>
+                </div>
+              </li>
               {% endfor %}
             </ul>
-          {% else %}
+            {% else %}
             <p class="text-muted">Você não possui agendamentos registrados.</p>
-          {% endif %}
-        </div>
+            {% endif %}
+          </div>
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Fechar
+            </button>
+          </div>
         </div>
-
       </div>
     </div>
-  </div>
 
-  <!-- Scripts Bootstrap -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <!-- Scripts Bootstrap -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
 
-  {% block extra_scripts %}{% endblock %}
-</body>
+    {% block extra_scripts %}{% endblock %}
+  </body>
 </html>

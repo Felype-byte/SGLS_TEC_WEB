@@ -1,7 +1,7 @@
 :root {
-  --azul-ufc: #003F6F;
+  --azul-ufc: #003f6f;
   --azul-ufc-dark: #002e53;
-  --amarelo-ufc: #F2A900;
+  --amarelo-ufc: #f2a900;
   --cinza-claro: #f4f7fb;
   --cinza-neutro: #666666;
   --branco: #ffffff;
@@ -9,10 +9,11 @@
 }
 
 /* === BASE E BACKGROUND === */
-body, html {
+body,
+html {
   background: var(--cinza-claro);
   color: var(--cinza-neutro);
-  font-family: 'Inter', 'Segoe UI', Arial, Helvetica, sans-serif;
+  font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
   font-size: 1.04rem;
   letter-spacing: 0.01em;
   min-height: 100vh;
@@ -46,7 +47,7 @@ body, html {
   align-items: center;
   justify-content: center;
   padding: 10px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   z-index: 2;
 }
 
@@ -95,7 +96,8 @@ body, html {
   padding: 8px 20px;
   font-weight: 700;
   font-size: 1rem;
-  transition: background-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease,
+    color 0.25s ease;
   box-shadow: none;
   cursor: pointer;
   display: flex;
@@ -133,7 +135,7 @@ body, html {
   width: 6px;
   height: 100%;
   background: linear-gradient(180deg, var(--amarelo-ufc) 0%, #ccaa00 100%);
-  box-shadow: 1px 0 4px rgba(204,170,0,0.6);
+  box-shadow: 1px 0 4px rgba(204, 170, 0, 0.6);
   z-index: 4;
 }
 
@@ -199,13 +201,17 @@ body, html {
   width: 100%;
   height: 8px;
   background: linear-gradient(90deg, var(--amarelo-ufc), #ccaa00);
-  box-shadow: 0 2px 8px rgba(204,170,0,0.5);
+  box-shadow: 0 2px 8px rgba(204, 170, 0, 0.5);
   z-index: 10;
 }
 
 /* Cabeçalho do modal */
 .modal-header {
-  background: linear-gradient(90deg, var(--azul-ufc) 60%, var(--azul-ufc-dark) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--azul-ufc) 60%,
+    var(--azul-ufc-dark) 100%
+  );
   color: var(--branco);
   border-bottom: none;
   border-radius: 0 0 0 0;
@@ -409,4 +415,3 @@ body, html {
   color: var(--branco);
   outline: none;
 }
-

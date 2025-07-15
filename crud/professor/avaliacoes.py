@@ -1,10 +1,10 @@
 from app.models.solicitacao import Solicitacao, db
 
-# 🔍 Listar todas as solicitações pendentes para o professor
+#  Listar todas as solicitações pendentes para o professor
 def listar_pendentes_professor():
     return Solicitacao.query.filter_by(status='pendente professor').all()
 
-# ✅ Aprovar uma solicitação
+#  Aprovar uma solicitação
 def aprovar_solicitacao(id_solicitacao, parecer):
     solicitacao = Solicitacao.query.get(id_solicitacao)
     if solicitacao:
@@ -14,7 +14,7 @@ def aprovar_solicitacao(id_solicitacao, parecer):
         return True
     return False
 
-# ❌ Rejeitar uma solicitação
+#  Rejeitar uma solicitação
 def rejeitar_solicitacao(id_solicitacao, parecer):
     solicitacao = Solicitacao.query.get(id_solicitacao)
     if solicitacao:
