@@ -4,7 +4,7 @@
   --azul-claro-hover: #1746b3;
   --azul-gradiente-inicio: #2563eb;
   --azul-gradiente-fim: #2764e8;
-  --verde-botao: #48bb78;    /* Agora o verde do botão é igual ao Confirmado */
+  --verde-botao: #48bb78; /* Agora o verde do botão é igual ao Confirmado */
   --verde-botao-hover: #379964;
   --cinza-suave: #f5f6fa;
   --cinza-texto: #343a40;
@@ -13,7 +13,7 @@
   --hover-claro: #e9f5ff;
   --cinza-leve: #f8f9fa;
   --cinza-escuro: #495057;
-  --sombra-suave: 0 2px 18px rgba(0,61,115,0.06);
+  --sombra-suave: 0 2px 18px rgba(0, 61, 115, 0.06);
   --amarelo-suave: #fffbe4;
   --amarelo-borda: #ffe180;
   --verde-suave: #e8faee;
@@ -22,10 +22,11 @@
   --azul-selecionado: #e6f2ff;
 }
 
-body, html {
+body,
+html {
   background: var(--cinza-suave);
   color: var(--cinza-texto);
-  font-family: 'Segoe UI', 'Roboto', Arial, Helvetica, sans-serif;
+  font-family: "Segoe UI", "Roboto", Arial, Helvetica, sans-serif;
   min-height: 100vh;
 }
 
@@ -38,7 +39,7 @@ body, html {
 .painel-aluno-card {
   background: var(--branco);
   border-radius: 18px;
-  box-shadow: 0 4px 28px rgba(0,61,115,0.08);
+  box-shadow: 0 4px 28px rgba(0, 61, 115, 0.08);
   padding: 38px 38px 32px 38px;
   margin-bottom: 32px;
 }
@@ -71,7 +72,9 @@ body, html {
   font-size: 1.07rem;
 }
 
-.painel-input, .painel-select, .painel-section textarea {
+.painel-input,
+.painel-select,
+.painel-section textarea {
   height: 3.2rem;
   font-size: 1.13rem;
   border-radius: 11px;
@@ -81,7 +84,9 @@ body, html {
   transition: border-color 0.19s, box-shadow 0.18s;
   margin-bottom: 0.55rem;
 }
-.painel-input:focus, .painel-select:focus, textarea:focus {
+.painel-input:focus,
+.painel-select:focus,
+textarea:focus {
   border-color: var(--azul-claro);
   box-shadow: 0 0 0 2px var(--hover-claro);
   background: var(--branco);
@@ -92,10 +97,12 @@ body, html {
   resize: vertical;
 }
 
-.form-agendamento { margin-bottom: 0; }
+.form-agendamento {
+  margin-bottom: 0;
+}
 .form-bloco {
   border: none;
-  box-shadow: 0 1.5px 8px rgba(0,61,115,0.04);
+  box-shadow: 0 1.5px 8px rgba(0, 61, 115, 0.04);
 }
 
 /* BOTÃO: Ver Horários (Azul, mais discreto e menor) */
@@ -106,23 +113,32 @@ body, html {
   border-radius: 10px;
   border: none;
   color: #fff;
-  background: linear-gradient(90deg, var(--azul-gradiente-inicio) 0%, var(--azul-gradiente-fim) 100%);
-  box-shadow: 0 2px 8px rgba(37,99,235,0.07);
+  background: linear-gradient(
+    90deg,
+    var(--azul-gradiente-inicio) 0%,
+    var(--azul-gradiente-fim) 100%
+  );
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.07);
   transition: background 0.15s, color 0.12s, box-shadow 0.15s, transform 0.09s;
   display: flex;
   align-items: center;
   gap: 0.5em;
 }
-.btn-ver-horarios:hover, .btn-ver-horarios:focus {
-  background: linear-gradient(90deg, var(--azul-claro-hover) 0%, var(--azul-claro) 100%);
+.btn-ver-horarios:hover,
+.btn-ver-horarios:focus {
+  background: linear-gradient(
+    90deg,
+    var(--azul-claro-hover) 0%,
+    var(--azul-claro) 100%
+  );
   color: #fff;
-  box-shadow: 0 3px 12px rgba(37,99,235,0.11);
+  box-shadow: 0 3px 12px rgba(37, 99, 235, 0.11);
   transform: translateY(-1px) scale(1.03);
   outline: none;
 }
 .btn-ver-horarios:active {
   transform: scale(0.98);
-  box-shadow: 0 1px 5px rgba(37,99,235,0.07);
+  box-shadow: 0 1px 5px rgba(37, 99, 235, 0.07);
 }
 .btn-ver-horarios i {
   color: #fff !important;
@@ -139,22 +155,23 @@ body, html {
   border: none;
   color: #fff;
   background: var(--verde-botao);
-  box-shadow: 0 2px 8px rgba(72,187,120,0.10);
+  box-shadow: 0 2px 8px rgba(72, 187, 120, 0.1);
   transition: background 0.14s, color 0.13s, box-shadow 0.13s, transform 0.09s;
   display: flex;
   align-items: center;
   gap: 0.5em;
 }
-.btn-solicitar:hover, .btn-solicitar:focus {
+.btn-solicitar:hover,
+.btn-solicitar:focus {
   background: var(--verde-botao-hover);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(72,187,120,0.16);
+  box-shadow: 0 4px 14px rgba(72, 187, 120, 0.16);
   transform: translateY(-1px) scale(1.03);
   outline: none;
 }
 .btn-solicitar:active {
   transform: scale(0.98);
-  box-shadow: 0 1px 5px rgba(72,187,120,0.12);
+  box-shadow: 0 1px 5px rgba(72, 187, 120, 0.12);
 }
 .btn-solicitar i {
   color: #fff !important;
@@ -178,13 +195,25 @@ body, html {
 }
 
 @media (max-width: 900px) {
-  .painel-section-row { flex-direction: column; gap: 1.2rem; }
-  .painel-horarios-list .col-md-4 { flex: 0 0 50%; max-width: 50%; }
+  .painel-section-row {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .painel-horarios-list .col-md-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
 }
 @media (max-width: 600px) {
-  .painel-horarios-list .col-md-4 { flex: 0 0 100%; max-width: 100%; }
-  .painel-aluno-card { padding: 16px 7px; }
-  .btn-ver-horarios, .btn-solicitar {
+  .painel-horarios-list .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .painel-aluno-card {
+    padding: 16px 7px;
+  }
+  .btn-ver-horarios,
+  .btn-solicitar {
     font-size: 0.97rem;
     padding: 11px 8px;
     width: 100%;
@@ -194,17 +223,19 @@ body, html {
 }
 
 /* Slot base (sempre branco, destacado) */
-.painel-horario-slot, .horario-slot {
+.painel-horario-slot,
+.horario-slot {
   background: var(--branco);
   border: 2px solid var(--cinza-borda);
   color: var(--cinza-escuro);
   font-weight: 600;
-  font-size: 1.10rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  box-shadow: 0 2px 18px rgba(0,61,115,0.06), 0 1.5px 0 #e3eaf2 inset;
+  box-shadow: 0 2px 18px rgba(0, 61, 115, 0.06), 0 1.5px 0 #e3eaf2 inset;
   margin-bottom: 0;
   position: relative;
-  transition: border-color 0.18s, background 0.16s, color 0.12s, box-shadow 0.13s;
+  transition: border-color 0.18s, background 0.16s, color 0.12s,
+    box-shadow 0.13s;
   min-height: 60px;
   display: flex;
   align-items: center;
@@ -245,7 +276,7 @@ body, html {
   background: var(--verde-suave);
   color: #23764a;
   cursor: not-allowed;
-  opacity: 0.90;
+  opacity: 0.9;
 }
 
 /* Indisponível/outros (cinza claro) */
@@ -266,33 +297,51 @@ body, html {
   font-size: 1.04rem;
   margin-bottom: 0.6rem;
 }
-.painel-legenda span { font-size: 0.98rem; }
-.painel-legenda .badge { padding: 7px 15px; font-size: 1rem; }
+.painel-legenda span {
+  font-size: 0.98rem;
+}
+.painel-legenda .badge {
+  padding: 7px 15px;
+  font-size: 1rem;
+}
 
-.painel-actionbar { margin-top: 0.5rem; }
+.painel-actionbar {
+  margin-top: 0.5rem;
+}
 
 /* Placeholders */
-::-webkit-input-placeholder { color: #b6bcc3; }
-::-moz-placeholder { color: #b6bcc3; }
-:-ms-input-placeholder { color: #b6bcc3; }
-::placeholder { color: #b6bcc3; }
+::-webkit-input-placeholder {
+  color: #b6bcc3;
+}
+::-moz-placeholder {
+  color: #b6bcc3;
+}
+:-ms-input-placeholder {
+  color: #b6bcc3;
+}
+::placeholder {
+  color: #b6bcc3;
+}
 
 .horario-disponivel:hover {
-  box-shadow: 0 4px 22px rgba(2,117,216,0.10);
+  box-shadow: 0 4px 22px rgba(2, 117, 216, 0.1);
   z-index: 2;
 }
 
 /* Acessibilidade: foco visível para navegação por teclado */
-.btn-ver-horarios:focus-visible, .btn-solicitar:focus-visible {
+.btn-ver-horarios:focus-visible,
+.btn-solicitar:focus-visible {
   outline: 2px solid #1946c3;
   outline-offset: 2px;
 }
-.btn-ver-horarios, .btn-solicitar {
+.btn-ver-horarios,
+.btn-solicitar {
   -webkit-tap-highlight-color: transparent;
 }
 
 /* Ícone branco no botão */
-.btn-ver-horarios i, .btn-solicitar i {
+.btn-ver-horarios i,
+.btn-solicitar i {
   color: #fff !important;
   margin-right: 0.5em;
   font-size: 1.12em;

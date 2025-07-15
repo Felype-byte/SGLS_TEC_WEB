@@ -42,12 +42,12 @@ app.register_blueprint(login_tecnico_bp)
 app.register_blueprint(agendamento_aluno_bp)
 app.register_blueprint(agendamento_professor_bp)
 app.register_blueprint(agendamento_tecnico_bp)
-# 🔁 Redirecionamento inicial
+#  Redirecionamento inicial
 @app.route("/")
 def home():
     return redirect(url_for("login_redirecionar.tela_login"))
 
-# 🚪 Logout
+#  Logout
 @app.route("/logout")
 @login_required
 def logout():
