@@ -1,23 +1,134 @@
-🏫 Sistema de Gerenciamento de Laboratórios (SGL) UFC Sobral 🏫✨ Visão Geral do ProjetoO Sistema de Gerenciamento de Laboratórios (SGL) é uma aplicação web robusta, desenvolvida para modernizar e otimizar a gestão e o uso dos espaços no Bloco das Engenharias do Campus Mucambinho da UFC Sobral. Nosso objetivo é eliminar conflitos de agendamento, proporcionar visibilidade em tempo real sobre a disponibilidade das salas e centralizar o histórico de uso, reduzindo o retrabalho administrativo. O SGL é uma plataforma intuitiva e integrada, acessível via navegador web, projetada para facilitar o agendamento, a liberação e o monitoramento do uso das salas de aula de forma eficiente e transparente.🚀 Funcionalidades ChaveCadastro e Gestão de Salas: Gerencie detalhes completos das salas, incluindo nome, capacidade e recursos disponíveis (projetores, ar-condicionado, etc.).Consulta de Disponibilidade em Tempo Real: Visualize a ocupação das salas através de interfaces intuitivas como calendários e listas.Gerenciamento de Agendamentos: Controle todo o ciclo de reservas, desde a solicitação até a aprovação, rejeição ou cancelamento.Sistema de Notificações Inteligente: Receba e-mails e alertas internos sobre o status das reservas, incluindo confirmações, modificações, cancelamentos e conflitos.Relatórios e Análises (Dashboard Analítico): Acesse dados valiosos sobre o uso das salas para embasar decisões e otimizar a alocação de recursos.Autenticação de Usuários Segura: Garanta que apenas usuários autorizados (Administrador, Professor/Docente, Técnico Administrativo) possam interagir com o sistema, com diferentes níveis de permissão.🛠️ Tecnologias UtilizadasFront-end: HTML5, CSS3, JavaScript com Bootstrap (para interfaces responsivas e padronizadas).Back-end: Python (com um framework web, como Flask ou Django, se aplicável, ou scripts Python puros para a lógica do servidor).Banco de Dados: MySQL (online e já configurado, para armazenamento relacional e seguro de usuários, salas e reservas).Autenticação: JWT (JSON Web Tokens) (para controle de sessão e permissões de acesso seguro).⚙️ Como Configurar e Executar o ProjetoSiga os passos abaixo para configurar e colocar o SGL em funcionamento no seu ambiente local.Pré-requisitosCertifique-se de ter o seguinte software instalado em sua máquina:Python 3.x: Você pode baixá-lo em python.org.1. Clonar o RepositórioComece clonando o código do projeto para a sua máquina local:git clone <URL_DO_SEU_REPOSITORIO>
+# 🏫 Sistema de Gerenciamento de Laboratórios (SGL) – UFC Sobral
+
+## ✨ Visão Geral do Projeto
+
+O **Sistema de Gerenciamento de Laboratórios (SGL)** é uma aplicação web desenvolvida para modernizar e otimizar a gestão de espaços no Bloco das Engenharias do Campus Mucambinho da UFC Sobral. Seu objetivo principal é:
+
+- Eliminar conflitos de agendamento
+- Proporcionar visibilidade em tempo real da disponibilidade das salas
+- Centralizar o histórico de uso e reduzir retrabalho administrativo
+
+A plataforma é totalmente acessível via navegador e oferece uma interface intuitiva para agendar, liberar e monitorar o uso das salas com eficiência e transparência.
+
+---
+
+## 🚀 Funcionalidades Principais
+
+1. **Cadastro e Gestão de Salas**
+
+   - Definição de nome, capacidade e recursos (projetores, ar‑condicionado, etc.)
+
+2. **Consulta de Disponibilidade em Tempo Real**
+
+   - Visualização em calendário e listas interativas
+
+3. **Gerenciamento de Agendamentos**
+
+   - Solicitação, aprovação, rejeição e cancelamento de reservas
+
+4. **Sistema de Notificações Inteligente**
+
+   - E‑mails e alertas internos sobre status de reservas e possíveis conflitos
+
+5. **Relatórios e Análises (Dashboard Analítico)**
+
+   - Gráficos e métricas de uso para otimizar a alocação de recursos
+
+6. **Autenticação de Usuários Segura**
+   - Perfis: Administrador, Professor/Docente, Técnico Administrativo
+   - Controle de permissão baseado em JWT
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+| Camada         | Tecnologia / Ferramenta            |
+| -------------- | ---------------------------------- |
+| Front‑end      | HTML5, CSS3, JavaScript, Bootstrap |
+| Back‑end       | Python (Flask ou Django)           |
+| Banco de Dados | MySQL (remoto ou local)            |
+| Autenticação   | JWT (JSON Web Tokens)              |
+
+---
+
+## ⚙️ Como Configurar e Executar
+
+### 1. Pré‑requisitos
+
+- **Python 3.x** (instale via [python.org](https://www.python.org/))
+- **MySQL** em execução (local ou remoto)
+
+---
+
+### 2. Clonar o Repositório
+
+```bash
+git clone <URL_DO_SEU_REPOSITORIO>
 cd <nome_da_pasta_do_projeto>
+```
 
-2. Instalar as Dependências do ProjetoRecomendamos o uso de um ambiente virtual para isolar as dependências do seu projeto.# Criar o ambiente virtual (se ainda não tiver)
-   python -m venv venv
+---
 
-# Ativar o ambiente virtual
+### 3. Criar e Ativar um Ambiente Virtual
 
-# No Windows:
+```bash
+# Criar (caso ainda não exista)
+python -m venv venv
 
+# Ativar
+# Windows:
 .\venv\Scripts\activate
-
-# No macOS/Linux:
-
+# macOS / Linux:
 source venv/bin/activate
+```
 
-# Instalar as dependências listadas no requirements.txt
+---
 
+### 4. Instalar Dependências
+
+```bash
 pip install -r requirements.txt
+```
 
-3. Executar o ProjetoCom o ambiente virtual ativado e as dependências instaladas, você pode iniciar o servidor da sua aplicação:python main.py
+---
 
-4. Acessar a Interface WebApós executar python main.py, o script irá iniciar o servidor e geralmente exibirá um endereço (URL) no seu terminal, indicando onde a interface web está sendo executada (ex: http://127.0.0.1:5000/ ou http://localhost:8080/).Copie este endereço e cole-o no seu navegador de preferência para acessar a plataforma do Sistema de Gerenciamento de Laboratórios UFC Sobral e começar a gerenciar suas salas!🤝 Contribuições: Sinta-se à vontade para contribuir com melhorias ou relatar problemas!
+### 5. Configurar Conexão com Banco de Dados
+
+Edite o arquivo de configuração (por exemplo, `config.py` ou `.env`) e informe:
+
+```env
+DB_HOST=<seu_host_mysql>
+DB_USER=<seu_usuario>
+DB_PASS=<sua_senha>
+DB_NAME=<nome_do_banco>
+JWT_SECRET=<chave_secreta_para_JWT>
+```
+
+---
+
+### 6. Executar a Aplicação
+
+```bash
+python main.py
+```
+
+O servidor iniciará em um endereço exibido no terminal (ex: `http://127.0.0.1:5000/`).  
+Copie-o e cole no navegador para acessar o SGL.
+
+---
+
+## 🤝 Contribuições
+
+Contribuições são sempre bem‑vindas!
+
+1. Faça um _fork_ deste repositório
+2. Crie uma branch para sua feature (`git checkout -b feature/nome-da-feature`)
+3. Dê _commit_ às suas alterações (`git commit -m "Descrição da feature"`)
+4. Faça _push_ para a branch (`git push origin feature/nome-da-feature`)
+5. Abra um _Pull Request_
+
+Para relatar bugs ou sugerir melhorias, abra uma _issue_ neste repositório.
+
+---
+
+© 2025 UFC Sobral – Bloco das Engenharias
