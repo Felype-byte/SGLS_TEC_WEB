@@ -92,21 +92,7 @@ pip install -r requirements.txt
 
 ---
 
-### 5. Configurar Conexão com Banco de Dados
-
-Edite o arquivo de configuração (por exemplo, `config.py` ou `.env`) e informe:
-
-```env
-DB_HOST=<seu_host_mysql>
-DB_USER=<seu_usuario>
-DB_PASS=<sua_senha>
-DB_NAME=<nome_do_banco>
-JWT_SECRET=<chave_secreta_para_JWT>
-```
-
----
-
-### 6. Executar a Aplicação
+### 5. Executar a Aplicação
 
 ```bash
 python main.py
