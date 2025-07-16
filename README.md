@@ -1,119 +1,116 @@
-# 🏫 Sistema de Gerenciamento de Laboratórios (SGL) – UFC Sobral
+# 🏫 Sistema de Gerenciamento de Laboratórios (SGLS) – UFC Sobral
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+  <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask"/>
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL"/>
+  <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap"/>
+  <img src="https://img.shields.io/badge/Frontend-HTML|CSS|JS-orange?style=for-the-badge" alt="Frontend"/>
+</p>
 
 ## ✨ Visão Geral do Projeto
 
-O **Sistema de Gerenciamento de Laboratórios (SGL)** é uma aplicação web desenvolvida para modernizar e otimizar a gestão de espaços no Bloco das Engenharias do Campus Mucambinho da UFC Sobral. Seu objetivo principal é:
-
-- Eliminar conflitos de agendamento
-- Proporcionar visibilidade em tempo real da disponibilidade das salas
-- Centralizar o histórico de uso e reduzir retrabalho administrativo
-
-A plataforma é totalmente acessível via navegador e oferece uma interface intuitiva para agendar, liberar e monitorar o uso das salas com eficiência e transparência.
+> O **Sistema de Gerenciamento de Laboratórios (SGLS)** é uma aplicação web robusta, desenvolvida para modernizar e otimizar a gestão de agendamentos no Bloco das Engenharias do Campus Mucambinho da UFC Sobral. O objetivo é eliminar conflitos, oferecer visibilidade em tempo real da disponibilidade das salas e centralizar o histórico de uso, criando uma plataforma intuitiva e eficiente para toda a comunidade acadêmica.
 
 ---
 
-## 🚀 Funcionalidades Principais
+## 🎭 Perfis de Usuário e Suas Funções
 
-1. **Cadastro e Gestão de Salas**
+O sistema dispõe de três níveis de acesso, cada um com permissões específicas:
 
-   - Definição de nome, capacidade e recursos (projetores, ar‑condicionado, etc.)
+| Perfil        | Ícone | Funções Principais                                                                                                                                                                                                                                             |
+| ------------- | :---: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Aluno**     |  👨‍🎓   | - Solicitar agendamento de laboratório, indicando um professor responsável. <br>- Acompanhar status (`Pendente Professor`, `Pendente Técnico`, `Confirmado`, `Cancelado`). <br>- Cancelar solicitações pendentes. <br>- Imprimir comprovante após confirmação. |
+| **Professor** |  👨‍🏫   | - Solicitações próprias de uso de laboratório (aulas, pesquisa). <br>- Aprovar ou recusar pedidos de alunos (painel dedicado + termo de responsabilidade). <br>- Visualizar contador de pendências.                                                            |
+| **Técnico**   |  🛠️   | - CRUD de salas (nome, capacidade, recursos). <br>- Gerenciar disponibilidade: <ul><li>Inserção em massa (semestre/datas)</li><li>Horários avulsos</li></ul> <br>- Aprovação final de solicitações. <br>- Visão completa de horários.                          |
 
-2. **Consulta de Disponibilidade em Tempo Real**
+---
 
-   - Visualização em calendário e listas interativas
+## 🚀 Funcionalidades Chave
 
-3. **Gerenciamento de Agendamentos**
+- **Cadastro e Gestão de Salas:** Nome, capacidade, recursos (projetores, ar‑condicionado, etc.).
+- **Consulta de Disponibilidade em Tempo Real:** Visualização via calendário e listas.
+- **Gerenciamento de Agendamentos:** Fluxo completo de solicitação, aprovação, recusa e cancelamento.
+- **Notificações Inteligentes:** E‑mails e alertas internos em cada etapa do fluxo.
+- **Dashboard Analítico:** Relatórios de uso e métricas para otimização.
+- **Autenticação Segura:** Perfis com JWT e níveis de permissão definidos.
 
-   - Solicitação, aprovação, rejeição e cancelamento de reservas
+---
 
-4. **Sistema de Notificações Inteligente**
+## 🌊 Fluxo de Agendamento (Aluno)
 
-   - E‑mails e alertas internos sobre status de reservas e possíveis conflitos
-
-5. **Relatórios e Análises (Dashboard Analítico)**
-
-   - Gráficos e métricas de uso para otimizar a alocação de recursos
-
-6. **Autenticação de Usuários Segura**
-   - Perfis: Administrador, Professor/Docente, Técnico Administrativo
-   - Controle de permissão baseado em JWT
+1. **Aluno solicita:** Preenche formulário e seleciona professor responsável → status `Pendente Professor`.
+2. **Professor avalia:** Aprova ou recusa. <br>• Recusa → fim do processo. <br>• Aprova → status `Pendente Técnico`.
+3. **Técnico finaliza:** Aprova ou recusa. <br>• Recusa → fim do processo. <br>• Aprova → status `Agendado` e bloqueio de horário no sistema.
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-| Camada         | Tecnologia / Ferramenta            |
+| Camada         | Tecnologias                        |
 | -------------- | ---------------------------------- |
 | Front‑end      | HTML5, CSS3, JavaScript, Bootstrap |
-| Back‑end       | Python (Flask ou Django)           |
-| Banco de Dados | MySQL (remoto ou local)            |
+| Back‑end       | Python (Flask), Jinja2             |
+| Banco de Dados | MySQL                              |
 | Autenticação   | JWT (JSON Web Tokens)              |
 
 ---
 
 ## ⚙️ Como Configurar e Executar
 
-### 1. Pré‑requisitos
+### Pré‑requisitos
 
-- **Python 3.x** (instale via [python.org](https://www.python.org/))
-- **MySQL** em execução (local ou remoto)
+- Python 3.x
+- MySQL em execução
+- Git
 
----
+### Passos
 
-### 2. Clonar o Repositório
+1. **Clonar o repositório**
 
-```bash
-git clone <URL_DO_SEU_REPOSITORIO>
-cd <nome_da_pasta_do_projeto>
-```
+   ```bash
+   git clone <URL_DO_REPOSITORIO>
+   cd <PASTA_DO_PROJETO>
+   ```
 
----
+2. **Criar ambiente virtual**
 
-### 3. Criar e Ativar um Ambiente Virtual
+   ```bash
+   python -m venv venv
+   # Ativar:
+   # Windows: .\venv\Scripts\activate
+   # macOS/Linux: source venv/bin/activate
+   ```
 
-```bash
-# Criar (caso ainda não exista)
-python -m venv venv
+3. **Instalar dependências**
 
-# Ativar
-# Windows:
-.\venv\Scripts\activate
-# macOS / Linux:
-source venv/bin/activate
-```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
----
+4. **Configurar conexão ao banco**  
+   Preencha seu `.env` ou `config.py` com:
 
-### 4. Instalar Dependências
+   ```env
+   DB_HOST=<host>
+   DB_USER=<usuário>
+   DB_PASS=<senha>
+   DB_NAME=<banco>
+   JWT_SECRET=<chave_secreta>
+   ```
 
-```bash
-pip install -r requirements.txt
-```
-
----
-
-### 5. Executar a Aplicação
-
-```bash
-python main.py
-```
-
-O servidor iniciará em um endereço exibido no terminal (ex: `http://127.0.0.1:5000/`).  
-Copie-o e cole no navegador para acessar o SGL.
+5. **Executar a aplicação**
+   ```bash
+   python main.py
+   ```
+   Acesse em `http://127.0.0.1:5000/`.
 
 ---
 
 ## 🤝 Contribuições
 
-Contribuições são sempre bem‑vindas!
-
-1. Faça um _fork_ deste repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/nome-da-feature`)
-3. Dê _commit_ às suas alterações (`git commit -m "Descrição da feature"`)
-4. Faça _push_ para a branch (`git push origin feature/nome-da-feature`)
-5. Abra um _Pull Request_
-
-Para relatar bugs ou sugerir melhorias, abra uma _issue_ neste repositório.
+Contribuições, issues e pull requests são bem‑vindos!  
+Sinta‑se à vontade para melhorar o projeto e ajudar a comunidade.
 
 ---
 
