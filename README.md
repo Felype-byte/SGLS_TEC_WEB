@@ -53,6 +53,7 @@ O sistema dispõe de três níveis de acesso, cada um com permissões específic
 | Back‑end       | Python (Flask), Jinja2             |
 | Banco de Dados | MySQL                              |
 | Autenticação   | JWT (JSON Web Tokens)              |
+| Testes e CI/CD | pytest e Github Actions            |
 
 ---
 
@@ -104,6 +105,13 @@ O sistema dispõe de três níveis de acesso, cada um com permissões específic
    python main.py
    ```
    Acesse em `http://127.0.0.1:5000/`.
+
+6. **Executar os testes automatizados**
+   Para rodar a suíte de testes localmente, garanta que o ambiente virtual está ativado e execute:
+
+   ```bash
+   python -m pytest
+   ```
 
 ---
 
