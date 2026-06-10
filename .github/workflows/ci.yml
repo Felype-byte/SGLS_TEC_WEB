@@ -39,6 +39,14 @@ jobs:
 
       - name: Instalar Vercel CLI
         run: npm install --global vercel@latest
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14' 
+
+      - name: Instalar o gerenciador 'uv' (Exigido pela Vercel)
+        run: pip install uv
         
       - name: Puxar Informações do Ambiente Vercel
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
