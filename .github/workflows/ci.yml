@@ -45,7 +45,7 @@ jobs:
         with:
           python-version: '3.14' 
 
-      - name: Instalar o gerenciador 'uv' (Exigido pela Vercel)
+      - name: Instalar o gerenciador 'uv'
         run: pip install uv
         
       - name: Puxar Informações do Ambiente Vercel
