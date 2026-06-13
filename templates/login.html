@@ -27,15 +27,14 @@
         </div>
       </div>
 
-      <!-- Aluno -->
       <div id="aluno" class="form-content active">
         <form action="{{ url_for('login_aluno.autenticar_aluno') }}" method="POST" autocomplete="off">
           <label class="form-label">Matrícula</label>
-          <input type="text" name="matricula" class="form-control login-input" required />
+          <input type="text" name="matricula" class="form-control login-input" placeholder="Digite sua matrícula" required />
 
           <label class="form-label">Senha</label>
           <div class="input-group login-input-group">
-            <input type="password" name="senha" id="senhaAluno" class="form-control login-input" required />
+            <input type="password" name="senha" id="senhaAluno" class="form-control login-input" placeholder="Digite sua senha" required />
             <span class="input-group-text toggle-pass" onclick="toggleSenha('senhaAluno', this)">
               <i class="bi bi-eye"></i>
             </span>
@@ -50,15 +49,14 @@
         </p>
       </div>
 
-      <!-- Professor -->
       <div id="professor" class="form-content">
         <form action="{{ url_for('login_professor.autenticar_professor') }}" method="POST" autocomplete="off">
           <label class="form-label">SIAPE</label>
-          <input type="text" name="siape" class="form-control login-input" required />
+          <input type="text" name="siape" class="form-control login-input" placeholder="Digite seu SIAPE" required />
 
           <label class="form-label">Senha</label>
           <div class="input-group login-input-group">
-            <input type="password" name="senha" id="senhaProfessor" class="form-control login-input" required />
+            <input type="password" name="senha" id="senhaProfessor" class="form-control login-input" placeholder="Digite sua senha" required />
             <span class="input-group-text toggle-pass" onclick="toggleSenha('senhaProfessor', this)">
               <i class="bi bi-eye"></i>
             </span>
@@ -73,15 +71,14 @@
         </p>
       </div>
 
-      <!-- Técnico -->
       <div id="tecnico" class="form-content">
         <form action="{{ url_for('login_tecnico.autenticar_tecnico') }}" method="POST" autocomplete="off">
           <label class="form-label">SIAPE</label>
-          <input type="text" name="siape" class="form-control login-input" required />
+          <input type="text" name="siape" class="form-control login-input" placeholder="Digite seu SIAPE" required />
 
           <label class="form-label">Senha</label>
           <div class="input-group login-input-group">
-            <input type="password" name="senha" id="senhaTecnico" class="form-control login-input" required />
+            <input type="password" name="senha" id="senhaTecnico" class="form-control login-input" placeholder="Digite sua senha" required />
             <span class="input-group-text toggle-pass" onclick="toggleSenha('senhaTecnico', this)">
               <i class="bi bi-eye"></i>
             </span>
