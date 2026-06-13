@@ -23,23 +23,37 @@ def cadastrar_aluno():
 
     erros = []
 
-    # 🔍 Validações básicas
+    # 🔍 1. Validações básicas de preenchimento
     if not nome or not matricula or not email or not curso or not cpf or not senha or not confirma:
         erros.append("Preencha todos os campos obrigatórios.")
 
-    if senha != confirma:
-        erros.append("As senhas não coincidem.")
+    # 🔍 2. Validação do Formato do CPF (Apenas números)
+    if "." in cpf or "-" in cpf:
+        erros.append("O CPF deve ser digitado apenas com números (sem pontos ou traços).")
+    elif not cpf.isdigit():
+        erros.append("O CPF contém caracteres inválidos. Digite apenas números.")
+    elif len(cpf) != 11:
+        erros.append("O CPF deve conter exatamente 11 números.")
 
+    # 🔍 3. Validação da Senha
+    if senha != confirma:
+        erros.append("As senhas digitadas não coincidem.")
+
+    # 🔍 4. Validações de Duplicidade no Banco de Dados
     if Aluno.query.filter_by(matricula=matricula).first():
-        erros.append("Já existe um aluno com essa matrícula.")
+        erros.append(f"A matrícula {matricula} já está vinculada a outro aluno.")
+
+    if Aluno.query.filter_by(cpf=cpf).first():
+        erros.append("Este CPF já possui cadastro no sistema.")
 
     if Usuario.query.filter_by(email=email).first():
-        erros.append("Já existe um usuário com esse e-mail.")
+        erros.append("O e-mail informado já está em uso por outro usuário.")
 
+    # Se a lista tiver qualquer erro das verificações acima, devolve a página mostrando os motivos
     if erros:
         return render_template("cadastro/cadastro_aluno.html", erros=erros)
 
-    # 🚀 Persistência no banco
+    # 🚀 5. Persistência no banco (Só chega aqui se os dados estiverem 100% corretos)
     try:
         novo_usuario = Usuario(
             email=email,
@@ -66,5 +80,6 @@ def cadastrar_aluno():
     except Exception as e:
         db.session.rollback()
         current_app.logger.exception("Erro ao cadastrar aluno")
-        erros.append("Erro interno no sistema. Nenhum dado foi salvo.")
+        # Se cair neste erro, é um problema de conexão com o banco ou falha no servidor
+        erros.append("Erro interno no servidor ao tentar salvar. Tente novamente mais tarde.")
         return render_template("cadastro/cadastro_aluno.html", erros=erros)
