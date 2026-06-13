@@ -1,6 +1,7 @@
-# 🏫 Sistema de Gerenciamento de Laboratórios (SGLS) – UFC Sobral
+# 🏫 Sistema de Gerenciamento de Laboratórios (SGLS) – UFC Sobral (v1.1.0)
 
 <p align="center">
+  <img src="https://img.shields.io/badge/Vers%C3%A3o-1.1.0-2ea44f?style=for-the-badge" alt="Versão 1.1.0"/>
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
   <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask"/>
   <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL"/>
@@ -18,11 +19,11 @@
 
 O sistema dispõe de três níveis de acesso, cada um com permissões específicas:
 
-| Perfil        | Ícone | Funções Principais                                                                                                                                                                                                                                             |
+| Perfil        | Ícone | Funções Principais |
 | ------------- | :---: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Aluno**     |  👨‍🎓   | - Solicitar agendamento de laboratório, indicando um professor responsável. <br>- Acompanhar status (`Pendente Professor`, `Pendente Técnico`, `Confirmado`, `Cancelado`). <br>- Cancelar solicitações pendentes. <br>- Imprimir comprovante após confirmação. |
-| **Professor** |  👨‍🏫   | - Solicitações próprias de uso de laboratório (aulas, pesquisa). <br>- Aprovar ou recusar pedidos de alunos (painel dedicado + termo de responsabilidade). <br>- Visualizar contador de pendências.                                                            |
-| **Técnico**   |  🛠️   | - CRUD de salas (nome, capacidade, recursos). <br>- Gerenciar disponibilidade: <ul><li>Inserção em massa (semestre/datas)</li><li>Horários avulsos</li></ul> <br>- Aprovação final de solicitações. <br>- Visão completa de horários.                          |
+| **Aluno** |  👨‍🎓   | - Solicitar agendamento de laboratório, indicando um professor responsável. <br>- Acompanhar status (`Pendente Professor`, `Pendente Técnico`, `Confirmado`, `Cancelado`). <br>- Cancelar solicitações pendentes. <br>- Imprimir comprovante após confirmação. |
+| **Professor** |  👨‍🏫   | - Solicitações próprias de uso de laboratório (aulas, pesquisa). <br>- Aprovar ou recusar pedidos de alunos (painel dedicado + termo de responsabilidade). <br>- Visualizar contador de pendências.                                                                           |
+| **Técnico** |  🛠️   | - CRUD de salas (nome, capacidade, recursos). <br>- Gerenciar disponibilidade: <ul><li>Inserção em massa (semestre/datas)</li><li>Horários avulsos</li></ul> <br>- Aprovação final de solicitações. <br>- Visão completa de horários.                                         |
 
 ---
 
@@ -67,14 +68,12 @@ O sistema dispõe de três níveis de acesso, cada um com permissões específic
 ### Passos
 
 1. **Clonar o repositório**
-
    ```bash
    git clone <URL_DO_REPOSITORIO>
    cd <PASTA_DO_PROJETO>
    ```
 
 2. **Criar ambiente virtual**
-
    ```bash
    python -m venv venv
    # Ativar:
@@ -83,14 +82,12 @@ O sistema dispõe de três níveis de acesso, cada um com permissões específic
    ```
 
 3. **Instalar dependências**
-
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Configurar conexão ao banco**  
+4. **Configurar conexão ao banco**
    Preencha seu `.env` ou `config.py` com:
-
    ```env
    DB_HOST=<host>
    DB_USER=<usuário>
@@ -107,11 +104,32 @@ O sistema dispõe de três níveis de acesso, cada um com permissões específic
 
 ---
 
-## 🤝 Contribuições
+## 🤝 Como Contribuir
 
-Contribuições, issues e pull requests são bem‑vindos!  
-Sinta‑se à vontade para melhorar o projeto e ajudar a comunidade.
+Ficamos felizes com o seu interesse em tornar o **SGLS** ainda melhor! Contribuições, relatos de bugs (*issues*) e envio de *pull requests* são fundamentais para a evolução do sistema.
+
+Siga este passo a passo para contribuir com o código:
+
+1. Faça um **Fork** deste repositório.
+2. Crie uma nova *branch* para a sua alteração:
+   ```bash
+   git checkout -b feature/minha-melhoria
+   ```
+3. Faça o *commit* das suas alterações (dê preferência a mensagens claras e objetivas):
+   ```bash
+   git commit -m "feat: Adiciona nova funcionalidade na tela de agendamento"
+   ```
+4. Faça o *push* para a sua *branch*:
+   ```bash
+   git push origin feature/minha-melhoria
+   ```
+5. Abra um **Pull Request** neste repositório detalhando o que foi feito.
+
+Sinta-se à vontade para explorar o código, sugerir melhorias e ajudar a nossa comunidade acadêmica!
 
 ---
 
-© 2025 UFC Sobral – Bloco das Engenharias
+<p align="center">
+  <b>© 2025 UFC Sobral – Bloco das Engenharias</b><br>
+  <i>Desenvolvido com dedicação para a gestão eficiente dos laboratórios.</i>
+</p>
