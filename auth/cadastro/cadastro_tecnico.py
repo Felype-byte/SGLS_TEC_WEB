@@ -20,28 +20,37 @@ def cadastrar_tecnico():
 
     erros = []
 
-    # 🔍 Validações básicas
+    # 🔍 1. Validações básicas de preenchimento
     if not nome or not siape or not email or not senha or not confirma:
         erros.append("Preencha todos os campos obrigatórios.")
 
-    if senha != confirma:
-        erros.append("As senhas não coincidem.")
+    # 🔍 2. Validação do Formato do SIAPE (Apenas números)
+    if "." in siape or "-" in siape:
+        erros.append("O SIAPE deve ser digitado apenas com números (sem pontos ou traços).")
+    elif not siape.isdigit():
+        erros.append("O SIAPE contém caracteres inválidos. Digite apenas números.")
 
+    # 🔍 3. Validação da Senha
+    if senha != confirma:
+        erros.append("As senhas digitadas não coincidem.")
+
+    # 🔍 4. Validações de Duplicidade no Banco de Dados
     if Tecnico.query.filter_by(siape=siape).first():
-        erros.append("Já existe um técnico com esse número SIAPE.")
+        erros.append(f"O SIAPE {siape} já está vinculado a outro técnico.")
 
     if Usuario.query.filter_by(email=email).first():
-        erros.append("Já existe um usuário com esse e-mail.")
+        erros.append("O e-mail informado já está em uso por outro usuário.")
 
+    # Se a lista tiver qualquer erro, devolve a página mostrando os motivos exatos
     if erros:
         return render_template("cadastro/cadastro_tecnico.html", erros=erros)
 
-    # 🚀 Persistência no banco
+    # 🚀 5. Persistência no banco
     try:
         novo_usuario = Usuario(
             email=email,
             senha=generate_password_hash(senha),
-            tipo_usuario="Tecnico"
+            tipo_usuario="Tecnico" # Mantido sem acento para padronização no banco
         )
         db.session.add(novo_usuario)
         db.session.flush()  # Garante id_usuarios disponível
@@ -60,5 +69,6 @@ def cadastrar_tecnico():
     except Exception as e:
         db.session.rollback()
         current_app.logger.exception("Erro ao cadastrar técnico")
-        erros.append("Erro interno no sistema. Nenhum dado foi salvo.")
+        # Se cair neste erro, é um problema real no servidor
+        erros.append("Erro interno no servidor ao tentar salvar. Tente novamente mais tarde.")
         return render_template("cadastro/cadastro_tecnico.html", erros=erros)
