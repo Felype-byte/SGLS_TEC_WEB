@@ -138,6 +138,6 @@ Sinta-se à vontade para explorar o código, sugerir melhorias e ajudar a nossa 
 ---
 
 <p align="center">
-  <b>© 2025 UFC Sobral – Bloco das Engenharias</b><br>
+  <b>© 2026 UFC Sobral – Bloco das Engenharias</b><br>
   <i>Desenvolvido com dedicação para a gestão eficiente dos laboratórios.</i>
 </p>
